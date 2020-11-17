@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ChatSectionComponent } from './chat-section/chat-section.component';
 
-const routes: Routes = [
-  { path: '' , component: ChatSectionComponent}
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
