@@ -28,9 +28,6 @@ export class ChatSectionComponent implements OnInit {
   comAddressIntialStatus:boolean;
   afterFilledCommunicationInfo:boolean;
   requiredMsg:string;
-  value = 50000;
-  salaryValue = 20000;
-  maxValue:any;
   empType = [
     {value:'Salaried', viewValue:'Salaried'},
     {value:'Self_Employed_Professional', viewValue:'Self Employed Professional'},
@@ -44,7 +41,11 @@ export class ChatSectionComponent implements OnInit {
     {value:'Owned', viewValue:'Owned'},
     {value:'Rented', viewValue:'Rented'},
   ]
-  options: Options = {
+  //---------------Slider----------------
+  value1 = 50000;value2 = 60000;
+  maxValue:any;
+
+  options1: Options = {
     showTicks: true,
     stepsArray: [
       { value: 50000, legend: "50k" },
@@ -55,7 +56,7 @@ export class ChatSectionComponent implements OnInit {
       { value: 500000, legend: "5L" }
     ]
   };
-  options1: Options = {
+  options2: Options = {
     showTicks: true,
     stepsArray: [
       { value: 20000, legend: "20k" },
@@ -65,7 +66,7 @@ export class ChatSectionComponent implements OnInit {
       { value: 60000, legend: "" },
       { value: 70000, legend: "" },
       { value: 80000, legend: "" },
-      { value: 90000, legend: "" },,
+      { value: 90000, legend: "" },
       { value: 100000, legend: "100k" }
     ]
   };
