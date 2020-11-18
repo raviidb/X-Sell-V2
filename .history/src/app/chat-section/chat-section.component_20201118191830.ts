@@ -276,8 +276,7 @@ export class ChatSectionComponent implements OnInit {
     this.intialPersonalForm = false;
     this.initialPersonalForm = false;
     if (this.userDetailForm.invalid) {
-      alert('All fields are mandatory.');
-      this.initialPersonalInfo = true;
+      alert('All fields are mandatory.')
       return;
     }
     this.service.getStep3Info(this.routerKey,this.userDetailForm.value.emailAddress,this.userDetailForm.value.gender,
@@ -302,7 +301,6 @@ export class ChatSectionComponent implements OnInit {
     this.empInitialInfo = false;
     if (this.professionForm.invalid) {
       alert('All fields are mandatory.')
-      this.empInitialInfo = true;
       return;
     }
     this.service.getStep4Info(this.routerKey,this.professionForm.value.amount,this.professionForm.value.income_type,
@@ -333,8 +331,7 @@ export class ChatSectionComponent implements OnInit {
   onSubmitComAddressInfo(){
     this.comAddressInitialForm = false;
     if (this.residenceForm.invalid) {
-      alert('All fields are mandatory.');
-      this.comAddressInitialInfo = true;
+      alert('All fields are mandatory.')
       return;
     }
     this.service.getStep5Info(this.routerKey,this.residenceForm.value.residence_type,'',this.residenceForm.value.flat_details,
