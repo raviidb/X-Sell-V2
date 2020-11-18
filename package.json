@@ -24,6 +24,7 @@
     "@angular/router": "~10.2.0",
     "ng-otp-input": "^1.7.1",
     "ng5-slider": "^1.2.6",
+    "ngx-device-detector": "^1.4.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
