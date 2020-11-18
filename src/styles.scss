@@ -478,7 +478,9 @@ body{
   
     .custom-slider .ng5-slider .ng5-slider-bubble {
         bottom: 12px;
-        font-size: 11px;
+        font-size: 19px;
+        color: #14A1D9;
+        font-weight: 600;
     }
   
     .custom-slider .ng5-slider .ng5-slider-floor , .custom-slider .ng5-slider .ng5-slider-ceil{
@@ -504,7 +506,8 @@ body{
     }
     .ng5-slider .ng5-slider-tick-legend {
         top: 18px !important;
-        margin-left: 8px !important;
+        margin-left: 7px !important;
+        width: 66px;
     }
 //   }
 
@@ -545,6 +548,14 @@ body{
 .margin-top10{
     margin-top: 15px !important;
     margin-bottom: 12px;
+}
+.margin-left5{
+    margin-left: 5px;
+}
+.user-icons-height{
+    height: 24px !important;
+    margin-right: 8px;
+    margin-top: -4px;
 }
   
 

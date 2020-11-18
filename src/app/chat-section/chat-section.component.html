@@ -18,7 +18,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="showMsg1">
           <div class="timeLineMsg right">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -27,7 +27,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="showMsg2">
           <div class="timeLineMsg right">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -36,11 +36,10 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="!isYes">
+        <li class="show-animation" *ngIf="!isYes && showMsg3">
             <button class="yes-btn" (click)="onYes()">Okay</button>
         </li>
-        <ng-container *ngIf="isYes">
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isYes && showMsg4">
           <div class="timeLineMsg-right left yes-sec">
             <div class="stepper-hr-right1"></div>     
             <div class="alt-content">
@@ -51,12 +50,12 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isYes && showMsg5">
           <div class="timeLineMsg left-allign margin-top96">
             <img src="assets/images/like.png">
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isYes && showMsg6">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -64,7 +63,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="!isContinueWithUserName">
+        <li class="show-animation" *ngIf="!isContinueWithUserName && isYes && showMsg7">
           <div class="custom-card">
               <mat-form-field class="width">
                 <input matInput placeholder="Enter your full name" [(ngModel)]="userName">
@@ -75,19 +74,18 @@
             </div>
           </div>
         </li>
-        </ng-container>
-        <ng-container *ngIf="isContinueWithUserName">
-        <li class="show-animation">
+        <!-- <ng-container > -->
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg8">
           <div class="timeLineMsg-right left">
             <div class="stepper-hr-right2"></div> 
             <div class="alt-content">
               <div class="happy-sec">
-                <p>{{userName}}</p>
+                <img src="assets/images/user.png" class="user-icons-height"><p>{{userName}}</p>
               </div>
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg9">
           <div class="timeLineMsg right margin-top96">
             <div class="stepper-hr3"></div>
             <div class="content">
@@ -95,7 +93,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg10">
           <div class="timeLineMsg right">
             <div class="stepper-hr"></div>
             <div class="content">
@@ -103,30 +101,33 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg11">
           <div class="custom-slider-card">
             <div class="custom-slider" style="width:92%;">
               <ng5-slider [(value)]="value" [(highValue)]="maxValue" [options]="options"></ng5-slider>
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg12">
+          <button class="yes-btn" (click)="onSelectLoanAmount()">Okay</button>
+      </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg13">
           <div class="timeLineMsg-right left amt-sec">
             <div class="stepper-hr-right3"></div> 
             <div class="alt-content">
               <div class="happy-sec">
-                <p>INR {{value}}</p>
+                <img src="assets/images/loan.png"> <p>INR {{value}}</p>
                 <!-- <img src="assets/images/happy.png"> -->
               </div>
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg14">
           <div class="timeLineMsg left-allign margin-top96">
             <img src="assets/images/satisfaction.png">
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg15">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -134,10 +135,10 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="!afterVerifedOTP">
+        <li class="show-animation" *ngIf="!afterVerifedOTP && showMsg16">
           <div class="custom-card">
               <mat-form-field class="width">
-                <input matInput placeholder="Enter your mobile number" [(ngModel)]="mobileNumber">
+                <input matInput placeholder="Enter your mobile number" [(ngModel)]="mobileNumber" maxlength="10">
               </mat-form-field>
             <div class="card-btn">
               <button (click)="onContinue()">Continue</button>
@@ -149,8 +150,8 @@
             </div>
           </div>
         </li>
-        <ng-container *ngIf="afterVerifedOTP">
-          <li class="show-animation">
+        <!-- <ng-container > -->
+          <li class="show-animation" *ngIf="afterVerifedOTP && showMsg17">
             <div class="timeLineMsg-right left contact-sec">
               <div class="stepper-hr-right3"></div>     
               <div class="alt-content">
@@ -160,7 +161,7 @@
               </div>
             </div>
           </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg18">
           <div class="timeLineMsg right margin-top96">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -168,7 +169,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg19">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -176,14 +177,14 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="initialPersonalInfo">
+        <li class="show-animation" *ngIf="initialPersonalInfo && showMsg20">
           <div class="custom-card">
               <h4>Personal Information</h4>
               <div class="flex-checkbox">
-                <span>DOB</span><img src="assets/images/grayChecked.png">
+                <span>Date of Birth</span><img src="assets/images/grayChecked.png">
               </div>
               <div class="flex-checkbox">
-                <span>PAN Card</span><img src="assets/images/grayChecked.png">
+                <span>PAN</span><img src="assets/images/grayChecked.png">
               </div>
               <div class="flex-checkbox">
                 <span>Gender</span><img src="assets/images/grayChecked.png">
@@ -200,10 +201,10 @@
           <div class="custom-card">
               <h4>Personal Information</h4>
                 <mat-form-field class="width">
-                  <input matInput placeholder="DOB" [(ngModel)]="panCard">
+                  <input matInput placeholder="Date of Birth (dd-mm-yyyy)" [(ngModel)]="panCard">
                 </mat-form-field>
                 <mat-form-field class="width">
-                  <input matInput placeholder="PAN Card" [(ngModel)]="panCard">
+                  <input matInput placeholder="PAN" [(ngModel)]="panCard">
                 </mat-form-field>
                 <mat-form-field class="width">
                   <input matInput placeholder="Gender" [(ngModel)]="gender">
@@ -216,7 +217,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="isFiledPersonalFormStatus">
+        <li class="show-animation" *ngIf="isFiledPersonalFormStatus && showMsg21">
           <div class="card-right">
           <div class="custom-card right-custom-card">
             <h4>Personal Information</h4>
@@ -233,19 +234,19 @@
               <span>Email Address</span><img src="assets/images/grayChecked.png">
             </div>
           <div class="card-btn checkbox-btn">
-            <button (click)="onPersonalInfoFillDetails()">Fill Details</button>
+            <button (click)="onPersonalInfoFillDetails()">Update Details</button>
           </div>
           </div>
         </div>
         </li>
-      </ng-container>
-      <ng-container *ngIf="afterFilledPersonalInfo">
-        <li class="show-animation">
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngIf="afterFilledPersonalInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg22">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/excellence.png">
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg23">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr4"></div>
             <div class="content">
@@ -253,7 +254,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg24">
           <div class="timeLineMsg right">
             <div class="stepper-hr4"></div>
             <div class="content">
@@ -261,12 +262,12 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="!afterIsSalariedSelected">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && !afterIsSalariedSelected && showMsg25">
           <button class="yes-btn" (click)="isSalaried()">Yes</button><button class="other-btn">Others</button>
       </li>
-    </ng-container>
-    <ng-container *ngIf="afterIsSalariedSelected">
-      <li class="show-animation" style="margin-top: 22px;">
+    <!-- </ng-container> -->
+    <!-- <ng-container *ngIf="afterIsSalariedSelected"> -->
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="afterIsSalariedSelected && showMsg26">
         <div class="timeLineMsg-right left yes-sec">
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
@@ -276,7 +277,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation">
+      <li class="show-animation" *ngIf="afterIsSalariedSelected && showMsg27">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr3"></div>
           <div class="content">
@@ -284,25 +285,28 @@
           </div>
         </div>
       </li>
-      <li class="show-animation">
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg28">
         <div class="custom-slider-card">
           <div class="custom-slider" style="width:92%;">
-            <ng5-slider [(value)]="value" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+            <ng5-slider [(value)]="value1" [(highValue)]="maxValue" [options]="options2"></ng5-slider>
           </div>
         </div>
       </li>
-      <li class="show-animation" style="margin-top: 22px;">
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg29">
+        <button class="yes-btn" (click)="onSelectIncomeAmount()">Okay</button>
+    </li>
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="isSelectIncomeAmt && showMsg30">
         <div class="timeLineMsg-right left amt-sec">
           <div class="stepper-hr-right3"></div> 
           <div class="alt-content">
             <div class="happy-sec">
-              <p>INR {{value}}</p>
+              <img src="assets/images/income.png"><p>INR {{value1}}</p>
               <!-- <img src="assets/images/happy.png"> -->
             </div>
           </div>
         </div>
       </li>
-      <li class="show-animation">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg31">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -310,7 +314,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" *ngIf="empInitialInfo">
+      <li class="show-animation" *ngIf="empInitialInfo && isSelectIncomeAmt && showMsg32">
         <div class="custom-card">
             <h4>Employment Information</h4>
             <div class="flex-checkbox main">
@@ -385,7 +389,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" *ngIf="empInfoStatus">
+      <li class="show-animation" *ngIf="empInfoStatus && showMsg33">
         <div class="card-right">
         <div class="custom-card right-custom-card">
           <h4>Employment Information</h4>
@@ -405,19 +409,19 @@
             <span>Office Address</span><img src="assets/images/grayChecked.png">
           </div>
         <div class="card-btn checkbox-btn">
-          <button (click)="onFillEmpInfo()">Fill Details</button>
+          <button (click)="onFillEmpInfo()">Update Details</button>
         </div>
         </div>
       </div>
       </li>
-      </ng-container>
-      <ng-container *ngIf="afterFilledEmpInfo">
-        <li class="show-animation">
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngIf="afterFilledEmpInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledEmpInfo && showMsg34">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/satisfaction.png">
           </div>
         </li>
-          <li class="show-animation" *ngIf="comAddressInitialInfo">
+          <li class="show-animation" *ngIf="comAddressInitialInfo && showMsg35">
             <div class="custom-card">
                 <h4>Communication Details</h4>        
                 <div class="flex-checkbox main">
@@ -503,7 +507,7 @@
               </div>
             </div>
           </li>
-          <li class="show-animation" *ngIf="comAddressIntialStatus">
+          <li class="show-animation" *ngIf="comAddressIntialStatus && showMsg36">
             <div class="card-right">
             <div class="custom-card right-custom-card">
               <h4>Communication Details</h4>
@@ -514,14 +518,14 @@
                 <span>Work Experience</span><img src="assets/images/greenChecked.png">
               </div>
             <div class="card-btn checkbox-btn">
-              <button>Fill Details</button>
+              <button (click)="onFillComAddressInfo()">Update Details</button>
             </div>
             </div>
           </div>
           </li>
-        </ng-container>
-        <ng-container *ngIf="afterFilledCommunicationInfo">
-        <li class="show-animation">
+        <!-- </ng-container> -->
+        <!-- <ng-container *ngIf="afterFilledCommunicationInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg37">
           <div class="timeLineMsg right">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -529,17 +533,17 @@
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg38">
           <div class="timeLineMsg-right left thank-you-sec margin-bottom-15">
             <div class="stepper-hr-right4"></div> 
             <div class="alt-content">
               <div class="happy-sec">
-                <p>Thank you so much</p><img src="assets/images/happy.png">
+                <p>Thank you so much</p><img src="assets/images/happy.png" class="margin-left5">
               </div>
             </div>
           </div>
         </li>
-        <li class="show-animation">
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg39">
           <div class="timeLineMsg-right left appricate-sec">
             <div class="stepper-hr-right5"></div> 
             <div class="alt-content">
@@ -565,8 +569,8 @@
           <div class="timeLineMsg">
           </div>
         </li>
-        </ng-container>
-    </ng-container>
+        <!-- </ng-container> -->
+    <!-- </ng-container> -->
       </ul>
     </div>
   </div>
