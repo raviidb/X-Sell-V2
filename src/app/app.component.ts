@@ -26,6 +26,8 @@ export class AppComponent {
   comAddressInitialForm:boolean;
   comAddressIntialStatus:boolean;
   afterFilledCommunicationInfo:boolean;
+  isNotSameAddress:boolean = true;
+  isCheckedSameAddress:boolean = true;
   requiredMsg:string;
   value = 50000;
   salaryValue = 20000;
@@ -46,12 +48,37 @@ export class AppComponent {
   options: Options = {
     showTicks: true,
     stepsArray: [
-      { value: 50000, legend: "50k" },
+      { value: 10000, legend: "10,000" },
+      { value: 20000, legend: "" },
+      { value: 30000, legend: "" },
+      { value: 40000, legend: "" },
+      { value: 50000, legend: "" },
+      { value: 60000, legend: "" },
+      { value: 70000, legend: "" },
+      { value: 80000, legend: "" },
+      { value: 90000, legend: "" },
       { value: 100000, legend: "" },
+      { value: 110000, legend: "" },
+      { value: 120000, legend: "" },
+      { value: 130000, legend: "" },
+      { value: 140000, legend: "" },
+      { value: 150000, legend: "" },
+      { value: 160000, legend: "" },
+      { value: 170000, legend: "" },
+      { value: 180000, legend: "" },
+      { value: 190000, legend: "" },
       { value: 200000, legend: "" },
+      { value: 210000, legend: "" },
+      { value: 220000, legend: "" },
+      { value: 230000, legend: "" },
+      { value: 240000, legend: "" },
+      { value: 250000, legend: "" },
+      { value: 260000, legend: "" },
+      { value: 270000, legend: "" },
+      { value: 280000, legend: "" },
+      { value: 290000, legend: "" },
       { value: 300000, legend: "" },
-      { value: 400000, legend: "" },
-      { value: 500000, legend: "5L" }
+      { value: 500000, legend: "3 Lakh" }
     ]
   };
   options1: Options = {
@@ -93,6 +120,14 @@ export class AppComponent {
   
   ngOnInit(){
 
+  }
+  onSameAddressChecked(value){
+    console.log("value- ", value.checked);
+    if(value.checked !== true){
+      this.isNotSameAddress = false;
+    }else{
+      this.isNotSameAddress = true;
+    }
   }
   onOtpChange(otp){
     if(otp.length == 4){
