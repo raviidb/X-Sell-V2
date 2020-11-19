@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 export class HttpRequestService {
 
-  baseurl = "http://dev.vistaconnect.com/dmi-clubbed-backend/api/";
+  baseurl = "https://dev.vistaconnect.com/dmi-clubbed-backend/api/";
 
   constructor(private http: HttpClient) { }
 
