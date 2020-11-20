@@ -384,19 +384,35 @@ body{
         margin-bottom: 2px !important;
     }
     .errorMsg{
-        font-size: 13px;
+        font-size: 11px;
         color: #f44336;
-        margin-top: -17px;
-        margin-bottom: 0px;
+        margin-top: -18px;
+        margin-bottom: 10px;
+        opacity: 0.7;
     }
   .display-flex{
       display: flex;
+  }
+  .interest-display-flex{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-bottom: 15px;
   }
   .margin-bottom20{
       margin-bottom: 20px;
   }
   .width{
       width:91%;
+  }
+  .interest_sec{
+    margin-right: 25px;
+  }
+  .margin-top45{
+      margin-top: 45px;
+  }
+  .margin-top105{
+      margin-top: 105px;
   }
   @keyframes showSection {
     100%  {left:0px; top:0px;}
@@ -451,6 +467,9 @@ body{
 }
 .mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label {
     background-color: #14A1D9;
+}
+.otp-input{
+    width: 42px !important;
 }
 
 
@@ -524,6 +543,14 @@ body{
         margin-top: -4px;
     }
 }
+.kyc-sec{
+    width: 25%!important;
+    img{
+        height: 26px !important;
+        margin-left: 12px;
+        margin-top: -4px;
+    }
+}
 .amt-sec{
     width: 41% !important;
 }
@@ -557,6 +584,10 @@ body{
     margin-right: 8px;
     margin-top: -4px;
 }
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button, .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+    color: gray !important;
+    background: transparent !important;
+}
   
 
 
@@ -565,3 +596,6 @@ body{
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

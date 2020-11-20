@@ -26,7 +26,7 @@ import { MaterialModule } from './material/material.module';
     ReactiveFormsModule,
     NgOtpInputModule,
     Ng5SliderModule,
-    DeviceDetectorModule
+    DeviceDetectorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
