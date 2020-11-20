@@ -1,0 +1,669 @@
+<div class="container">
+  <div class="content-wrap" style="background-image: url('assets/images/background.png'); background-position: center;background-repeat: no-repeat;
+  background-size: cover;">
+    <div class="header">
+      <img src="assets/images/logo.png" class="logo-img">
+      <div class="userDetails">
+        <p class="rightText"><img src="assets/images/menu.png" class="menu-icon"></p>
+      </div>
+    </div>
+    <div class="body-container">
+      <ul class="StepProgress">
+        <li class="show-animation">
+          <div class="timeLineMsg right" style="margin-top: 0px;">
+            <div class="content-hr"></div>
+            <div class="content">
+              <p>Hello!!<br>
+                Welcome to DMI Finance</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="showMsg1">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr1"></div>
+            <div class="content">
+              <!-- <p>Your  loan is just a cup of coffee ahead. Have a cup and let us start...</p> -->
+              <p>DMI Finance offers flexible loan offers which you can avail in less than 5 minutes.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="showMsg2">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr1"></div>
+            <div class="content">
+              <p>Exciting!!<br>
+                Let's get started with few basic information.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isYes && showMsg3">
+            <button class="yes-btn" (click)="onYes()">Okay</button>
+        </li>
+        <li class="show-animation" *ngIf="isYes && showMsg4">
+          <div class="timeLineMsg-right left yes-sec">
+            <div class="stepper-hr-right1"></div>     
+            <div class="alt-content">
+              <div class="happy-sec">
+                <p>Okay</p>
+                <!-- <img src="assets/images/happy.png"> -->
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isYes && showMsg5">
+          <div class="timeLineMsg left-allign margin-top96">
+            <img src="assets/images/like.png">
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isYes && showMsg6">
+          <div class="timeLineMsg right left-content-top-margin">
+            <div class="stepper-hr2"></div>
+            <div class="content">
+              <p>Please provide your full name</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isContinueWithUserName && isYes && showMsg7">
+          <div class="custom-card">
+              <mat-form-field class="width">
+                <input matInput placeholder="Enter your full name" [(ngModel)]="userName">
+              </mat-form-field>
+              <div class="errorMsg">{{requiredMsg}}</div>
+            <div class="card-btn">
+              <button (click)="onContinue(1)" class="margin-top10">Continue</button>
+            </div>
+          </div>
+        </li>
+        <!-- <ng-container > -->
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg8">
+          <div class="timeLineMsg-right left">
+            <div class="stepper-hr-right2"></div> 
+            <div class="alt-content">
+              <div class="happy-sec">
+                <img src="assets/images/user.png" class="user-icons-height"><p>{{userName}}</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg9">
+          <div class="timeLineMsg right margin-top96">
+            <div class="stepper-hr3"></div>
+            <div class="content">
+              <p>Hello Mr. {{userName}}</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg10">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr"></div>
+            <div class="content">
+              <p>How much money are you looking forward for?</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg11">
+          <div class="custom-slider-card">
+            <div class="custom-slider" style="width:92%;">
+              <ng5-slider [(value)]="value1" [(highValue)]="maxValue" [options]="options1"></ng5-slider> 
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg12">
+          <button class="yes-btn" (click)="onSelectLoanAmount()">Okay</button>
+      </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg13">
+          <div class="timeLineMsg-right left amt-sec">
+            <div class="stepper-hr-right3"></div> 
+            <div class="alt-content">
+              <div class="happy-sec">
+                <img src="assets/images/loan.png"> <p>INR {{value1}}</p>
+                <!-- <img src="assets/images/happy.png"> -->
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg14">
+          <div class="timeLineMsg left-allign margin-top96">
+            <img src="assets/images/satisfaction.png">
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg15">
+          <div class="timeLineMsg right left-content-top-margin">
+            <div class="stepper-hr1"></div>
+            <div class="content">
+              <p>Wonderful!<br>Please provide your mobile number</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!afterVerifedOTP && showMsg16">
+          <div class="custom-card">
+              <mat-form-field class="width">
+                <input matInput placeholder="Enter your mobile number" [(ngModel)]="mobileNumber" maxlength="10">
+              </mat-form-field>
+            <div class="card-btn">
+              <button (click)="onContinue(2)">Continue</button>
+            </div>
+            <p class="otp-font" *ngIf="otpOption">An OTP has been send to your mobile number. Please verify input area to enter OTP</p>
+            <div class="otp-section" *ngIf="otpOption">
+              <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+              <a (click)="resendOTP()" style="cursor: pointer;">Resend</a>
+            </div>
+          </div>
+        </li>
+        <!-- <ng-container > -->
+          <li class="show-animation" *ngIf="afterVerifedOTP && showMsg17">
+            <div class="timeLineMsg-right left contact-sec">
+              <div class="stepper-hr-right3"></div>     
+              <div class="alt-content">
+                <div class="happy-sec">
+                  <p>{{mobileNumber}}</p><img src="assets/images/verify.png">
+                </div>
+              </div>
+            </div>
+          </li>
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg18">
+          <div class="timeLineMsg right margin-top96">
+            <div class="stepper-hr2"></div>
+            <div class="content">
+              <p>Thank you for verifying your mobile number.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg19">
+          <div class="timeLineMsg right left-content-top-margin">
+            <div class="stepper-hr2"></div>
+            <div class="content">
+              <p>Let's get to know you a bit more now.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="initialPersonalInfo && showMsg20">
+          <div class="custom-card">
+              <h4>Personal Information</h4>
+              <div class="flex-checkbox">
+                <span>Date of Birth</span><img src="assets/images/grayChecked.png">
+              </div>
+              <div class="flex-checkbox">
+                <span>PAN</span><img src="assets/images/grayChecked.png">
+              </div>
+              <div class="flex-checkbox">
+                <span>Gender</span><img src="assets/images/grayChecked.png">
+              </div>
+              <div class="flex-checkbox">
+                <span>Email Address</span><img src="assets/images/grayChecked.png">
+              </div>
+
+              <div class="card-btn checkbox-btn">
+                <button (click)="onPersonalInfoFillDetails()">Fill Details</button>
+              </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="initialPersonalForm">
+          <div class="custom-card">
+              <h4>Personal Information</h4>
+              <form [formGroup]="userDetailForm" (ngSubmit)="onSubmitPersonalInformation()">
+                <mat-form-field class="width">
+                  <input matInput placeholder="Date of Birth (dd-mm-yyyy)" formControlName="dob">
+                </mat-form-field>
+                <mat-form-field class="width">
+                  <input matInput placeholder="PAN Card" formControlName="panCard">
+                </mat-form-field>
+                <mat-form-field class="width">
+                  <input matInput placeholder="Gender" formControlName="gender">
+                </mat-form-field>
+                <mat-form-field class="width">
+                  <input matInput placeholder="Email Address" formControlName="emailAddress">
+                </mat-form-field>
+
+                <div class="card-btn checkbox-btn">
+                  <button>Submit</button>
+                </div>
+              </form>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isFiledPersonalFormStatus && showMsg21">
+          <div class="card-right">
+          <div class="custom-card right-custom-card">
+            <h4>Personal Information</h4>
+            <div class="flex-checkbox">
+              <span>DOB</span><img src="assets/images/greenChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>PAN Card</span><img src="assets/images/greenChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Gender</span><img src="assets/images/greenChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Email Address</span><img src="assets/images/greenChecked.png">
+            </div>
+
+            <div class="card-btn checkbox-btn">
+              <button (click)="onPersonalInfoFillDetails()">Update Details</button>
+            </div>
+          </div>
+        </div>
+        </li>
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngIf="afterFilledPersonalInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg22">
+          <div class="timeLineMsg left-allign">
+            <img src="assets/images/excellence.png">
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg23">
+          <div class="timeLineMsg right left-content-top-margin">
+            <div class="stepper-hr4"></div>
+            <div class="content">
+              <p>Excellent!!<br>You are doing great. You have few step to complete the process.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg24">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr4"></div>
+            <div class="content">
+              <p>Are you a full-time salaried employee? Select "Other" if you are a part-time/contract/self-employed professional</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && !afterIsSalariedSelected && showMsg25">
+          <button class="yes-btn" (click)="isSalaried()">Yes</button><button class="other-btn">Others</button>
+      </li>
+    <!-- </ng-container> -->
+    <!-- <ng-container *ngIf="afterIsSalariedSelected"> -->
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="afterIsSalariedSelected && showMsg26">
+        <div class="timeLineMsg-right left yes-sec">
+          <div class="stepper-hr-right1"></div> 
+          <div class="alt-content">
+            <div class="happy-sec">
+              <p>Yes</p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="afterIsSalariedSelected && showMsg27">
+        <div class="timeLineMsg right margin-top96">
+          <div class="stepper-hr3"></div>
+          <div class="content">
+            <p>Please select your monthly income.</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg28">
+        <div class="custom-slider-card">
+          <div class="custom-slider" style="width:92%;">
+            <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg29">
+        <button class="yes-btn" (click)="onSelectIncomeAmount()">Okay</button>
+    </li>
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="isSelectIncomeAmt && showMsg30">
+        <div class="timeLineMsg-right left amt-sec">
+          <div class="stepper-hr-right3"></div> 
+          <div class="alt-content">
+            <div class="happy-sec">
+              <img src="assets/images/income.png"><p>INR {{value2}}</p>
+              <!-- <img src="assets/images/happy.png"> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg31">
+        <div class="timeLineMsg right margin-top96">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Let's get to know you a bit more now.</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="empInitialInfo && isSelectIncomeAmt && showMsg32">
+        <div class="custom-card">
+            <h4>Employment Information</h4>
+            <div class="flex-checkbox main">
+              <span>Employment Type</span><img src="assets/images/grayChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Work Experience</span><img src="assets/images/grayChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Period Type</span><img src="assets/images/grayChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Amount</span><img src="assets/images/grayChecked.png">
+            </div>
+            <div class="flex-checkbox">
+              <span>Office Address</span><img src="assets/images/grayChecked.png">
+            </div>
+            
+            <div class="card-btn checkbox-btn">
+              <button (click)="onFillEmpInfo()">Fill Details</button>
+            </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="empInitialForm">
+        <div class="custom-card">
+            <h4>Employment Information</h4>
+            <form [formGroup]="professionForm" (ngSubmit)="onSubmitEmpInfo()">
+
+              <mat-form-field appearance="fill" class="width">
+                <mat-label>Employment Type</mat-label>
+                <mat-select formControlName="emp_Type">
+                  <mat-option *ngFor="let emp of empType" [value]="emp.value">
+                    {{emp.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Work Experience" formControlName="work_exp">
+              </mat-form-field>
+
+              <!-- <mat-form-field appearance="fill" class="width">
+                <mat-label>Period Type</mat-label>
+                <mat-select formControlName="income_type">
+                  <mat-option *ngFor="let period of periodType" [value]="period.value">
+                    {{period.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+
+              <h5 class="formTitle">Office Address</h5>
+
+              <mat-form-field appearance="fill" class="width">
+                <mat-label>Address Type</mat-label>
+                <mat-select formControlName="address_type">
+                  <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                    {{resType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Company Name" formControlName="company_name">
+              </mat-form-field>
+
+              <!-- <mat-form-field appearance="fill" class="width margin-top15">
+                <mat-label>Ownership Type</mat-label>
+                <mat-select formControlName="ownership_type">
+                  <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
+                    {{resType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Time At Current Residence (Months)" type="number" formControlName="company_time">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Flat / Building Details" formControlName="flat_details">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Area / Street" formControlName="area_details">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Landmark" formControlName="landmark">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Postal Code" formControlName="postal_code">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="City" formControlName="city">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="State" formControlName="state">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="County" formControlName="country">
+              </mat-form-field>
+
+              <div class="card-btn checkbox-btn">
+                <button>Submit</button>
+              </div>
+            </form>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="empInfoStatus && showMsg33">
+        <div class="card-right">
+        <div class="custom-card right-custom-card">
+          <h4>Employment Information</h4>
+          <div class="flex-checkbox main">
+            <span>Employment Type</span><img src="assets/images/greenChecked.png">
+          </div>
+          <div class="flex-checkbox">
+            <span>Work Experience</span><img src="assets/images/greenChecked.png">
+          </div>
+          <div class="flex-checkbox">
+            <span>Period Type</span><img src="assets/images/greenChecked.png">
+          </div>
+          <div class="flex-checkbox">
+            <span>Amount</span><img src="assets/images/greenChecked.png">
+          </div>
+          <div class="flex-checkbox">
+            <span>Office Address</span><img src="assets/images/greenChecked.png">
+          </div>
+          <div class="card-btn checkbox-btn">
+            <button (click)="onFillEmpInfo()">Update Details</button>
+          </div>
+        </div>
+      </div>
+      </li>
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngIf="afterFilledEmpInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledEmpInfo && showMsg34">
+          <div class="timeLineMsg left-allign">
+            <img src="assets/images/satisfaction.png">
+          </div>
+        </li>
+          <li class="show-animation" *ngIf="comAddressInitialInfo && showMsg35">
+            <div class="custom-card">
+                <h4>Communication Details</h4>        
+                <div class="flex-checkbox main">
+                  <span>Residential Address</span><img src="assets/images/grayChecked.png">
+                </div>
+                <div class="flex-checkbox">
+                  <span>Communication Address</span><img src="assets/images/grayChecked.png">
+                </div>
+              <div class="card-btn checkbox-btn">
+                <button (click)="onFillComAddressInfo()">Fill Details</button>
+              </div>
+            </div>
+          </li>
+          <li class="show-animation" *ngIf="comAddressInitialForm">
+            <div class="custom-card">
+                <h4>Communication Details</h4>
+                
+                <form [formGroup]="residenceForm" (ngSubmit)="onSubmitComAddressInfo()">
+                  <h5 class="formTitle">Residential Address</h5>
+
+                  <mat-form-field appearance="fill" class="width">
+                    <mat-label>Address Type</mat-label>
+                    <mat-select formControlName="address_type">
+                      <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                        {{resType.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="width margin-top15">
+                    <mat-label>Ownership Type</mat-label>
+                    <mat-select formControlName="ownership_type">
+                      <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
+                        {{resType.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Flat / Building Details" formControlName="flat_details">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Area / Street" formControlName="area_details">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Landmark" formControlName="landmark">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Postal Code" formControlName="postal_code">
+                  </mat-form-field>
+                  
+                  <mat-form-field class="width">
+                    <input matInput placeholder="City" formControlName="city">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="State" formControlName="state">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="County" formControlName="country">
+                  </mat-form-field>
+
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Time At Current Residence" formControlName="residence_time">
+                  </mat-form-field>
+
+                  <h5 class="formTitle">Communication Address</h5>
+
+                  <mat-checkbox class="example-margin" [checked]="isCheckedSameAddress" 
+                  (change)="onSameAddressChecked($event)">Same as Residential Address</mat-checkbox>
+
+                  <ng-container *ngIf="!isNotSameAddress">
+
+                    <mat-form-field appearance="fill" class="width">
+                      <mat-label>Address Type</mat-label>
+                      <mat-select formControlName="communi_address_type">
+                        <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                          {{resType.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="width margin-top15">
+                      <mat-label>Ownership Type</mat-label>
+                      <mat-select formControlName="communi_ownership_type">
+                        <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
+                          {{resType.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Flat / Building Details" formControlName="communi_flat_details">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Area / Street" formControlName="communi_area">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Landmark" formControlName="communi_landmark">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Postal Code" formControlName="communi_postal">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="City" formControlName="communi_city">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="State" formControlName="communi_state">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="County" formControlName="communi_country">
+                    </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Time At Current Residence" formControlName="communi_time">
+                    </mat-form-field>
+                  </ng-container>
+
+                  <div class="card-btn checkbox-btn">
+                    <button class="margin-top15">Submit</button>
+                  </div>
+                </form>
+            </div>
+          </li>
+          <li class="show-animation" *ngIf="comAddressIntialStatus && showMsg36">
+            <div class="card-right">
+            <div class="custom-card right-custom-card">
+              <h4>Communication Details</h4>
+              <div class="flex-checkbox main">
+                <span>Employment Type</span><img src="assets/images/greenChecked.png">
+              </div>
+              <div class="flex-checkbox">
+                <span>Work Experience</span><img src="assets/images/greenChecked.png">
+              </div>
+            <div class="card-btn checkbox-btn">
+              <button (click)="onFillComAddressInfo()">Update Details</button>
+            </div>
+            </div>
+          </div>
+          </li>
+        <!-- </ng-container> -->
+        <!-- <ng-container *ngIf="afterFilledCommunicationInfo"> -->
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg37">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr2"></div>
+            <div class="content">
+              <p>Whoosh!! You have done the excellent job.</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg38">
+          <div class="timeLineMsg-right left thank-you-sec margin-bottom-15">
+            <div class="stepper-hr-right4"></div> 
+            <div class="alt-content">
+              <div class="happy-sec">
+                <p>Thank you so much</p><img src="assets/images/happy.png" class="margin-left5">
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg39">
+          <div class="timeLineMsg-right left appricate-sec">
+            <div class="stepper-hr-right5"></div> 
+            <div class="alt-content">
+              <div class="happy-sec">
+                <p>I appreciate it.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation">
+          <div class="timeLineMsg">
+          </div>
+        </li>
+        <li class="show-animation">
+          <div class="timeLineMsg">
+          </div>
+        </li>
+        <li class="show-animation">
+          <div class="timeLineMsg">
+          </div>
+        </li>
+        <li class="show-animation">
+          <div class="timeLineMsg">
+          </div>
+        </li>
+        <!-- </ng-container> -->
+    <!-- </ng-container> -->
+      </ul>
+    </div>
+  </div>
+</div>
