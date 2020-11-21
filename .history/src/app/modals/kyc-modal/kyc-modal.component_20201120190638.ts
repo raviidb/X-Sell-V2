@@ -48,13 +48,9 @@ export class KycModalComponent implements OnInit {
     }
     else if(this.kycData.id == 3){
       let eMandateStatus = localStorage.getItem('E-mandate-Status');
-      if(eMandateStatus == 'fail'){console.log('E-Mandate Failed')}
-      else if(eMandateStatus == 'success'){console.log('E-Mandate Success')}
-    }
-    else if(this.kycData.id == 4){
-      let ldsStatus = localStorage.getItem('LDS-Status');
-      if(ldsStatus == 'success'){console.log('LDS Success')}
-      else(console.log('LDS Failed'))
+      debugger
+      if(eMandateStatus == 'fail'){alert('fail')}
+      else if(eMandateStatus == 'success'){}
     }
   }
 

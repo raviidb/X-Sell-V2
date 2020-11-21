@@ -57,20 +57,8 @@ export class HttpRequestService {
     {Request_Key,Address_Type,Ownership_Type,Flat_OR_Building_Details,Area_OR_Street,Landmark,Postal_Code,State,County,City,TimeAtCurrentResidence})
   }
 
-  getStep8Info(Request_Key,KYC_Request_Key_1):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'XSell_UserInfoV2Step8' , {Request_Key,KYC_Request_Key_1});
-  }
-
   getStep9Info(Request_Key,KYC_Request_Key_1_Status):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'XSell_UserInfoV2Step9' , {Request_Key,KYC_Request_Key_1_Status});
-  }
-
-  sendAAKey(AA_Request_Key,Requesy_Key):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'XSell-V2-AA_Request_Key', {AA_Request_Key,Requesy_Key});
-  }
-
-  sendAAStatus(Requesy_Key,AA_Request_Key,AA_Request_Key_Status):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'XSell-V2-AA_Request_Key_Status' , {Requesy_Key,AA_Request_Key,AA_Request_Key_Status});
+    return this.http.post<any>(this.baseurl + 'XSell_UserInfoV2Step9' , {Request_Key,KYC_Request_Key_1_Status})
   }
 
   getKYCurl(kycDetails):Observable<any>{
@@ -81,11 +69,6 @@ export class HttpRequestService {
   getAccountAggURL(accountDetails):Observable<any>{
     const headers = new HttpHeaders({'Content-Type':'application/json', 'token': 'C0SE8JDBWLZOMH642PI71TUFN3RQ5K'});
     return this.http.post<any>(this.baseurl + 'AA-V1.2' , accountDetails , {headers}).pipe(map(response=>response.data));
-  }
-
-  getLDSUrl(ldsDetails):Observable<any>{
-    const headers = new HttpHeaders({'Authentication':'MGF2SMMJTQVCIJS9TGNVBBD3JNDBVR'});
-    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , {ldsDetails} , {headers});
   }
 
 }

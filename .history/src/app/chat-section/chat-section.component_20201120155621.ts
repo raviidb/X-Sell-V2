@@ -139,7 +139,7 @@ export class ChatSectionComponent implements OnInit {
     ]
   };
 
-  dynamicURL:any='';
+  dunamicURL:any='';
 
   // Showing message property
   showMsg1:boolean;showMsg2:boolean;showMsg3:boolean;showMsg4:boolean;showMsg5:boolean;showMsg6:boolean;showMsg7:boolean;
@@ -177,7 +177,6 @@ export class ChatSectionComponent implements OnInit {
     private sanitizer: DomSanitizer,private modal:NgbModal){}
   
   ngOnInit(){
-    localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
     setTimeout(()=>{this.showMsg3=true;},2600);
@@ -459,105 +458,17 @@ export class ChatSectionComponent implements OnInit {
         "Consent_Message_Partner": "I hereby confirm that I am voluntarily providing my information including Aadhaar information for evaluating my eligibility to get loan and complete Know-Your-Customer(KYC) process. If opted by me, I understand that Aadhar informationis collected directly by DMI Finance. By checking this box, I provide permission for DMI to: (1) collect, store and use certain information and documentation of mine, including Aadhaar-related information, for the purposes related to grant of such loan including for conducting offline Aadhaar-based verification in order to complete its Know-Your-Customer (KYC) process for the application related to such loan facility (Loan Application); and (2) share such information and any related results of such KYC processes with any of our affiliates and service providers who may be engaged by DMI for the purpose of assisting in the KYC process for the limited purpose of processing the Loan Application."
       }
       this.service.getKYCurl(kycDetails).subscribe(res=>{
-        this.dynamicURL = '';
-        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
-        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-        modalref.componentInstance.kycData = details;
-        var key = res.replace('https://dmikyc-uat.dmifinance.in/?key=','');
-        this.service.getStep8Info(this.routerKey,key).subscribe();
+
       });
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dmikyc-uat.dmifinance.in/?key=5fb4e19340782');
+    }else if(event == 2){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/AA-V12/?key=5e7851709c360');
+    }else if(event == 3){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
+    }else if(event == 4){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
     }
-    else if(event == 2){
-      localStorage.removeItem('FI_Details');
-      let accountDetails = {
-        "mobilenumber": this.userDetails.UserInfo[0].Mobile,
-        "accountid": this.userDetails.UserInfo[0].Account_Number,
-        "bankaccountnumber": this.userDetails.UserInfo[0].Account_Number,
-        "bankifsc" : this.userDetails.UserInfo[0].IFSC_Code,
-        "bankname" : this.userDetails.UserInfo[0].Bank_Name,
-        "accountholdername" : this.userDetails.UserInfo[0].Account_Holder_Name,
-        "oppname": 'null',
-        "leadid":"null",
-        "contactid": 'null',
-        "AA_ID":"",
-        "AA_Consent":"101",
-        "description":"Wealth Management Service",
-        "callbackurl":"https:\/\/dmi.vistaconnect.com",
-        "partnername":"dmi",
-        "logo":"logo.png",
-        "borrowername": this.userDetails.UserInfo[0].Name,
-        "borroweremail": this.userDetails.UserInfo[0].Email_Address
-      }
-      this.service.getAccountAggURL(accountDetails).subscribe(res=>{
-        this.dynamicURL = '';
-        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
-        var key = res.replace('https://dev.vistaconnect.com/AA-V12/?key=','');
-        this.service.sendAAKey(key,this.routerKey).subscribe();
-        let details = {data:this.dynamicURL,key:this.routerKey,id:event,aaKey:key};
-        modalref.componentInstance.kycData = details;
-      });
-    }
-    else if(event == 3){
-      this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
-      let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      modalref.componentInstance.kycData = details;
-    }
-    else if(event == 4){
-      let ldsDetails = {
-        "Partner_Name":"Doc",
-        "Request_Id":"22",
-        "Callback_URL":"dmi.in",
-        "Loan_Name":"DMI-123456",
-        "Date":"2020-08-17",
-        "First_Name":"Test",
-        "Last_Name":"Test",
-        "Father_Name":"Test",
-        "PAN":"BAS87PKNJ8",
-        "Mailing_Street":"Sector 12",
-        "Mailing_City":"Noida",
-        "Mailing_State":"UP",
-        "Mailing_Postalcode":"201001",
-        "Mailing_Country":"India",
-        "Beneficiary_Name":"Test",
-        "Bank_Account_Number":"87452132659887451",
-        "IFSC_Code":"SBI0147",
-        "Loan_Rate":"10",
-        "Loan_Tenor_in_Month":"20",
-        "Loan_Amount":"987987",
-        "Loan_Disbursed":"977777",
-        "Bank_Name":"SBI",
-        "EMI":"878787",
-        "EMI_Start_Date":"2020-08-10",
-        "Login_Time_Stamp":"2020-01-10 10:20",
-        "OTP_Verify":"Yes",
-        "OTP_Request_Time_Stamp":"2020-08-10 10:52",
-        "OTP_Verify_Time_Stamp":"2020-08-10 11:22",
-        "OTP_Mobile":"8527419630",
-        "Device_IP_Address":"12:12:12:1",
-        "Device_Browser":"UC",
-        "Device_Location":"Delhi",
-        "Device_Type":"Mobile",
-        "Pre_Emi": "",
-        "Purpose_Loan": "",
-        "Security": "None",
-        "Payment_Cheques": "",
-        "Mode_Loan_Repayment": "Existing NACH",
-        "Processing_Fee": "2% + GST on loan amount",
-        "Overdue_Intrest": "2%PM on overdue amount",
-        "Repayment_Charge": "3% + GST on balance principal outstanding",
-        "Bounce_Charge": "Rs. 450/- per dishonor",
-        "Reason":"Loan document clickwrap sign by",
-        "Remark":"Signed using OTP and Email",
-        "PDF_Request":""
-      }
-      // this.service.getLDSUrl(ldsDetails).subscribe(res=>{
-      //   this.dynamicURL = '';
-      //   this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
-      //   let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      //   modalref.componentInstance.kycData = details;
-      // })
-      this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
-    }
-    
+    let details = {data:this.dunamicURL,key:this.routerKey,id:event};
+    modalref.componentInstance.kycData = details;
   }
 }

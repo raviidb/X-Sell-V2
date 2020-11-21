@@ -83,9 +83,4 @@ export class HttpRequestService {
     return this.http.post<any>(this.baseurl + 'AA-V1.2' , accountDetails , {headers}).pipe(map(response=>response.data));
   }
 
-  getLDSUrl(ldsDetails):Observable<any>{
-    const headers = new HttpHeaders({'Authentication':'MGF2SMMJTQVCIJS9TGNVBBD3JNDBVR'});
-    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , {ldsDetails} , {headers});
-  }
-
 }

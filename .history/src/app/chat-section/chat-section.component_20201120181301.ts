@@ -177,7 +177,6 @@ export class ChatSectionComponent implements OnInit {
     private sanitizer: DomSanitizer,private modal:NgbModal){}
   
   ngOnInit(){
-    localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
     setTimeout(()=>{this.showMsg3=true;},2600);
@@ -499,63 +498,8 @@ export class ChatSectionComponent implements OnInit {
     }
     else if(event == 3){
       this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
-      let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      modalref.componentInstance.kycData = details;
     }
     else if(event == 4){
-      let ldsDetails = {
-        "Partner_Name":"Doc",
-        "Request_Id":"22",
-        "Callback_URL":"dmi.in",
-        "Loan_Name":"DMI-123456",
-        "Date":"2020-08-17",
-        "First_Name":"Test",
-        "Last_Name":"Test",
-        "Father_Name":"Test",
-        "PAN":"BAS87PKNJ8",
-        "Mailing_Street":"Sector 12",
-        "Mailing_City":"Noida",
-        "Mailing_State":"UP",
-        "Mailing_Postalcode":"201001",
-        "Mailing_Country":"India",
-        "Beneficiary_Name":"Test",
-        "Bank_Account_Number":"87452132659887451",
-        "IFSC_Code":"SBI0147",
-        "Loan_Rate":"10",
-        "Loan_Tenor_in_Month":"20",
-        "Loan_Amount":"987987",
-        "Loan_Disbursed":"977777",
-        "Bank_Name":"SBI",
-        "EMI":"878787",
-        "EMI_Start_Date":"2020-08-10",
-        "Login_Time_Stamp":"2020-01-10 10:20",
-        "OTP_Verify":"Yes",
-        "OTP_Request_Time_Stamp":"2020-08-10 10:52",
-        "OTP_Verify_Time_Stamp":"2020-08-10 11:22",
-        "OTP_Mobile":"8527419630",
-        "Device_IP_Address":"12:12:12:1",
-        "Device_Browser":"UC",
-        "Device_Location":"Delhi",
-        "Device_Type":"Mobile",
-        "Pre_Emi": "",
-        "Purpose_Loan": "",
-        "Security": "None",
-        "Payment_Cheques": "",
-        "Mode_Loan_Repayment": "Existing NACH",
-        "Processing_Fee": "2% + GST on loan amount",
-        "Overdue_Intrest": "2%PM on overdue amount",
-        "Repayment_Charge": "3% + GST on balance principal outstanding",
-        "Bounce_Charge": "Rs. 450/- per dishonor",
-        "Reason":"Loan document clickwrap sign by",
-        "Remark":"Signed using OTP and Email",
-        "PDF_Request":""
-      }
-      // this.service.getLDSUrl(ldsDetails).subscribe(res=>{
-      //   this.dynamicURL = '';
-      //   this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
-      //   let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      //   modalref.componentInstance.kycData = details;
-      // })
       this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
     }
     

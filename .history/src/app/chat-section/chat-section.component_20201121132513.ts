@@ -550,13 +550,12 @@ export class ChatSectionComponent implements OnInit {
         "Remark":"Signed using OTP and Email",
         "PDF_Request":""
       }
-      // this.service.getLDSUrl(ldsDetails).subscribe(res=>{
-      //   this.dynamicURL = '';
-      //   this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
-      //   let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      //   modalref.componentInstance.kycData = details;
-      // })
-      this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
+      this.service.getLDSUrl(ldsDetails).subscribe(res=>{
+        this.dynamicURL = '';
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+        modalref.componentInstance.kycData = details;
+      })
     }
     
   }

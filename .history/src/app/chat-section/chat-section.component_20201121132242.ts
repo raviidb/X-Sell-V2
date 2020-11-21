@@ -498,11 +498,6 @@ export class ChatSectionComponent implements OnInit {
       });
     }
     else if(event == 3){
-      this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
-      let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      modalref.componentInstance.kycData = details;
-    }
-    else if(event == 4){
       let ldsDetails = {
         "Partner_Name":"Doc",
         "Request_Id":"22",
@@ -550,13 +545,17 @@ export class ChatSectionComponent implements OnInit {
         "Remark":"Signed using OTP and Email",
         "PDF_Request":""
       }
-      // this.service.getLDSUrl(ldsDetails).subscribe(res=>{
-      //   this.dynamicURL = '';
-      //   this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
-      //   let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-      //   modalref.componentInstance.kycData = details;
-      // })
+      this.service.getLDSUrl(ldsDetails).subscribe(res=>{
+        this.dynamicURL = '';
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+        modalref.componentInstance.kycData = details;
+      })
+    }
+    else if(event == 4){
       this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
+      let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+      modalref.componentInstance.kycData = details;
     }
     
   }
