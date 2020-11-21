@@ -6,6 +6,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatSliderModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule
   ]
 })
 

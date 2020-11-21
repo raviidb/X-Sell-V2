@@ -30,7 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     NgOtpInputModule,
     Ng5SliderModule,
-    DeviceDetectorModule
+    DeviceDetectorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
