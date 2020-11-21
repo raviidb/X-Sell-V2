@@ -353,9 +353,37 @@
         <button (click)="kycModal(1)">Proceed</button>
     </li>
 
+    <li class="show-animation margin-top15" *ngIf="isEmailVerified && showMsg39">
+      <div class="timeLineMsg-right left kyc-sec">
+        <div class="stepper-hr-right1"></div> 
+        <div class="alt-content">
+          <div class="happy-sec">
+            <p>KYC</p><img src="assets/images/verify.png">
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg40">
+      <div class="timeLineMsg right">
+        <div class="stepper-hr2"></div>
+        <div class="content">
+          <p>Thank you for completing your KYC.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg41">
+      <div class="timeLineMsg right">
+        <div class="stepper-hr2"></div>
+        <div class="content">
+          <p>Please update your personal information -</p>
+        </div>
+      </div>
+    </li>
 
 
-    <li class="show-animation" *ngIf="isEmailVerified && showMsg39">
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg42">
       <div class="custom-card">
           <h4>Communication Details</h4>
           
@@ -493,7 +521,7 @@
       </div>
     </li>
 
-    <li class="show-animation" *ngIf="isEmailVerified && showMsg40">
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg43">
       <div class="card-right">
       <div class="custom-card right-custom-card">
         <h4>Communication Details</h4>
@@ -510,7 +538,7 @@
     </div>
     </li>
 
-    <li class="show-animation" *ngIf="isEmailVerified && showMsg41">
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg44">
       <div class="timeLineMsg right">
         <div class="stepper-hr2"></div>
         <div class="content">
@@ -520,7 +548,7 @@
     </li>
 
 
-    <li class="show-animation" *ngIf="isEmailVerified && showMsg42">
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg45">
       <button class="yes-btn" (click)="kycModal(1)">KYC</button><br>
       <button class="yes-btn" (click)="kycModal(2)">Account Aggregator</button><br>
       <button class="yes-btn" (click)="kycModal(3)">E-Mandate</button><br>

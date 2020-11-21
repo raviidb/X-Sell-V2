@@ -320,6 +320,9 @@ export class ChatSectionComponent implements OnInit {
     setTimeout(()=>{this.showMsg40=true;},4500);
     setTimeout(()=>{this.showMsg41=true;},5300);
     setTimeout(()=>{this.showMsg42=true;},6100);
+    setTimeout(()=>{this.showMsg43=true;},6900);
+    setTimeout(()=>{this.showMsg44=true;},7700);
+    setTimeout(()=>{this.showMsg45=true;},8500);
   }
 
   onPersonalInfoFillDetails(){
@@ -431,17 +434,17 @@ export class ChatSectionComponent implements OnInit {
   finalForm(){
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
-    setTimeout(()=>{this.showMsg36=true;},500);
-    setTimeout(()=>{this.showMsg37=true;},1300);
-    setTimeout(()=>{this.showMsg38=true;},2100);
-    setTimeout(()=>{this.showMsg39=true;},2900);
+    // setTimeout(()=>{this.showMsg36=true;},500);
+    // setTimeout(()=>{this.showMsg37=true;},1300);
+    // setTimeout(()=>{this.showMsg38=true;},2100);
+    // setTimeout(()=>{this.showMsg39=true;},2900);
   }
   onKYCproceed() {
     this.isKYCprocees = true;
-    setTimeout(() => { this.showMsg40 = true; }, 500);
-    setTimeout(() => { this.showMsg41 = true; }, 1300);
-    setTimeout(() => { this.showMsg42 = true; }, 2100);
-    setTimeout(() => { this.showMsg43 = true; }, 2900);
+    // setTimeout(() => { this.showMsg40 = true; }, 500);
+    // setTimeout(() => { this.showMsg41 = true; }, 1300);
+    // setTimeout(() => { this.showMsg42 = true; }, 2100);
+    // setTimeout(() => { this.showMsg43 = true; }, 2900);
     this.options3.stepsArray = [
       { value: 10000, legend: "10,000" },
       { value: 15000, legend: "" },
