@@ -10,13 +10,17 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { ChatSectionComponent } from './chat-section/chat-section.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { MaterialModule } from './material/material.module';
+import { KycModalComponent } from './modals/kyc-modal/kyc-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatSectionComponent
+    ChatSectionComponent,
+    KycModalComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

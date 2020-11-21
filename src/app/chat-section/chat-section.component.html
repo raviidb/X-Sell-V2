@@ -1,4 +1,4 @@
-<div class="container">
+<div class="chat-container">
   <div class="content-wrap" style="background-image: url('assets/images/background.png'); background-position: center;background-repeat: no-repeat;
   background-size: cover;">
     <div class="header">
@@ -93,41 +93,8 @@
             </div>
           </div>
         </li>
+
         <li class="show-animation" *ngIf="isContinueWithUserName && showMsg10">
-          <div class="timeLineMsg right">
-            <div class="stepper-hr2"></div>
-            <div class="content">
-              <p>How much money are you looking forward for?</p>
-            </div>
-          </div>
-        </li>
-        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg11">
-          <div class="custom-slider-card">
-            <div class="custom-slider" style="width:92%;">
-              <ng5-slider [(value)]="value1" [(highValue)]="maxValue" [options]="options1"></ng5-slider>
-            </div>
-          </div>
-        </li>
-        <li class="show-animation" *ngIf="!isSelectLoanAmt && isContinueWithUserName && showMsg12">
-          <button class="yes-btn" (click)="onSelectLoanAmount()">Okay</button>
-      </li>
-        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg13">
-          <div class="timeLineMsg-right left amt-sec">
-            <div class="stepper-hr-right3"></div> 
-            <div class="alt-content">
-              <div class="happy-sec">
-                <img src="assets/images/loan.png"> <p>INR {{value1}}</p>
-                <!-- <img src="assets/images/happy.png"> -->
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg14">
-          <div class="timeLineMsg left-allign margin-top96">
-            <img src="assets/images/satisfaction.png">
-          </div>
-        </li>
-        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg15">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -135,7 +102,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="!afterVerifedOTP && showMsg16">
+        <li class="show-animation" *ngIf="!afterVerifedOTP && isContinueWithUserName && showMsg11">
           <div class="custom-card">
               <mat-form-field class="width">
                 <input matInput placeholder="Enter your mobile number" [(ngModel)]="mobileNumber" maxlength="10">
@@ -146,12 +113,12 @@
             <p class="otp-font" *ngIf="otpOption">An OTP has been send to your mobile number. Please verify input area to enter OTP</p>
             <div class="otp-section" *ngIf="otpOption">
               <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-              <a (click)="resendOTP()">Resend</a>
+              <a (click)="resendOTP()" style="cursor: pointer;">Resend</a>
             </div>
           </div>
         </li>
         <!-- <ng-container > -->
-          <li class="show-animation" *ngIf="afterVerifedOTP && showMsg17">
+          <li class="show-animation" *ngIf="afterVerifedOTP && showMsg12">
             <div class="timeLineMsg-right left contact-sec">
               <div class="stepper-hr-right3"></div>     
               <div class="alt-content">
@@ -161,7 +128,7 @@
               </div>
             </div>
           </li>
-        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg18">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg13">
           <div class="timeLineMsg right margin-top96">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -169,7 +136,406 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg19">
+
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg14">
+          <div class="timeLineMsg right">
+            <div class="stepper-hr2"></div>
+            <div class="content">
+              <p>How much money are you looking forward for?</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg15">
+          <div class="custom-slider-card">
+            <div class="custom-slider" style="width:92%;">
+              <ng5-slider [(value)]="value1" [(highValue)]="maxValue" [options]="options1"></ng5-slider> 
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg16">
+          <button class="yes-btn" (click)="onSelectLoanAmount()">Okay</button>
+      </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg17">
+          <div class="timeLineMsg-right left amt-sec">
+            <div class="stepper-hr-right3"></div> 
+            <div class="alt-content">
+              <div class="happy-sec">
+                <img src="assets/images/loan.png"> <p>INR {{value1}}</p>
+                <!-- <img src="assets/images/happy.png"> -->
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg18">
+          <div class="timeLineMsg left-allign margin-top96">
+            <img src="assets/images/satisfaction.png">
+          </div>
+        </li>
+
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg19">
+          <div class="timeLineMsg right left-content-top-margin">
+            <div class="stepper-hr1"></div>
+            <div class="content">
+              <p>Please provide your employment type</p>
+            </div>
+          </div>
+        </li>
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg20">
+          <div class="custom-card">
+            <mat-form-field appearance="fill" class="width">
+              <mat-label>Employment Type</mat-label>
+              <mat-select formControlName="emp_Type">
+                <mat-option *ngFor="let emp of empType" [value]="emp.value">
+                  {{emp.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="card-btn">
+              <button (click)="onEmpTypeSubmit()">Continue</button>
+            </div>
+          </div>
+        </li>
+
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg21">
+          <div class="timeLineMsg-right left contact-sec">
+            <div class="stepper-hr-right3"></div>     
+            <div class="alt-content">
+              <div class="happy-sec">
+                <p>Salaried</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg22">
+        <div class="timeLineMsg right margin-top96">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Thank you for providing your employment type.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg23">
+        <div class="timeLineMsg right">
+          <div class="stepper-hr3"></div>
+          <div class="content">
+            <p>What is your average monthly income ?</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg24">
+        <div class="custom-slider-card">
+          <div class="custom-slider" style="width:92%;">
+            <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterVerifedOTP && showMsg25">
+        <button class="yes-btn" (click)="onSelectIncomeAmount()">Okay</button>
+      </li>
+
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg26">
+        <div class="timeLineMsg-right left amt-sec">
+          <div class="stepper-hr-right3"></div> 
+          <div class="alt-content">
+            <div class="happy-sec">
+              <img src="assets/images/loan.png"> <p>INR 000000</p>
+              <!-- <img src="assets/images/happy.png"> -->
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg27">
+        <div class="timeLineMsg left-allign margin-top96">
+          <img src="assets/images/satisfaction.png">
+        </div>
+      </li>
+
+
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg28">
+        <div class="timeLineMsg right left-content-top-margin">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Please provide your PAN.</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg29">
+        <div class="custom-card">
+            <mat-form-field class="width">
+              <input matInput placeholder="Enter your PAN Number">
+            </mat-form-field>
+            <!-- <div class="errorMsg">{{requiredMsg}}</div> -->
+          <div class="card-btn">
+            <button (click)="onPanSubmit()" class="margin-top10">Continue</button>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation margin-top15" *ngIf="isPANsubmit && showMsg30">
+        <div class="timeLineMsg-right left kyc-sec">
+          <div class="stepper-hr-right1"></div> 
+          <div class="alt-content">
+            <div class="happy-sec">
+              <p>DZWOT0980K</p><img src="assets/images/verify.png">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg31">
+        <div class="timeLineMsg right margin-top96">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Thank you for verifying your PAN number.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg32">
+        <div class="timeLineMsg right">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Whoosh!! You have done the excellent job.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg33">
+        <div class="timeLineMsg right left-content-top-margin">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Please provide your email address.</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg34">
+        <div class="custom-card">
+            <mat-form-field class="width">
+              <input matInput placeholder="Enter your email address">
+            </mat-form-field>
+            <!-- <div class="errorMsg">{{requiredMsg}}</div> -->
+          <div class="card-btn">
+            <button (click)="onSubmitEmail()" class="margin-top10">Continue</button>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation margin-top15" *ngIf="isEmailVerified && showMsg35">
+        <div class="timeLineMsg-right left kyc-sec">
+          <div class="stepper-hr-right1"></div> 
+          <div class="alt-content">
+            <div class="happy-sec">
+              <p>ravi@gmail.com</p><img src="assets/images/verify.png">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg36">
+        <div class="timeLineMsg right margin-top96">
+          <div class="stepper-hr2"></div>
+          <div class="content">
+            <p>Thank you for verifying your email address.</p>
+          </div>
+        </div>
+      </li>
+
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg37">
+        <div class="timeLineMsg right">
+          <div class="stepper-hr3"></div>
+          <div class="content">
+            <p>Please complete your KYC.</p>
+          </div>
+        </div>
+      </li>
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg38">
+        <button (click)="kycModal(1)">Proceed</button>
+    </li>
+
+
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg39">
+      <div class="custom-card">
+          <h4>Communication Details</h4>
+          
+          <form [formGroup]="residenceForm" (ngSubmit)="onSubmitComAddressInfo()">
+            <mat-form-field class="width">
+              <input matInput placeholder="Father / Spouse Name" formControlName="fatherSpouseName">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="width">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" [ngClass]="{ 'is-invalid': personalInfoValidation && userDetailForm.controls.gender.errors }" required>
+                <mat-option *ngFor="let gender of genderTypes" [value]="gender.value">{{gender.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Date of Birth (dd-mm-yyyy)</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" [ngClass]="{ 'is-invalid': personalInfoValidation && userDetailForm.controls.dob.errors }" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+            <h5 class="formTitle">Residential Address</h5>
+            <mat-form-field appearance="fill" class="width">
+              <mat-label>Address Type</mat-label>
+              <mat-select formControlName="address_type">
+                <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                  {{resType.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="width margin-top15">
+              <mat-label>Ownership Type</mat-label>
+              <mat-select formControlName="ownership_type">
+                <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
+                  {{resType.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Flat / Building Details" formControlName="flat_details">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Area / Street" formControlName="area_details">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Landmark" formControlName="landmark">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Postal Code" formControlName="postal_code">
+            </mat-form-field>
+            
+            <mat-form-field class="width">
+              <input matInput placeholder="City" formControlName="city">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="County" formControlName="country">
+            </mat-form-field>
+
+            <mat-form-field class="width">
+              <input matInput placeholder="Time At Current Residence" formControlName="residence_time">
+            </mat-form-field>
+
+            <h5 class="formTitle">Communication Address</h5>
+
+            <mat-checkbox class="example-margin" [checked]="isCheckedSameAddress" 
+            (change)="onSameAddressChecked($event)">Same as Residential Address</mat-checkbox>
+
+            <ng-container *ngIf="!isNotSameAddress">
+
+              <mat-form-field appearance="fill" class="width">
+                <mat-label>Address Type</mat-label>
+                <mat-select formControlName="communi_address_type">
+                  <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                    {{resType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="width margin-top15">
+                <mat-label>Ownership Type</mat-label>
+                <mat-select formControlName="communi_ownership_type">
+                  <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
+                    {{resType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Flat / Building Details" formControlName="communi_flat_details">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Area / Street" formControlName="communi_area">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Landmark" formControlName="communi_landmark">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Postal Code" formControlName="communi_postal">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="City" formControlName="communi_city">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="State" formControlName="communi_state">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="County" formControlName="communi_country">
+              </mat-form-field>
+
+              <mat-form-field class="width">
+                <input matInput placeholder="Time At Current Residence" formControlName="communi_time">
+              </mat-form-field>
+            </ng-container>
+
+            <div class="card-btn checkbox-btn">
+              <button class="margin-top15">Submit</button>
+            </div>
+          </form>
+      </div>
+    </li>
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg40">
+      <div class="card-right">
+      <div class="custom-card right-custom-card">
+        <h4>Communication Details</h4>
+        <div class="flex-checkbox main">
+          <span>Employment Type</span><img src="assets/images/greenChecked.png">
+        </div>
+        <div class="flex-checkbox">
+          <span>Residential Address</span><img src="assets/images/greenChecked.png">
+        </div>
+      <div class="card-btn checkbox-btn">
+        <button (click)="onFillComAddressInfo()">Update Details</button>
+      </div>
+      </div>
+    </div>
+    </li>
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg41">
+      <div class="timeLineMsg right">
+        <div class="stepper-hr2"></div>
+        <div class="content">
+          <p>Whoosh!! You have done the excellent job.</p>
+        </div>
+      </div>
+    </li>
+
+
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg42">
+      <button class="yes-btn" (click)="kycModal(1)">KYC</button><br>
+      <button class="yes-btn" (click)="kycModal(2)">Account Aggregator</button><br>
+      <button class="yes-btn" (click)="kycModal(3)">E-Mandate</button><br>
+      <button class="yes-btn" (click)="kycModal(4)">Loan Restructure</button>
+  </li>
+
+
+
+
+
+
+
+
+
+        <!-- <li class="show-animation" *ngIf="afterVerifedOTP && showMsg19">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -212,7 +578,7 @@
                   <span *ngIf="userDetailForm.controls.dob.errors.required">{{this.requiredErrMsg.dob}}</span>
                 </div>
                 <mat-form-field class="width">
-                  <input matInput placeholder="PAN Card" formControlName="panCard" [ngClass]="{ 'is-invalid': personalInfoValidation && userDetailForm.controls.panCard.errors }" required>
+                  <input matInput placeholder="PAN" formControlName="panCard" [ngClass]="{ 'is-invalid': personalInfoValidation && userDetailForm.controls.panCard.errors }" required>
                 </mat-form-field>
                 <div class="errorMsg" *ngIf="personalInfoValidation && userDetailForm.controls.panCard.errors">
                   <span *ngIf="userDetailForm.controls.panCard.errors.required">{{this.requiredErrMsg.pan}}</span>
@@ -246,7 +612,7 @@
               <span>DOB</span><img src="assets/images/greenChecked.png">
             </div>
             <div class="flex-checkbox">
-              <span>PAN Card</span><img src="assets/images/greenChecked.png">
+              <span>PAN</span><img src="assets/images/greenChecked.png">
             </div>
             <div class="flex-checkbox">
               <span>Gender</span><img src="assets/images/greenChecked.png">
@@ -261,8 +627,7 @@
           </div>
         </div>
         </li>
-      <!-- </ng-container> -->
-      <!-- <ng-container *ngIf="afterFilledPersonalInfo"> -->
+        
         <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg22">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/excellence.png">
@@ -287,8 +652,6 @@
         <li class="show-animation" *ngIf="afterFilledPersonalInfo && !afterIsSalariedSelected && showMsg25">
           <button class="yes-btn" (click)="isSalaried()">Yes</button><button class="other-btn">Others</button>
       </li>
-    <!-- </ng-container> -->
-    <!-- <ng-container *ngIf="afterIsSalariedSelected"> -->
       <li class="show-animation" style="margin-top: 22px;" *ngIf="afterIsSalariedSelected && showMsg26">
         <div class="timeLineMsg-right left yes-sec">
           <div class="stepper-hr-right1"></div> 
@@ -299,31 +662,13 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" *ngIf="afterIsSalariedSelected && showMsg27">
-        <div class="timeLineMsg right margin-top96">
-          <div class="stepper-hr3"></div>
-          <div class="content">
-            <p>What is your average monthly income ?</p>
-          </div>
-        </div>
-      </li>
-      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg28">
-        <div class="custom-slider-card">
-          <div class="custom-slider" style="width:92%;">
-            <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider>
-          </div>
-        </div>
-      </li>
-      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterIsSalariedSelected && showMsg29">
-        <button class="yes-btn" (click)="onSelectIncomeAmount()">Okay</button>
-      </li>
+      
       <li class="show-animation" style="margin-top: 22px;" *ngIf="isSelectIncomeAmt && showMsg30">
         <div class="timeLineMsg-right left amt-sec">
           <div class="stepper-hr-right3"></div> 
           <div class="alt-content">
             <div class="happy-sec">
               <img src="assets/images/income.png"><p>INR {{value2}}</p>
-              <!-- <img src="assets/images/happy.png"> -->
             </div>
           </div>
         </div>
@@ -378,23 +723,22 @@
                 <input matInput placeholder="Work Experience" formControlName="work_exp">
               </mat-form-field>
 
+              <h5 class="formTitle">Office Address</h5>
+
               <mat-form-field appearance="fill" class="width">
-                <mat-label>Period Type</mat-label>
-                <mat-select formControlName="income_type">
-                  <mat-option *ngFor="let period of periodType" [value]="period.value">
-                    {{period.viewValue}}
+                <mat-label>Address Type</mat-label>
+                <mat-select formControlName="address_type">
+                  <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                    {{resType.viewValue}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
 
               <mat-form-field class="width">
-                <input matInput placeholder="Amount" formControlName="amount">
-              </mat-form-field>
-
-              <h5 class="formTitle">Office Address</h5>
-
-              <mat-form-field class="width">
                 <input matInput placeholder="Company Name" formControlName="company_name">
+              </mat-form-field>
+              <mat-form-field class="width">
+                <input matInput placeholder="Time At Current Residence (Months)" type="number" formControlName="company_time">
               </mat-form-field>
 
               <mat-form-field class="width">
@@ -456,8 +800,6 @@
         </div>
       </div>
       </li>
-      <!-- </ng-container> -->
-      <!-- <ng-container *ngIf="afterFilledEmpInfo"> -->
         <li class="show-animation" *ngIf="afterFilledEmpInfo && showMsg34">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/satisfaction.png">
@@ -486,7 +828,16 @@
 
                   <mat-form-field appearance="fill" class="width">
                     <mat-label>Address Type</mat-label>
-                    <mat-select formControlName="residence_type">
+                    <mat-select formControlName="address_type">
+                      <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                        {{resType.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="width margin-top15">
+                    <mat-label>Ownership Type</mat-label>
+                    <mat-select formControlName="ownership_type">
                       <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
                         {{resType.viewValue}}
                       </mat-option>
@@ -521,15 +872,29 @@
                     <input matInput placeholder="County" formControlName="country">
                   </mat-form-field>
 
+                  <mat-form-field class="width">
+                    <input matInput placeholder="Time At Current Residence" formControlName="residence_time">
+                  </mat-form-field>
+
                   <h5 class="formTitle">Communication Address</h5>
 
                   <mat-checkbox class="example-margin" [checked]="isCheckedSameAddress" 
                   (change)="onSameAddressChecked($event)">Same as Residential Address</mat-checkbox>
 
                   <ng-container *ngIf="!isNotSameAddress">
+
+                    <mat-form-field appearance="fill" class="width">
+                      <mat-label>Address Type</mat-label>
+                      <mat-select formControlName="communi_address_type">
+                        <mat-option *ngFor="let resType of addressType" [value]="resType.value">
+                          {{resType.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
                     <mat-form-field appearance="fill" class="width margin-top15">
                       <mat-label>Ownership Type</mat-label>
-                      <mat-select formControlName="communi_resi_type">
+                      <mat-select formControlName="communi_ownership_type">
                         <mat-option *ngFor="let resType of residenceType" [value]="resType.value">
                           {{resType.viewValue}}
                         </mat-option>
@@ -563,6 +928,10 @@
                     <mat-form-field class="width">
                       <input matInput placeholder="County" formControlName="communi_country">
                     </mat-form-field>
+
+                    <mat-form-field class="width">
+                      <input matInput placeholder="Time At Current Residence" formControlName="communi_time">
+                    </mat-form-field>
                   </ng-container>
 
                   <div class="card-btn checkbox-btn">
@@ -587,8 +956,6 @@
             </div>
           </div>
           </li>
-        <!-- </ng-container> -->
-        <!-- <ng-container *ngIf="afterFilledCommunicationInfo"> -->
         <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg37">
           <div class="timeLineMsg right">
             <div class="stepper-hr2"></div>
@@ -646,9 +1013,11 @@
       <li class="show-animation" *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
         <button class="yes-btn" (click)="onSlectOfferLoan()">Accept</button>
     </li>
-        <li class="show-animation">
-          <div class="timeLineMsg">
-          </div>
+        <li class="show-animation" *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
+            <button class="yes-btn" (click)="kycModal(1)">KYC</button><br>
+            <button class="yes-btn" (click)="kycModal(2)">Account Aggregator</button><br>
+            <button class="yes-btn" (click)="kycModal(3)">E-Mandate</button><br>
+            <button class="yes-btn" (click)="kycModal(4)">Loan Restructure</button>
         </li>
         <li class="show-animation">
           <div class="timeLineMsg">
@@ -661,9 +1030,7 @@
         <li class="show-animation">
           <div class="timeLineMsg">
           </div>
-        </li>
-        <!-- </ng-container> -->
-    <!-- </ng-container> -->
+        </li> -->
       </ul>
     </div>
   </div>

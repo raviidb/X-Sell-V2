@@ -4,7 +4,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { HttpRequestService } from '../http-request.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ValidationMessage } from '../constants/validationMessage'
+import { DomSanitizer } from '@angular/platform-browser';
+import { KycModalComponent } from '../modals/kyc-modal/kyc-modal.component';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chat-section',
@@ -13,68 +15,62 @@ import { ValidationMessage } from '../constants/validationMessage'
 })
 export class ChatSectionComponent implements OnInit {
 
-  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
+  @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
   userDetailForm: FormGroup;
   professionForm: FormGroup;
   residenceForm: FormGroup;
-  validationMessage = ValidationMessage;
-  requiredErrMsg: any;
-  personalInfoValidation: boolean;
-  routerKey: any = '';
-  isYes: boolean;
-  deviceInfo: any = '';
-  deviceType: any = '';
-  otpOption: boolean = false;
-  isContinueWithUserName: boolean;
-  isSelectedLoanRange: boolean;
-  initialPersonalInfo: boolean = true;
-  intialPersonalForm: boolean;
-  isFiledPersonalFormStatus: boolean;
-  initialPersonalForm: boolean;
-  empInitialInfo: boolean = true;
-  empInitialForm: boolean;
-  empInfoStatus: boolean;
-  afterVerifedOTP: boolean;
-  afterFilledPersonalInfo: boolean;
-  afterIsSalariedSelected: boolean;
-  afterFilledEmpInfo: boolean;
-  comAddressInitialInfo: boolean;
-  comAddressInitialForm: boolean;
-  comAddressIntialStatus: boolean;
-  afterFilledCommunicationInfo: boolean;
-  isKYCprocees: boolean;
-  isNotSameAddress: boolean = true;
-  isCheckedSameAddress: boolean = true;
-  isSelectLoanAmt: boolean;
-  isSelectIncomeAmt: boolean;
+
+  routerKey:any='';
+  isYes:boolean;
+  deviceInfo:any='';
+  deviceType:any='';
+  otpOption:boolean=false;
+  isContinueWithUserName:boolean;
+  isSelectedLoanRange:boolean;
+  initialPersonalInfo:boolean = true;
+  intialPersonalForm:boolean;
+  isFiledPersonalFormStatus:boolean;
+  initialPersonalForm:boolean;
+  empInitialInfo:boolean = true;
+  empInitialForm:boolean;
+  empInfoStatus:boolean;
+  afterVerifedOTP:boolean;
+  afterFilledPersonalInfo:boolean;
+  afterIsSalariedSelected:boolean;
+  afterFilledEmpInfo:boolean;
+  comAddressInitialInfo:boolean;
+  comAddressInitialForm:boolean;
+  comAddressIntialStatus:boolean;
+  afterFilledCommunicationInfo:boolean;
+  isNotSameAddress:boolean = true;
+  isCheckedSameAddress:boolean = true;
+  isSelectLoanAmt:boolean;
+  isSelectIncomeAmt:boolean;
+  isKYCprocees:boolean;
   afterSlectededOffer:boolean;
-  requiredMsg: string;
-  value1 = 50000; value2 = 60000;
-  value3 = 20000;
-  maxValue: any;
-  userDetails: any = [];
-  loanOfferSteps:any = [];
+  isPANsubmit:boolean;
+  isEmailVerified:boolean;
+  requiredMsg:string;
+  value1 = 50000;value2 = 60000;
+  maxValue:any;
+  userDetails:any=[];
   empType = [
-    { value: 'Salaried', viewValue: 'Salaried' },
-    { value: 'Self_Employed_Professional', viewValue: 'Self Employed Professional' },
-    { value: 'Self_Employed_Non_Professional', viewValue: 'Self Employed Non Professional' }
+    {value:'Salaried', viewValue:'Salaried'},
+    {value:'Self_Employed_Professional', viewValue:'Self Employed Professional'},
+    {value:'Self_Employed_Non_Professional', viewValue:'Self Employed Non Professional'}
   ];
   periodType = [
-    { value: 'Monthly', viewValue: 'Monthly' },
-    { value: 'Annual', viewValue: 'Annual' },
+    {value:'Monthly', viewValue:'Monthly'},
+    {value:'Annual', viewValue:'Annual'},
   ];
   residenceType = [
-    { value: 'Owned', viewValue: 'Owned' },
-    { value: 'Rented', viewValue: 'Rented' },
+    {value:'Owned', viewValue:'Owned'},
+    {value:'Rented', viewValue:'Rented'},
   ]
-  genderTypes = [
-    { value: 'male', viewValue: 'Male' },
-    { value: 'female', viewValue: 'Female' },
-    { value: 'others', viewValue: 'Others' },
-  ]
-  loanTenure = [
-    { value: '6_month', viewValue: '6 Month' },
-    { value: '12_month', viewValue: '12 Month' },
+  addressType = [
+    {value:'Communication Address', viewValue:'Communication Address'},
+    {value:'Residential Address', viewValue:'Residential Address'},
+    {value:'Office Address', viewValue:'Office Address'}
   ]
   options1: Options = {
     showTicks: true,
@@ -148,72 +144,10 @@ export class ChatSectionComponent implements OnInit {
   };
   options3: Options = {
     showTicks: true,
-    stepsArray:[]
+    stepsArray: []
   };
 
-  offerJSON = [{
-    "offer": {
-      "productId": "ABC12",
-      "offerId": "OFFER00573",
-      "creditLimit": {
-        "variationStep": {
-          "amountMicros": 705032704,
-          "currencyCode": "INR"
-        },
-        "maximumAmount": {
-          "amountMicros": 30000000000,
-          "currencyCode": "INR"
-        },
-        "minimumAmount": {
-          "amountMicros": 10000000000,
-          "currencyCode": "INR"
-        }
-      },
-      "startTime": {
-        "epochMillis": 1605090505161
-      },
-      "endTime": {
-        "epochMillis": 1605090505161
-      },
-      "termCreditOfferDetails": {
-        "tenureStructure": [
-          {
-            "maximumAmount": {
-              "amountMicros": 30000000000,
-              "currencyCode": "INR"
-            },
-            "minimumAmount": {
-              "amountMicros": 10000000000,
-              "currencyCode": "INR"
-            },
-            "tenureRange": {
-              "minimum": {
-                "periodType": "MONTH",
-                "length": 6
-              },
-              "maximum": {
-                "periodType": "MONTH",
-                "length": 12
-              },
-              "variationStep": {
-                "periodType": "MONTH",
-                "length": 6
-              }
-            }
-          }
-        ],
-        "interestStructure": {
-
-          "fixed": {
-            "interestCharge": {
-              "percentageValueE5": 2300000
-            }
-          }
-        }
-      }
-    }
-  }
-]
+  dunamicURL:any='';
 
   // Showing message property
   showMsg1: boolean; showMsg2: boolean; showMsg3: boolean; showMsg4: boolean; showMsg5: boolean; showMsg6: boolean; showMsg7: boolean;
@@ -225,8 +159,8 @@ export class ChatSectionComponent implements OnInit {
   showMsg43: boolean; showMsg44: boolean; showMsg45: boolean; showMsg46: boolean; showMsg47: boolean; showMsg48: boolean; showMsg49: boolean;
 
   // Form Field Value
-  userName: any;
-  mobileNumber: any;
+  userName:any;
+  mobileNumber:any;
 
   // OTP Config
   config = {
@@ -236,48 +170,52 @@ export class ChatSectionComponent implements OnInit {
     disableAutoFocus: false,
     placeholder: '',
     inputStyles: {
-      'border-bottom': '1px solid #b7b5b5',
-      'outline': 'none',
-      'border-top': 'none',
-      'border-left': 'none',
-      'border-right': 'none',
-      'margin-bottom': '10px',
-      'height': '24px'
+    'border-bottom': '1px solid #b7b5b5',
+    'outline': 'none',
+    'border-top': 'none',
+    'border-left': 'none',
+    'border-right': 'none',
+    'margin-bottom': '10px',
+    'height': '24px'
     }
   };
 
   constructor(private device: DeviceDetectorService,
     private service: HttpRequestService,
-    private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit() {
-    setTimeout(() => { this.showMsg1 = true; }, 1000);
-    setTimeout(() => { this.showMsg2 = true; }, 1800);
-    setTimeout(() => { this.showMsg3 = true; }, 2600);
-
+    private formBuilder: FormBuilder,private activatedRoute:ActivatedRoute,
+    private sanitizer: DomSanitizer,private modal:NgbModal){}
+  
+  ngOnInit(){
+    setTimeout(()=>{this.showMsg1=true;},1000);
+    setTimeout(()=>{this.showMsg2=true;},1800);
+    setTimeout(()=>{this.showMsg3=true;},2600);
+    
     this.getQueryParam();
     this.userDetailForm = this.formBuilder.group({
-      dob: ['', Validators.required],
-      panCard: ['', Validators.required],
-      gender: ['', Validators.required],
-      emailAddress: ['', [Validators.required, Validators.email]]
+      dob : ['',Validators.required], 
+      panCard : ['',Validators.required], 
+      gender : ['',Validators.required], 
+      emailAddress : ['' , [Validators.required,Validators.email]]
     });
     this.professionForm = this.formBuilder.group({
-      emp_Type: [''], work_exp: [''], income_type: [''], amount: [''], company_name: [''], flat_details: [''],
-      area_details: [''], landmark: [''], postal_code: [''], city: [''], state: [''], country: ['']
+      emp_Type : [''], work_exp : [''], income_type : [''], address_type: [''], company_name: [''] , ownership_type:[''], flat_details : [''], 
+      area_details : [''], landmark : [''], postal_code : [''], city : [''], state : [''], country : [''], company_time: ['']
     });
     this.residenceForm = this.formBuilder.group({
-      residence_type: [''], flat_details: [''], area_details: [''], landmark: [''], postal_code: [''],
-      city: [''], state: [''], country: [''], communi_resi_type: [''], communi_flat_details: [''],
+      fatherSpouseName:[''],gender:[''],dob:[''],
+      address_type : [''], ownership_type: [''], flat_details: [''], area_details: [''], landmark: [''], postal_code: [''],
+      city: [''], state: [''], country: [''],residence_time: [''], communi_address_type: [''] , communi_ownership_type: [''], 
+      communi_flat_details: [''],
       communi_area: [''], communi_landmark: [''], communi_postal: [''], communi_city: [''], communi_state: [''],
-      communi_country: ['']
+      communi_country: [''], communi_time: ['']
     });
+    this.residenceForm.controls['address_type'].setValue('Residential Address');
   }
 
-  getQueryParam() {
-    this.activatedRoute.queryParams.subscribe(param => {
+  getQueryParam(){
+    this.activatedRoute.queryParams.subscribe(param=> {
       this.routerKey = param['key'];
-      this.service.getDetails(this.routerKey).subscribe(res => {
+      this.service.getDetails(this.routerKey).subscribe(res=>{
         this.userDetails = res[0];
         this.deviceTrack();
       });
@@ -286,111 +224,137 @@ export class ChatSectionComponent implements OnInit {
 
   get userFormControl() { return this.userDetailForm.controls; }
 
-  onSameAddressChecked(value) {
-    console.log("value- ", value.checked);
-    if (value.checked !== true) {
+  onSameAddressChecked(value){
+    if(value.checked !== true){
       this.isNotSameAddress = false;
-    } else {
+    }else{
       this.isNotSameAddress = true;
     }
   }
 
-  onOtpChange(otp) {
-    if (otp.length == 5) {
+  onOtpChange(otp){
+    if(otp.length == 5){
       // this.service.getverifyOTP(this.routerKey,this.mobileNumber,otp).subscribe(res=>{
-      this.afterVerifedOTP = true;
-      setTimeout(() => { this.showMsg17 = true; }, 500);
-      setTimeout(() => { this.showMsg18 = true; }, 1300);
-      setTimeout(() => { this.showMsg19 = true; }, 2100);
-      setTimeout(() => { this.showMsg20 = true; }, 2900);
+        this.afterVerifedOTP = true;
+        setTimeout(()=>{this.showMsg12=true;},500);
+        setTimeout(()=>{this.showMsg13=true;},1300);
+        setTimeout(()=>{this.showMsg14=true;},2100);
+        setTimeout(()=>{this.showMsg15=true;},2900);
+        setTimeout(()=>{this.showMsg16=true;},3700);
       // });
     }
   }
 
-  resendOTP() {
+  resendOTP(){
     this.ngOtpInput.setValue();
-    this.service.getResendOTP(this.routerKey, this.mobileNumber).subscribe(res => { });
+    this.service.getResendOTP(this.routerKey,this.mobileNumber).subscribe(res=>{});
   }
 
-  onYes() {
+  onYes(){
     this.isYes = true;
-    setTimeout(() => { this.showMsg4 = true; }, 500);
-    setTimeout(() => { this.showMsg5 = true; }, 1300);
-    setTimeout(() => { this.showMsg6 = true; }, 2100);
-    setTimeout(() => { this.showMsg7 = true; }, 2900);
+    setTimeout(()=>{this.showMsg4=true;},500);
+    setTimeout(()=>{this.showMsg5=true;},1300);
+    setTimeout(()=>{this.showMsg6=true;},2100);
+    setTimeout(()=>{this.showMsg7=true;},2900);
   }
 
-  onContinue(event) {
-    if (this.userName == '' || this.userName == undefined) {
+  onContinue(event){
+    if(this.userName == '' || this.userName == undefined){
       this.requiredMsg = 'This is required.';
-    } else {
+    }else{
       this.isContinueWithUserName = true;
-      setTimeout(() => { this.showMsg8 = true; }, 500);
-      setTimeout(() => { this.showMsg9 = true; }, 1300);
-      setTimeout(() => { this.showMsg10 = true; }, 2100);
-      setTimeout(() => { this.showMsg11 = true; }, 2900);
-      setTimeout(() => { this.showMsg12 = true; }, 3700);
+      setTimeout(()=>{this.showMsg8=true;},500);
+      setTimeout(()=>{this.showMsg9=true;},1300);
+      setTimeout(()=>{this.showMsg10=true;},2100);
+      setTimeout(()=>{this.showMsg11=true;},2900);
       this.requiredMsg = '';
       // if(event == 2){this.service.getStep1Info(this.mobileNumber,this.userName).subscribe(res=>{
-      // this.routerKey = res;
-      this.otpOption = true;
+      //   this.routerKey = res;
+        this.otpOption = true;
       // });
-      // }
+    // }
     }
   }
-  onSelectLoanAmount() {
-    this.isSelectLoanAmt = true;
-    setTimeout(() => { this.showMsg13 = true; }, 500);
-    setTimeout(() => { this.showMsg14 = true; }, 1300);
-    setTimeout(() => { this.showMsg15 = true; }, 2100);
-    setTimeout(() => { this.showMsg16 = true; }, 2900);
+
+  onSelectLoanAmount(){
+    // this.service.getStep2Info(this.routerKey,this.value1,this.userDetails.UserInfo[0].Loan_Details).subscribe(res=>{
+      this.isSelectLoanAmt = true;
+      setTimeout(()=>{this.showMsg17=true;},500);
+      setTimeout(()=>{this.showMsg18=true;},1300);
+      setTimeout(()=>{this.showMsg19=true;},2100);
+      setTimeout(()=>{this.showMsg20=true;},2900);
+    // });
   }
-  onSelectIncomeAmount() {
+
+  onEmpTypeSubmit(){
+    this.afterVerifedOTP = true;
+    setTimeout(()=>{this.showMsg21=true;},500);
+    setTimeout(()=>{this.showMsg22=true;},1300);
+    setTimeout(()=>{this.showMsg23=true;},2100);
+    setTimeout(()=>{this.showMsg24=true;},2900);
+    setTimeout(()=>{this.showMsg25=true;},3700);
+  }
+
+  onSelectIncomeAmount(){
     this.isSelectIncomeAmt = true;
-    setTimeout(() => { this.showMsg30 = true; }, 500);
-    setTimeout(() => { this.showMsg31 = true; }, 1300);
-    setTimeout(() => { this.showMsg32 = true; }, 2100);
+    setTimeout(()=>{this.showMsg26=true;},500);
+    setTimeout(()=>{this.showMsg27=true;},1300);
+    setTimeout(()=>{this.showMsg28=true;},2100);
+    setTimeout(()=>{this.showMsg29=true;},2900);
   }
-  onPersonalInfoFillDetails() {
+  onPanSubmit(){
+    this.isPANsubmit = true;
+    setTimeout(()=>{this.showMsg30=true;},500);
+    setTimeout(()=>{this.showMsg31=true;},1300);
+    setTimeout(()=>{this.showMsg32=true;},2100);
+    setTimeout(()=>{this.showMsg33=true;},2900);
+    setTimeout(()=>{this.showMsg34=true;},3700);
+  }
+  onSubmitEmail(){
+    this.isEmailVerified = true;
+    setTimeout(()=>{this.showMsg35=true;},500);
+    setTimeout(()=>{this.showMsg36=true;},1300);
+    setTimeout(()=>{this.showMsg37=true;},2100);
+    setTimeout(()=>{this.showMsg38=true;},2900);
+    setTimeout(()=>{this.showMsg39=true;},3700);
+    setTimeout(()=>{this.showMsg40=true;},4500);
+    setTimeout(()=>{this.showMsg41=true;},5300);
+    setTimeout(()=>{this.showMsg42=true;},6100);
+  }
+
+  onPersonalInfoFillDetails(){
     this.initialPersonalForm = true;
     this.initialPersonalInfo = false;
     this.isFiledPersonalFormStatus = false;
   }
 
-  onSubmitPersonalInformation() {
-    if (this.userDetailForm.invalid) {
-      this.personalInfoValidation = true;
-      this.requiredErrMsg = this.validationMessage.formValidation;
-      return;
-    } else {
-      this.initialPersonalInfo = false;
-      this.intialPersonalForm = false;
-      this.initialPersonalForm = false;
-      this.initialPersonalInfo = true;
-      // this.service.getStep3Info(this.routerKey, this.userDetailForm.value.emailAddress, this.userDetailForm.value.gender,
-      //   this.userDetailForm.value.panCard, this.userDetailForm.value.dob).subscribe(res => {
-          this.isFiledPersonalFormStatus = true;
-          this.afterFilledPersonalInfo = true;
-          setTimeout(() => { this.showMsg21 = true; }, 500);
-          setTimeout(() => { this.showMsg22 = true; }, 1300);
-          setTimeout(() => { this.showMsg23 = true; }, 2100);
-          setTimeout(() => { this.showMsg24 = true; }, 2900);
-          setTimeout(() => { this.showMsg25 = true; }, 3700);
-        // });
-    }
-  }
-  onCancelPersonalInfoForm(){
+  onSubmitPersonalInformation(){
     this.initialPersonalInfo = false;
     this.intialPersonalForm = false;
-    this.isFiledPersonalFormStatus = true;
+    this.initialPersonalForm = false;
+    if (this.userDetailForm.invalid) {
+      alert('All fields are mandatory.');
+      this.initialPersonalInfo = true;
+      return;
+    }
+    this.service.getStep3Info(this.routerKey,this.userDetailForm.value.emailAddress,this.userDetailForm.value.gender,
+      this.userDetailForm.value.panCard,this.userDetailForm.value.dob).subscribe(res=>{
+        this.isFiledPersonalFormStatus = true;
+        this.afterFilledPersonalInfo = true;
+        // setTimeout(()=>{this.showMsg21=true;},500);
+        // setTimeout(()=>{this.showMsg22=true;},1300);
+        // setTimeout(()=>{this.showMsg23=true;},2100);
+        // setTimeout(()=>{this.showMsg24=true;},2900);
+        // setTimeout(()=>{this.showMsg25=true;},3700);
+    });
   }
 
-  onFillEmpInfo() {
+  onFillEmpInfo(){
     this.empInitialForm = true;
     this.empInitialInfo = false;
   }
 
-  onSubmitEmpInfo() {
+  onSubmitEmpInfo(){
     this.empInitialForm = false;
     this.empInitialInfo = false;
     if (this.professionForm.invalid) {
@@ -398,48 +362,79 @@ export class ChatSectionComponent implements OnInit {
       this.empInitialInfo = true;
       return;
     }
-    // this.service.getStep4Info(this.routerKey, this.professionForm.value.amount, this.professionForm.value.income_type,
-    //   this.professionForm.value.work_exp, this.professionForm.value.company_name, this.professionForm.value.emp_Type).subscribe(res => {
-        this.empInfoStatus = true;
-        this.afterFilledEmpInfo = true;
-        this.comAddressInitialInfo = true;
-        setTimeout(() => { this.showMsg33 = true; }, 500);
-        setTimeout(() => { this.showMsg34 = true; }, 1300);
-        setTimeout(() => { this.showMsg35 = true; }, 2100);
-      // });
+    this.service.getStep4Info(this.routerKey,this.value2,'Monthly',this.professionForm.value.work_exp,
+      this.professionForm.value.company_name,this.professionForm.value.emp_Type).subscribe(res=>{
+
+        this.service.getStep5Info(this.routerKey,this.professionForm.value.address_type,'-',
+          this.professionForm.value.flat_details,
+          this.professionForm.value.area_details,this.professionForm.value.landmark,this.professionForm.value.postal_code,
+          this.professionForm.value.state,this.professionForm.value.country,this.professionForm.value.city,
+          this.professionForm.value.company_time).subscribe(res=>{
+
+            this.empInfoStatus = true;
+            this.afterFilledEmpInfo = true;
+            this.comAddressInitialInfo = true;
+            // setTimeout(()=>{this.showMsg33=true;},500);
+            // setTimeout(()=>{this.showMsg34=true;},1300);
+            // setTimeout(()=>{this.showMsg35=true;},2100);
+        });
+    });
   }
 
-  isSalaried() {
+  isSalaried(){
     this.afterIsSalariedSelected = true;
-    setTimeout(() => { this.showMsg25 = true; }, 500);
-    setTimeout(() => { this.showMsg26 = true; }, 1300);
-    setTimeout(() => { this.showMsg27 = true; }, 2100);
-    setTimeout(() => { this.showMsg28 = true; }, 2900);
-    setTimeout(() => { this.showMsg29 = true; }, 3700);
+    // setTimeout(()=>{this.showMsg25=true;},500);
+    // setTimeout(()=>{this.showMsg26=true;},1300);
+    // setTimeout(()=>{this.showMsg27=true;},2100);
+    // setTimeout(()=>{this.showMsg28=true;},2900);
+    // setTimeout(()=>{this.showMsg29=true;},3700);
   }
 
-  onFillComAddressInfo() {
+  onFillComAddressInfo(){
     this.comAddressInitialForm = true;
     this.comAddressInitialInfo = false;
   }
 
-  onSubmitComAddressInfo() {
-    // this.comAddressInitialForm = false;
+  onSubmitComAddressInfo(){
+    this.comAddressInitialForm = false;
     if (this.residenceForm.invalid) {
       alert('All fields are mandatory.');
       this.comAddressInitialInfo = true;
       return;
     }
-    // this.service.getStep5Info(this.routerKey, this.residenceForm.value.residence_type, '', this.residenceForm.value.flat_details,
-    //   this.residenceForm.value.area_details, this.residenceForm.value.landmark, this.residenceForm.value.postal_code,
-    //   this.residenceForm.value.state, this.residenceForm.value.country, this.residenceForm.value.city).subscribe(res => {
-        this.comAddressIntialStatus = true;
-        this.afterFilledCommunicationInfo = true;
-        setTimeout(() => { this.showMsg36 = true; }, 500);
-        setTimeout(() => { this.showMsg37 = true; }, 1300);
-        setTimeout(() => { this.showMsg38 = true; }, 2100);
-        setTimeout(() => { this.showMsg39 = true; }, 2900);
-      // });
+    this.service.getStep5Info(this.routerKey,this.residenceForm.value.address_type,this.residenceForm.value.ownership_type,
+      this.residenceForm.value.flat_details,this.residenceForm.value.area_details,this.residenceForm.value.landmark,
+      this.residenceForm.value.postal_code,
+      this.residenceForm.value.state,this.residenceForm.value.country,this.residenceForm.value.city,
+      this.residenceForm.value.residence_time).subscribe(res=>{
+        if(!this.isNotSameAddress){
+          this.service.getStep5Info(this.routerKey,this.residenceForm.value.communi_address_type,this.residenceForm.value.communi_ownership_type,
+            this.residenceForm.value.communi_flat_details,this.residenceForm.value.communi_area,this.residenceForm.value.communi_landmark,
+            this.residenceForm.value.communi_postal,
+            this.residenceForm.value.communi_state,this.residenceForm.value.communi_country,
+            this.residenceForm.value.communi_city,this.residenceForm.value.communi_time).subscribe(res=>{
+              this.finalForm();
+          });
+        }
+        else{
+          this.service.getStep5Info(this.routerKey,'Communication Address',this.residenceForm.value.ownership_type,
+            this.residenceForm.value.flat_details,this.residenceForm.value.area_details,this.residenceForm.value.landmark,
+            this.residenceForm.value.postal_code,
+            this.residenceForm.value.state,this.residenceForm.value.country,this.residenceForm.value.city,
+            this.residenceForm.value.residence_time).subscribe(res=>{
+              this.finalForm();
+          });
+        }
+    });
+  }
+
+  finalForm(){
+    this.comAddressIntialStatus = true;
+    this.afterFilledCommunicationInfo = true;
+    setTimeout(()=>{this.showMsg36=true;},500);
+    setTimeout(()=>{this.showMsg37=true;},1300);
+    setTimeout(()=>{this.showMsg38=true;},2100);
+    setTimeout(()=>{this.showMsg39=true;},2900);
   }
   onKYCproceed() {
     this.isKYCprocees = true;
@@ -455,21 +450,38 @@ export class ChatSectionComponent implements OnInit {
       { value: 30000, legend: "30,000" }
     ];
   }
-  onSlectOfferLoan(){
 
-  }
-
-  deviceTrack() {
+  deviceTrack(){
     this.deviceInfo = this.device.getDeviceInfo();
-    if (this.device.isMobile() == true) { this.deviceType = 'Mobile' }
-    else if (this.device.isTablet() == true) { this.deviceType = 'Tablet' }
-    else if (this.device.isDesktop() == true) { this.deviceType = 'Desktop' };
+    if(this.device.isMobile()==true){this.deviceType='Mobile'}
+    else if(this.device.isTablet()==true){this.deviceType='Tablet'}
+    else if(this.device.isDesktop()==true){this.deviceType='Desktop'};
 
-    this.service.getDeviceTrack(this.routerKey, this.userDetails.UserInfo[0].Mobile, this.deviceType,
+    this.service.getDeviceTrack(this.routerKey,this.userDetails.UserInfo[0].Mobile,this.deviceType,
       this.deviceInfo.browser + ': Version - ' + this.deviceInfo.browser_version,
-      'null', this.deviceInfo.os + ': Version - ' + this.deviceInfo.os_version, 'null').subscribe();
+      'null',this.deviceInfo.os + ': Version - ' + this.deviceInfo.os_version,'null').subscribe();
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
   }
- 
+
+  kycModal(event){
+    const modalref = this.modal.open(KycModalComponent,{
+      backdrop: 'static',
+      centered: true,
+      size: 'md',
+      windowClass: 'termsModal',
+      keyboard: false
+    });
+    if(event == 1){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dmikyc-uat.dmifinance.in/?key=5fb4e19340782');
+    }else if(event == 2){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/AA-V12/?key=5e7851709c360');
+    }else if(event == 3){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
+    }else if(event == 4){
+      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
+    }
+    let details = {data:this.dunamicURL,key:this.routerKey,id:event};
+    modalref.componentInstance.kycData = details;
+  }
 }
