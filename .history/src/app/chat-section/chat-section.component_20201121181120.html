@@ -184,7 +184,7 @@
           <div class="custom-card">
             <mat-form-field appearance="fill" class="width">
               <mat-label>Employment Type</mat-label>
-              <mat-select [(ngModel)]="emp_Type">
+              <mat-select [(ngModal)]="emp_Type">
                 <mat-option *ngFor="let emp of empType" [value]="emp.value">
                   {{emp.viewValue}}
                 </mat-option>
@@ -201,7 +201,7 @@
             <div class="stepper-hr-right3"></div>     
             <div class="alt-content">
               <div class="happy-sec">
-                <p>{{emp_Type}}</p>
+                <p>Salaried</p>
               </div>
             </div>
           </div>
@@ -239,7 +239,7 @@
           <div class="stepper-hr-right3"></div> 
           <div class="alt-content">
             <div class="happy-sec">
-              <img src="assets/images/loan.png"> <p>INR {{value2}}</p>
+              <img src="assets/images/loan.png"> <p>INR 000000</p>
               <!-- <img src="assets/images/happy.png"> -->
             </div>
           </div>
@@ -263,7 +263,7 @@
       <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg29">
         <div class="custom-card">
             <mat-form-field class="width">
-              <input matInput placeholder="Enter your PAN Number" [(ngModel)]="userPan">
+              <input matInput placeholder="Enter your PAN Number" [(ngModal)]="userPan">
             </mat-form-field>
             <!-- <div class="errorMsg">{{requiredMsg}}</div> -->
           <div class="card-btn">
@@ -277,7 +277,7 @@
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
             <div class="happy-sec">
-              <p>{{userPan}}</p><img src="assets/images/verify.png">
+              <p>DZWOT0980K</p><img src="assets/images/verify.png">
             </div>
           </div>
         </div>
@@ -312,7 +312,7 @@
       <li class="show-animation" *ngIf="isPANsubmit && showMsg34">
         <div class="custom-card">
             <mat-form-field class="width">
-              <input matInput placeholder="Enter your email address" [(ngModel)]="userEmail">
+              <input matInput placeholder="Enter your email address" [(ngModal)]="userEmail">
             </mat-form-field>
             <!-- <div class="errorMsg">{{requiredMsg}}</div> -->
           <div class="card-btn">
@@ -326,7 +326,7 @@
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
             <div class="happy-sec">
-              <p>{{userEmail}}</p><img src="assets/images/verify.png">
+              <p>ravi@gmail.com</p><img src="assets/images/verify.png">
             </div>
           </div>
         </div>

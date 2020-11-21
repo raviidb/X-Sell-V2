@@ -443,9 +443,9 @@ export class ChatSectionComponent implements OnInit {
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
     this.isSubmittedComm = true;
-    setTimeout(()=>{this.showMsg43=true;},500);
-    setTimeout(()=>{this.showMsg44=true;},1300);
-    setTimeout(()=>{this.showMsg45=true;},2100);
+    setTimeout(()=>{this.showMsg43=true;},6900);
+    setTimeout(()=>{this.showMsg44=true;},7700);
+    setTimeout(()=>{this.showMsg45=true;},8500);
   }
 
   onKYCproceed() {

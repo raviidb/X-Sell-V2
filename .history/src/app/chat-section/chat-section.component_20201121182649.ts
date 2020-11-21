@@ -75,9 +75,9 @@ export class ChatSectionComponent implements OnInit {
     {value:'Office Address', viewValue:'Office Address'}
   ]
   genderTypes = [
-    {value:'M', viewValue:'Male'},
-    {value:'F',viewValue:'Female'},
-    {value:'O',viewValue:'Others'}
+    {value:'Male', viewValue:'Male'},
+    {value:'Female',viewValue:'Female'},
+    {value:'Others',viewValue:'Others'}
   ]
   options1: Options = {
     showTicks: true,
@@ -155,7 +155,7 @@ export class ChatSectionComponent implements OnInit {
   };
 
   dynamicURL:any='';
-  emp_Type:any=this.empType[0].value;
+  emp_Type:any='';
 
   // Showing message property
   showMsg1: boolean; showMsg2: boolean; showMsg3: boolean; showMsg4: boolean; showMsg5: boolean; showMsg6: boolean; showMsg7: boolean;
@@ -321,7 +321,7 @@ export class ChatSectionComponent implements OnInit {
     setTimeout(()=>{this.showMsg33=true;},2900);
     setTimeout(()=>{this.showMsg34=true;},3700);
   }
-
+  
   onSubmitEmail(){
     this.service.getStep7Info(this.routerKey,this.emp_Type,this.value2,this.userPan,this.userEmail).subscribe(res=>{
       this.isEmailVerified = true;
@@ -443,9 +443,9 @@ export class ChatSectionComponent implements OnInit {
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
     this.isSubmittedComm = true;
-    setTimeout(()=>{this.showMsg43=true;},500);
-    setTimeout(()=>{this.showMsg44=true;},1300);
-    setTimeout(()=>{this.showMsg45=true;},2100);
+    setTimeout(()=>{this.showMsg43=true;},6900);
+    setTimeout(()=>{this.showMsg44=true;},7700);
+    setTimeout(()=>{this.showMsg45=true;},8500);
   }
 
   onKYCproceed() {

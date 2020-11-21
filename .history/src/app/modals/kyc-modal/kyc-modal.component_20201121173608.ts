@@ -30,7 +30,7 @@ export class KycModalComponent implements OnInit {
         this.service.getStep9Info(this.kycData.key,1).subscribe(res=>{
           this.service.getDetails(this.kycData.key).subscribe(res=>{
             console.log('KYC-Success');
-            this.sendStatus.emit({status:'Success',value:1,response:res});
+            this.sendStatus.emit({status:'Success',value:1});
           });
         });
       }

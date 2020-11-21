@@ -75,9 +75,9 @@ export class ChatSectionComponent implements OnInit {
     {value:'Office Address', viewValue:'Office Address'}
   ]
   genderTypes = [
-    {value:'M', viewValue:'Male'},
-    {value:'F',viewValue:'Female'},
-    {value:'O',viewValue:'Others'}
+    {value: 'Male', viewValue:'Male'},
+    {value:'Female',viewValue:'Female'},
+    {value:'Others',viewValue:'Others'}
   ]
   options1: Options = {
     showTicks: true,
@@ -155,7 +155,6 @@ export class ChatSectionComponent implements OnInit {
   };
 
   dynamicURL:any='';
-  emp_Type:any=this.empType[0].value;
 
   // Showing message property
   showMsg1: boolean; showMsg2: boolean; showMsg3: boolean; showMsg4: boolean; showMsg5: boolean; showMsg6: boolean; showMsg7: boolean;
@@ -169,8 +168,6 @@ export class ChatSectionComponent implements OnInit {
   // Form Field Value
   userName:any;
   mobileNumber:any;
-  userPan:any='';
-  userEmail:any='';
 
   // OTP Config
   config = {
@@ -245,14 +242,14 @@ export class ChatSectionComponent implements OnInit {
 
   onOtpChange(otp){
     if(otp.length == 5){
-      this.service.getverifyOTP(this.routerKey,this.mobileNumber,otp).subscribe(res=>{
+      // this.service.getverifyOTP(this.routerKey,this.mobileNumber,otp).subscribe(res=>{
         this.afterVerifedOTP = true;
         setTimeout(()=>{this.showMsg12=true;},500);
         setTimeout(()=>{this.showMsg13=true;},1300);
         setTimeout(()=>{this.showMsg14=true;},2100);
         setTimeout(()=>{this.showMsg15=true;},2900);
         setTimeout(()=>{this.showMsg16=true;},3700);
-      });
+      // });
     }
   }
 
@@ -279,22 +276,22 @@ export class ChatSectionComponent implements OnInit {
       setTimeout(()=>{this.showMsg10=true;},2100);
       setTimeout(()=>{this.showMsg11=true;},2900);
       this.requiredMsg = '';
-      if(event == 2){this.service.getStep1Info(this.mobileNumber,this.userName).subscribe(res=>{
-        this.routerKey = res;
+      // if(event == 2){this.service.getStep1Info(this.mobileNumber,this.userName).subscribe(res=>{
+      //   this.routerKey = res;
         this.otpOption = true;
-      });
-    }
+      // });
+    // }
     }
   }
 
   onSelectLoanAmount(){
-    this.service.getStep2Info(this.routerKey,this.value1,this.userDetails.UserInfo[0].Loan_Details).subscribe(res=>{
+    // this.service.getStep2Info(this.routerKey,this.value1,this.userDetails.UserInfo[0].Loan_Details).subscribe(res=>{
       this.isSelectLoanAmt = true;
       setTimeout(()=>{this.showMsg17=true;},500);
       setTimeout(()=>{this.showMsg18=true;},1300);
       setTimeout(()=>{this.showMsg19=true;},2100);
       setTimeout(()=>{this.showMsg20=true;},2900);
-    });
+    // });
   }
 
   onEmpTypeSubmit(){
@@ -321,16 +318,13 @@ export class ChatSectionComponent implements OnInit {
     setTimeout(()=>{this.showMsg33=true;},2900);
     setTimeout(()=>{this.showMsg34=true;},3700);
   }
-
   onSubmitEmail(){
-    this.service.getStep7Info(this.routerKey,this.emp_Type,this.value2,this.userPan,this.userEmail).subscribe(res=>{
-      this.isEmailVerified = true;
-      setTimeout(()=>{this.showMsg35=true;},500);
-      setTimeout(()=>{this.showMsg36=true;},1300);
-      setTimeout(()=>{this.showMsg37=true;},2100);
-      setTimeout(()=>{this.showMsg38=true;},2900);
-      setTimeout(()=>{this.showMsg39=true;},3700);
-    });
+    this.isEmailVerified = true;
+    setTimeout(()=>{this.showMsg35=true;},500);
+    setTimeout(()=>{this.showMsg36=true;},1300);
+    setTimeout(()=>{this.showMsg37=true;},2100);
+    setTimeout(()=>{this.showMsg38=true;},2900);
+    setTimeout(()=>{this.showMsg39=true;},3700);
   }
 
   onPersonalInfoFillDetails(){
@@ -443,9 +437,9 @@ export class ChatSectionComponent implements OnInit {
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
     this.isSubmittedComm = true;
-    setTimeout(()=>{this.showMsg43=true;},500);
-    setTimeout(()=>{this.showMsg44=true;},1300);
-    setTimeout(()=>{this.showMsg45=true;},2100);
+    setTimeout(()=>{this.showMsg43=true;},6900);
+    setTimeout(()=>{this.showMsg44=true;},7700);
+    setTimeout(()=>{this.showMsg45=true;},8500);
   }
 
   onKYCproceed() {
@@ -535,9 +529,6 @@ export class ChatSectionComponent implements OnInit {
             setTimeout(()=>{this.showMsg40=true;},500);
             setTimeout(()=>{this.showMsg41=true;},1300);
             setTimeout(()=>{this.showMsg42=true;},2100);
-            this.residenceForm.controls['fatherSpouseName'].setValue(res.response[0].UserInfo[0].Father_Name);
-            this.residenceForm.controls['gender'].setValue(res.response[0].UserInfo[0].Gender);
-            this.residenceForm.controls['dob'].setValue(res.response[0].UserInfo[0].DOB);
           }
         });
         var key = res.replace('https://dmikyc-uat.dmifinance.in/?key=','');
