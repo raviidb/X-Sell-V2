@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HttpRequestService } from '../http-request.service';
@@ -16,6 +16,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class ChatSectionComponent implements OnInit {
 
   @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   userDetailForm: FormGroup;
   professionForm: FormGroup;
   residenceForm: FormGroup;
@@ -51,7 +52,7 @@ export class ChatSectionComponent implements OnInit {
   isPANsubmit:boolean;
   isEmailVerified:boolean;
   requiredMsg:string;
-  value1 = 50000;value2 = 60000;
+  value1 = 150000;value2 = 35000;
   maxValue:any;
   userDetails:any=[];
   empType = [
@@ -73,75 +74,84 @@ export class ChatSectionComponent implements OnInit {
     {value:'Office Address', viewValue:'Office Address'}
   ]
   options1: Options = {
-    showTicks: true,
-    stepsArray: [
-      { value: 10000, legend: "10,000" },
-      { value: 20000, legend: "" },
-      { value: 30000, legend: "" },
-      { value: 40000, legend: "" },
-      { value: 50000, legend: "" },
-      { value: 60000, legend: "" },
-      { value: 70000, legend: "" },
-      { value: 80000, legend: "" },
-      { value: 90000, legend: "" },
-      { value: 100000, legend: "" },
-      { value: 110000, legend: "" },
-      { value: 120000, legend: "" },
-      { value: 130000, legend: "" },
-      { value: 140000, legend: "" },
-      { value: 150000, legend: "" },
-      { value: 160000, legend: "" },
-      { value: 170000, legend: "" },
-      { value: 180000, legend: "" },
-      { value: 190000, legend: "" },
-      { value: 200000, legend: "" },
-      { value: 210000, legend: "" },
-      { value: 220000, legend: "" },
-      { value: 230000, legend: "" },
-      { value: 240000, legend: "" },
-      { value: 250000, legend: "" },
-      { value: 260000, legend: "" },
-      { value: 270000, legend: "" },
-      { value: 280000, legend: "" },
-      { value: 290000, legend: "" },
-      { value: 300000, legend: "3 Lakh" }
-    ]
+    floor: 10000,
+    ceil: 500000,
+    step: 5000,
   };
   options2: Options = {
-    showTicks: true,
-    stepsArray: [
-      { value: 10000, legend: "10,000" },
-      { value: 20000, legend: "" },
-      { value: 30000, legend: "" },
-      { value: 40000, legend: "" },
-      { value: 50000, legend: "" },
-      { value: 60000, legend: "" },
-      { value: 70000, legend: "" },
-      { value: 80000, legend: "" },
-      { value: 90000, legend: "" },
-      { value: 100000, legend: "" },
-      { value: 110000, legend: "" },
-      { value: 120000, legend: "" },
-      { value: 130000, legend: "" },
-      { value: 140000, legend: "" },
-      { value: 150000, legend: "" },
-      { value: 160000, legend: "" },
-      { value: 170000, legend: "" },
-      { value: 180000, legend: "" },
-      { value: 190000, legend: "" },
-      { value: 200000, legend: "" },
-      { value: 210000, legend: "" },
-      { value: 220000, legend: "" },
-      { value: 230000, legend: "" },
-      { value: 240000, legend: "" },
-      { value: 250000, legend: "" },
-      { value: 260000, legend: "" },
-      { value: 270000, legend: "" },
-      { value: 280000, legend: "" },
-      { value: 290000, legend: "" },
-      { value: 300000, legend: "3 Lakh" }
-    ]
+    floor: 25000,
+    ceil: 200000,
   };
+  // options1: Options = {
+  //   showTicks: true,
+  //   stepsArray: [
+  //     { value: 10000, legend: "10,000" },
+  //     { value: 20000, legend: "" },
+  //     { value: 30000, legend: "" },
+  //     { value: 40000, legend: "" },
+  //     { value: 50000, legend: "" },
+  //     { value: 60000, legend: "" },
+  //     { value: 70000, legend: "" },
+  //     { value: 80000, legend: "" },
+  //     { value: 90000, legend: "" },
+  //     { value: 100000, legend: "" },
+  //     { value: 110000, legend: "" },
+  //     { value: 120000, legend: "" },
+  //     { value: 130000, legend: "" },
+  //     { value: 140000, legend: "" },
+  //     { value: 150000, legend: "" },
+  //     { value: 160000, legend: "" },
+  //     { value: 170000, legend: "" },
+  //     { value: 180000, legend: "" },
+  //     { value: 190000, legend: "" },
+  //     { value: 200000, legend: "" },
+  //     { value: 210000, legend: "" },
+  //     { value: 220000, legend: "" },
+  //     { value: 230000, legend: "" },
+  //     { value: 240000, legend: "" },
+  //     { value: 250000, legend: "" },
+  //     { value: 260000, legend: "" },
+  //     { value: 270000, legend: "" },
+  //     { value: 280000, legend: "" },
+  //     { value: 290000, legend: "" },
+  //     { value: 300000, legend: "3 Lakh" }
+  //   ]
+  // };
+  // options2: Options = {
+  //   showTicks: true,
+  //   stepsArray: [
+  //     { value: 10000, legend: "10,000" },
+  //     { value: 20000, legend: "" },
+  //     { value: 30000, legend: "" },
+  //     { value: 40000, legend: "" },
+  //     { value: 50000, legend: "" },
+  //     { value: 60000, legend: "" },
+  //     { value: 70000, legend: "" },
+  //     { value: 80000, legend: "" },
+  //     { value: 90000, legend: "" },
+  //     { value: 100000, legend: "" },
+  //     { value: 110000, legend: "" },
+  //     { value: 120000, legend: "" },
+  //     { value: 130000, legend: "" },
+  //     { value: 140000, legend: "" },
+  //     { value: 150000, legend: "" },
+  //     { value: 160000, legend: "" },
+  //     { value: 170000, legend: "" },
+  //     { value: 180000, legend: "" },
+  //     { value: 190000, legend: "" },
+  //     { value: 200000, legend: "" },
+  //     { value: 210000, legend: "" },
+  //     { value: 220000, legend: "" },
+  //     { value: 230000, legend: "" },
+  //     { value: 240000, legend: "" },
+  //     { value: 250000, legend: "" },
+  //     { value: 260000, legend: "" },
+  //     { value: 270000, legend: "" },
+  //     { value: 280000, legend: "" },
+  //     { value: 290000, legend: "" },
+  //     { value: 300000, legend: "3 Lakh" }
+  //   ]
+  // };
   options3: Options = {
     showTicks: true,
     stepsArray: []
@@ -210,8 +220,16 @@ export class ChatSectionComponent implements OnInit {
       communi_country: [''], communi_time: ['']
     });
     this.residenceForm.controls['address_type'].setValue('Residential Address');
+    this.scrollToBottom();
   }
-
+  ngAfterViewChecked() {        
+    this.scrollToBottom();        
+}
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
+}
   getQueryParam(){
     this.activatedRoute.queryParams.subscribe(param=> {
       this.routerKey = param['key'];
