@@ -769,8 +769,8 @@
         </div>
         <mat-form-field appearance="fill" class="width margin-top45">
           <mat-label>Loan Tenor</mat-label>
-          <mat-select [(ngModel)]="selectedLoanTenor">
-            <mat-option *ngFor="let tenure of loanTenure" [value]="tenure">{{tenure}}</mat-option>
+          <mat-select>
+            <mat-option *ngFor="let tenure of loanTenure" [value]="tenure" [(ngModel)]="selectedLoanTenor">{{tenure}}</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="interest-display-flex">

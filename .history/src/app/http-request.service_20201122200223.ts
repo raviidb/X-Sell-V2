@@ -87,7 +87,7 @@ export class HttpRequestService {
   }
 
   sfdcStep2(Request_Key,GoogleApplicationId):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-User_Application_Status', {Request_Key,GoogleApplicationId}).pipe(map(res=>res.data));
+    return this.http.post<any>(this.baseurl + 'LOS-V2-User_Application_Status', {Request_Key,GoogleApplicationId});
   }
 
   sfdcStep4(Request_Key,RequestId,GoogleApplicationId,CallbackUrl):Observable<any>{
@@ -126,7 +126,7 @@ export class HttpRequestService {
 
   getLDSUrl(ldsDetails):Observable<any>{
     const headers = new HttpHeaders({'Authentication':'OBGDZR8PZG1VJCMEERN2BAVJDI7YUH'});
-    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , ldsDetails , {headers}).pipe(map(response=>response.Message.URL));
+    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , {ldsDetails} , {headers}).pipe(map(response=>response.Message.URL));
   }
 
 }

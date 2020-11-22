@@ -190,7 +190,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg20">
+        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg20 && !afterVerifedOTP">
           <div class="custom-card">
             <mat-form-field appearance="fill" class="width">
               <mat-label>Employment Type</mat-label>
@@ -579,8 +579,6 @@
       <button (click)="showBankingForm = !showBankingForm">Fill Details</button>
     </li>
 
-    
-
     <!-- <li class="show-animation" #scrollMe *ngIf="showBankingForm && showMsg44">
       <div class="custom-card">
           <h4>Personal Information</h4>
@@ -608,7 +606,7 @@
       </div>
     </li> -->
 
-    <li class="show-animation" #scrollMe *ngIf="showBankingForm && showMsg44">
+    <li class="show-animation" #scrollMe *ngIf="showBankingForm && showMsg44"">
         <div class="card-right">
         <div class="custom-card right-custom-card">
           <h4>Banking Details</h4>
@@ -630,96 +628,9 @@
         </div>
       </div>
     </li>
+  
 
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg44">
-      <div class="timeLineMsg right">
-        <div class="stepper-hr2"></div>
-        <div class="content">
-          <p>Please provide your Employement Details.</p>
-        </div>
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="empInitialForm && showMsg65">
-        <div class="custom-card">
-            <h4>Employment Information</h4>
-            <form [formGroup]="professionForm" (ngSubmit)="onSubmitEmpInfo()">
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Work Experience (Months)" formControlName="work_exp">
-              </mat-form-field>
-
-              <h5 class="formTitle">Office Address</h5>
-
-              <mat-form-field appearance="fill" class="width">
-                <mat-label>Address Type</mat-label>
-                <mat-select formControlName="address_type">
-                  <mat-option *ngFor="let resType of addressType" [value]="resType.value">
-                    {{resType.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Company Name" formControlName="company_name">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Flat / Building Details" formControlName="flat_details">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Area / Street" formControlName="area_details">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Landmark" formControlName="landmark">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Postal Code" formControlName="postal_code">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="City" formControlName="city">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="State" formControlName="state">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="County" formControlName="country">
-              </mat-form-field>
-
-              <div class="card-btn checkbox-btn">
-                <button>Submit</button>
-              </div>
-            </form>
-        </div>
-      </li>
-
-      <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg66">
-          <div class="card-right">
-          <div class="custom-card right-custom-card">
-            <h4>Employement Details</h4>
-            <div class="flex-checkbox main">
-                <span>Company Name</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="flex-checkbox main">
-                <span>Company Address</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="flex-checkbox main">
-                <span>Work Experience</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="card-btn checkbox-btn">
-              <button>Update Details</button>
-            </div>
-          </div>
-        </div>
-      </li>
-
-    <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg67">
+    <li class="show-animation" #scrollMe *ngIf="isbankingSubmit && showMsg45">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr1"></div>
           <div class="content">
@@ -728,7 +639,7 @@
         </div>
       </li>
     
-      <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg68">
+      <li class="show-animation" #scrollMe *ngIf="isbankingSubmit && showMsg46 && !isLoanOfferCheck">
         <button class="yes-btn" (click)="onCheckLoanOffer()">Okay</button>
     </li>
     
@@ -769,8 +680,8 @@
         </div>
         <mat-form-field appearance="fill" class="width margin-top45">
           <mat-label>Loan Tenor</mat-label>
-          <mat-select [(ngModel)]="selectedLoanTenor">
-            <mat-option *ngFor="let tenure of loanTenure" [value]="tenure">{{tenure}}</mat-option>
+          <mat-select>
+            <mat-option *ngFor="let tenure of loanTenure" [value]="tenure.value" [(ngModel)]="selectedLoanTenor">{{tenure.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
         <div class="interest-display-flex">

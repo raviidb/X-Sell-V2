@@ -51,9 +51,9 @@ export class HttpRequestService {
     return this.http.post<any>(this.baseurl + 'XSell_UserInfoV2Step3', {Request_Key,Email_Address,Gender,PAN,DOB})
   }
 
-  getStep4Info(Request_Key,Work_Experience,Company_Name):Observable<any>{
+  getStep4Info(Request_Key,Amount,Income_Type,Work_Experience,Company_Name,Employment_Type):Observable<any>{
     return this.http.post<any>(this.baseurl + 'XSell_UserInfoV2Step4', 
-    {Request_Key,Work_Experience,Company_Name})
+    {Request_Key,Amount,Income_Type,Work_Experience,Company_Name,Employment_Type})
   }
 
   getStep5Info(Request_Key,Address_Type,Ownership_Type,Flat_OR_Building_Details,Area_OR_Street,Landmark,Postal_Code,
@@ -74,44 +74,16 @@ export class HttpRequestService {
     return this.http.post<any>(this.baseurl + 'LOS-V2-Banking_Details' , {Request_Key,Bank_Name,Account_Holder_Name,Account_Number,IFSC_Code});
   }
 
+  sfdcStep2(Request_Key,GoogleApplicationId):Observable<any>{
+    return this.http.post<any>(this.baseurl + 'XSell_SFDC_V2Step2', {Request_Key,GoogleApplicationId});
+  }
+
   sendAAKey(AA_Request_Key,Requesy_Key):Observable<any>{
     return this.http.post<any>(this.baseurl + 'XSell-V2-AA_Request_Key', {AA_Request_Key,Requesy_Key});
   }
 
   sendAAStatus(Requesy_Key,AA_Request_Key,AA_Request_Key_Status):Observable<any>{
     return this.http.post<any>(this.baseurl + 'XSell-V2-AA_Request_Key_Status' , {Requesy_Key,AA_Request_Key,AA_Request_Key_Status});
-  }
-
-  loanApprove(Request_Key):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Approve_User_Application', {Request_Key});
-  }
-
-  sfdcStep2(Request_Key,GoogleApplicationId):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-User_Application_Status', {Request_Key,GoogleApplicationId}).pipe(map(res=>res.data));
-  }
-
-  sfdcStep4(Request_Key,RequestId,GoogleApplicationId,CallbackUrl):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Initiate_KYC', {Request_Key,RequestId,GoogleApplicationId,CallbackUrl}).pipe(map(res=>res.data));
-  }
-
-  loanSelect(Request_Key,Loan_Amount,Tenor,Rate_of_Interest,Approx_EMI):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Loan_Selected', {Request_Key,Loan_Amount,Tenor,Rate_of_Interest,Approx_EMI});
-  }
-
-  initiateEMandate(Request_Key,GoogleApplicationId):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Initiate_E-mandate', {Request_Key,GoogleApplicationId}).pipe(map(res=>res.data));
-  }
-
-  eMandateStatus(Request_Key,Emandate_Status):Observable<any>{
-    return this.http.post(this.baseurl + 'XSell-V2-Emandated_Status' , {Request_Key,Emandate_Status});
-  }
-
-  submitLoanApplication(Request_Key,GoogleApplicationId):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Submit_Loan_Application', {Request_Key,GoogleApplicationId}).pipe(map(res=>res.data));
-  }
-
-  serviceStatus(Request_Key,GoogleApplicationId):Observable<any>{
-    return this.http.post<any>(this.baseurl + 'LOS-V2-Service_Status', {Request_Key,GoogleApplicationId});
   }
 
   getKYCurl(kycDetails):Observable<any>{
@@ -125,8 +97,8 @@ export class HttpRequestService {
   }
 
   getLDSUrl(ldsDetails):Observable<any>{
-    const headers = new HttpHeaders({'Authentication':'OBGDZR8PZG1VJCMEERN2BAVJDI7YUH'});
-    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , ldsDetails , {headers}).pipe(map(response=>response.Message.URL));
+    const headers = new HttpHeaders({'Authentication':'MGF2SMMJTQVCIJS9TGNVBBD3JNDBVR'});
+    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , {ldsDetails} , {headers});
   }
 
 }

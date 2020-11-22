@@ -126,7 +126,7 @@ export class HttpRequestService {
 
   getLDSUrl(ldsDetails):Observable<any>{
     const headers = new HttpHeaders({'Authentication':'OBGDZR8PZG1VJCMEERN2BAVJDI7YUH'});
-    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , ldsDetails , {headers}).pipe(map(response=>response.Message.URL));
+    return this.http.post<any>(this.baseurl + 'Doc_Request_Key-V1.2' , {ldsDetails} , {headers}).pipe(map(response=>response.Message.URL));
   }
 
 }

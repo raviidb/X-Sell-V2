@@ -8,18 +8,8 @@
       </div>
     </div>
     <div class="body-container">
-
-      <div class='loader' *ngIf='showLoader'>
-        <div class="row loader-style">
-          <img src="assets/loader.gif" height="60">
-          <div class="p-styel">
-            <p class="">Please Wait...</p>
-          </div>
-        </div>
-      </div>
-
       <ul class="StepProgress">
-        <li class="show-animation" #scrollMe>
+        <li class="show-animation">
           <div class="timeLineMsg right" style="margin-top: 0px;">
             <div class="content-hr"></div>
             <div class="content">
@@ -28,7 +18,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="showMsg1">
+        <li class="show-animation" *ngIf="showMsg1">
           <div class="timeLineMsg right">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -37,7 +27,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="showMsg2">
+        <li class="show-animation" *ngIf="showMsg2">
           <div class="timeLineMsg right">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -46,10 +36,10 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!isYes && showMsg3">
+        <li class="show-animation" *ngIf="!isYes && showMsg3">
             <button class="yes-btn" (click)="onYes()">Okay</button>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isYes && showMsg4">
+        <li class="show-animation" *ngIf="isYes && showMsg4">
           <div class="timeLineMsg-right left yes-sec">
             <div class="stepper-hr-right1"></div>     
             <div class="alt-content">
@@ -60,12 +50,12 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isYes && showMsg5">
+        <li class="show-animation" *ngIf="isYes && showMsg5">
           <div class="timeLineMsg left-allign margin-top96">
             <img src="assets/images/like.png">
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isYes && showMsg6">
+        <li class="show-animation" *ngIf="isYes && showMsg6">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -73,7 +63,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!isContinueWithUserName && isYes && showMsg7">
+        <li class="show-animation" *ngIf="!isContinueWithUserName && isYes && showMsg7">
           <div class="custom-card">
               <mat-form-field class="width">
                 <input matInput placeholder="Enter your full name" [(ngModel)]="userName">
@@ -85,7 +75,7 @@
           </div>
         </li>
         <!-- <ng-container > -->
-        <li class="show-animation" #scrollMe *ngIf="isContinueWithUserName && showMsg8">
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg8">
           <div class="timeLineMsg-right left">
             <div class="stepper-hr-right4"></div> 
             <div class="alt-content">
@@ -95,16 +85,16 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isContinueWithUserName && showMsg9">
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg9">
           <div class="timeLineMsg right margin-top96">
             <div class="stepper-hr3"></div>
             <div class="content">
-              <p>Hello {{userName}}</p>
+              <p>Hello Mr. {{userName}}</p>
             </div>
           </div>
         </li>
 
-        <li class="show-animation" #scrollMe *ngIf="isContinueWithUserName && showMsg10">
+        <li class="show-animation" *ngIf="isContinueWithUserName && showMsg10">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -112,7 +102,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!afterVerifedOTP && isContinueWithUserName && showMsg11">
+        <li class="show-animation" *ngIf="!afterVerifedOTP && isContinueWithUserName && showMsg11">
           <div class="custom-card">
               <mat-form-field class="width">
                 <input matInput placeholder="Enter your mobile number" [(ngModel)]="mobileNumber" maxlength="10">
@@ -128,7 +118,7 @@
           </div>
         </li>
         <!-- <ng-container > -->
-          <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg12">
+          <li class="show-animation" *ngIf="afterVerifedOTP && showMsg12">
             <div class="timeLineMsg-right left contact-sec">
               <div class="stepper-hr-right3"></div>     
               <div class="alt-content">
@@ -138,7 +128,7 @@
               </div>
             </div>
           </li>
-        <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg13">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg13">
           <div class="timeLineMsg right margin-top96">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -147,7 +137,7 @@
           </div>
         </li>
 
-        <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg14">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg14">
           <div class="timeLineMsg right">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -155,17 +145,17 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg15">
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg15">
           <div class="custom-slider-card">
             <div class="custom-slider" style="width:92%;">
               <ng5-slider [(value)]="value1" [(highValue)]="maxValue" [options]="options1"></ng5-slider> 
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg16">
+        <li class="show-animation" *ngIf="!isSelectLoanAmt && afterVerifedOTP && showMsg16">
           <button class="yes-btn" (click)="onSelectLoanAmount()">Okay</button>
       </li>
-        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg17">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg17">
           <div class="timeLineMsg-right left amt-sec">
             <div class="stepper-hr-right3"></div> 
             <div class="alt-content">
@@ -176,13 +166,13 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg18">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg18">
           <div class="timeLineMsg left-allign margin-top96">
             <img src="assets/images/satisfaction.png">
           </div>
         </li>
 
-        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg19">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg19">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr1"></div>
             <div class="content">
@@ -190,7 +180,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isSelectLoanAmt && showMsg20">
+        <li class="show-animation" *ngIf="isSelectLoanAmt && showMsg20">
           <div class="custom-card">
             <mat-form-field appearance="fill" class="width">
               <mat-label>Employment Type</mat-label>
@@ -206,7 +196,7 @@
           </div>
         </li>
 
-        <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg21">
+        <li class="show-animation" *ngIf="afterVerifedOTP && showMsg21">
           <div class="timeLineMsg-right left contact-sec">
             <div class="stepper-hr-right3"></div>     
             <div class="alt-content">
@@ -216,7 +206,7 @@
             </div>
           </div>
         </li>
-      <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg22">
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg22">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -225,7 +215,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg23">
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg23">
         <div class="timeLineMsg right">
           <div class="stepper-hr3"></div>
           <div class="content">
@@ -233,18 +223,18 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg24 && !isSelectIncomeAmt">
+      <li class="show-animation" *ngIf="afterVerifedOTP && showMsg24">
         <div class="custom-slider-card">
           <div class="custom-slider" style="width:92%;">
             <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider>
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="!isSelectIncomeAmt && afterVerifedOTP && showMsg25">
+      <li class="show-animation" *ngIf="!isSelectIncomeAmt && afterVerifedOTP && showMsg25">
         <button class="yes-btn" (click)="onSelectIncomeAmount()">Okay</button>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isSelectIncomeAmt && showMsg26">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg26">
         <div class="timeLineMsg-right left amt-sec">
           <div class="stepper-hr-right3"></div> 
           <div class="alt-content">
@@ -255,14 +245,14 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="isSelectIncomeAmt && showMsg27">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg27">
         <div class="timeLineMsg left-allign margin-top96">
           <img src="assets/images/satisfaction.png">
         </div>
       </li>
 
 
-      <li class="show-animation" #scrollMe *ngIf="isSelectIncomeAmt && showMsg28">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg28">
         <div class="timeLineMsg right left-content-top-margin">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -270,7 +260,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="isSelectIncomeAmt && showMsg29 && !isPANsubmit">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg29">
         <div class="custom-card">
             <mat-form-field class="width">
               <input matInput placeholder="Enter your PAN Number" [(ngModel)]="userPan">
@@ -282,7 +272,7 @@
         </div>
       </li>
 
-      <li class="show-animation #scrollMe margin-top15" *ngIf="isPANsubmit && showMsg30">
+      <li class="show-animation margin-top15" *ngIf="isPANsubmit && showMsg30">
         <div class="timeLineMsg-right left kyc-sec">
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
@@ -293,7 +283,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isPANsubmit && showMsg31">
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg31">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -302,7 +292,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isPANsubmit && showMsg32">
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg32">
         <div class="timeLineMsg right">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -311,7 +301,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isPANsubmit && showMsg33">
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg33">
         <div class="timeLineMsg right left-content-top-margin">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -319,7 +309,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="isPANsubmit && showMsg34 && !isEmailVerified">
+      <li class="show-animation" *ngIf="isPANsubmit && showMsg34">
         <div class="custom-card">
             <mat-form-field class="width">
               <input matInput placeholder="Enter your email address" [(ngModel)]="userEmail">
@@ -331,7 +321,7 @@
         </div>
       </li>
 
-      <li class="show-animation #scrollMe margin-top15" *ngIf="isEmailVerified && showMsg35">
+      <li class="show-animation margin-top15" *ngIf="isEmailVerified && showMsg35">
         <div class="timeLineMsg-right left kyc-sec">
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
@@ -342,7 +332,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isEmailVerified && showMsg36">
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg36">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -351,7 +341,7 @@
         </div>
       </li>
 
-      <li class="show-animation" #scrollMe *ngIf="isEmailVerified && showMsg37">
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg37">
         <div class="timeLineMsg right">
           <div class="stepper-hr3"></div>
           <div class="content">
@@ -359,11 +349,11 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="isEmailVerified && showMsg38 && !isKYCSuccess">
+      <li class="show-animation" *ngIf="isEmailVerified && showMsg38">
         <button (click)="kycModal(1)">Proceed</button>
     </li>
 
-    <li class="show-animation #scrollMe margin-top15" *ngIf="isKYCSuccess && showMsg39">
+    <li class="show-animation margin-top15" *ngIf="isKYCSuccess && showMsg39">
       <div class="timeLineMsg-right left kyc-sec">
         <div class="stepper-hr-right1"></div> 
         <div class="alt-content">
@@ -374,7 +364,7 @@
       </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isKYCSuccess && showMsg40">
+    <li class="show-animation" *ngIf="isKYCSuccess && showMsg40">
       <div class="timeLineMsg right margin-top96">
         <div class="stepper-hr2"></div>
         <div class="content">
@@ -383,7 +373,7 @@
       </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isKYCSuccess && showMsg41">
+    <li class="show-animation" *ngIf="isKYCSuccess && showMsg41">
       <div class="timeLineMsg right">
         <div class="stepper-hr2"></div>
         <div class="content">
@@ -392,7 +382,7 @@
       </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isKYCSuccess && showMsg42 && !isSubmittedComm">
+    <li class="show-animation" *ngIf="isKYCSuccess && showMsg42">
       <div class="custom-card">
           <h4>Communication Details</h4>
           
@@ -425,7 +415,7 @@
             </mat-form-field>
 
             <mat-form-field class="width">
-              <input matInput placeholder="Time At Current Residence (Months)" formControlName="residence_time">
+              <input matInput placeholder="Time At Current Residence" formControlName="residence_time">
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="width margin-top15">
@@ -530,30 +520,24 @@
       </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg43">
+    <li class="show-animation" *ngIf="isSubmittedComm && showMsg43">
       <div class="card-right">
       <div class="custom-card right-custom-card">
         <h4>Communication Details</h4>
         <div class="flex-checkbox main">
-            <span>Father / Spouse Name</span><img src="assets/images/greenChecked.png">
-        </div>
-        <div class="flex-checkbox main">
-            <span>Gender</span><img src="assets/images/greenChecked.png">
-        </div>
-        <div class="flex-checkbox main">
-            <span>Date of Birth</span><img src="assets/images/greenChecked.png">
+          <span>Employment Type</span><img src="assets/images/greenChecked.png">
         </div>
         <div class="flex-checkbox">
-          <span>Address</span><img src="assets/images/greenChecked.png">
+          <span>Residential Address</span><img src="assets/images/greenChecked.png">
         </div>
-        <div class="card-btn checkbox-btn">
-          <button (click)="onFillComAddressInfo()">Update Details</button>
-        </div>
+      <div class="card-btn checkbox-btn">
+        <button (click)="onFillComAddressInfo()">Update Details</button>
+      </div>
       </div>
     </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg44">
+    <li class="show-animation" *ngIf="isSubmittedComm && showMsg44">
       <div class="timeLineMsg right">
         <div class="stepper-hr2"></div>
         <div class="content">
@@ -562,7 +546,7 @@
       </div>
     </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg44">
+    <li class="show-animation" *ngIf="isSubmittedComm && showMsg44">
       <div class="timeLineMsg right">
         <div class="stepper-hr2"></div>
         <div class="content">
@@ -570,339 +554,45 @@
         </div>
       </div>
     </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg38 && !showBankingForm">
+    <li class="show-animation" *ngIf="isEmailVerified && showMsg38">
       <button (click)="kycModal(2)">Proceed with Account Aggregator</button>
-    </li>
+  </li>
 
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg38 && !showBankingForm">
-      <button (click)="showBankingForm = !showBankingForm">Fill Details</button>
-    </li>
+  <li class="show-animation" *ngIf="isEmailVerified && showMsg38">
+    <button (click)="showBankingForm = !showBankingForm">Fill Details</button>
+  </li>
 
-    
+  <li class="show-animation" *ngIf="isSubmittedComm && showMsg44">
+    <div class="custom-card">
+        <h4>Personal Information</h4>
+        <form [formGroup]="bankingDetailForm" (ngSubmit)="onSubmitBankingDetails()">
+          <mat-form-field class="width">
+            <input matInput placeholder="Bank Name" formControlName="Bank_Name" required>
+          </mat-form-field>
+  
+          <mat-form-field class="width">
+            <input matInput placeholder="Account Holder Name" formControlName="Account_Holder_Name" required>
+          </mat-form-field>
+  
+          <mat-form-field class="width">
+            <input matInput placeholder="Account Number" formControlName="Account_Number" required>
+          </mat-form-field>
+  
+          <mat-form-field class="width">
+            <input matInput placeholder="IFSC Code" formControlName="IFSC_Code" required>
+          </mat-form-field>
+  
+        </form>
+    </div>
+  </li>
 
-    <!-- <li class="show-animation" #scrollMe *ngIf="showBankingForm && showMsg44">
-      <div class="custom-card">
-          <h4>Personal Information</h4>
-          <form [formGroup]="bankingDetailForm" (ngSubmit)="onSubmitBankingDetails()">
-            <mat-form-field class="width">
-              <input matInput placeholder="Bank Name" formControlName="Bank_Name" required>
-            </mat-form-field>
-    
-            <mat-form-field class="width">
-              <input matInput placeholder="Account Holder Name" formControlName="Account_Holder_Name" required>
-            </mat-form-field>
-    
-            <mat-form-field class="width">
-              <input matInput placeholder="Account Number" formControlName="Account_Number" required>
-            </mat-form-field>
-    
-            <mat-form-field class="width">
-              <input matInput placeholder="IFSC Code" formControlName="IFSC_Code" required>
-            </mat-form-field>
-    
-            <div class="card-btn checkbox-btn">
-              <button class="margin-top15">Submit</button>
-            </div>
-          </form>
-      </div>
-    </li> -->
+  
 
-    <li class="show-animation" #scrollMe *ngIf="showBankingForm && showMsg44">
-        <div class="card-right">
-        <div class="custom-card right-custom-card">
-          <h4>Banking Details</h4>
-          <div class="flex-checkbox main">
-              <span>Bank Name</span><img src="assets/images/greenChecked.png">
-          </div>
-          <div class="flex-checkbox main">
-              <span>Bank Holder Name</span><img src="assets/images/greenChecked.png">
-          </div>
-          <div class="flex-checkbox main">
-              <span>Account Number</span><img src="assets/images/greenChecked.png">
-          </div>
-          <div class="flex-checkbox">
-            <span>IFSC Code</span><img src="assets/images/greenChecked.png">
-          </div>
-          <div class="card-btn checkbox-btn">
-            <button (click)="onFillComAddressInfo()">Update Details</button>
-          </div>
-        </div>
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isSubmittedComm && showMsg44">
-      <div class="timeLineMsg right">
-        <div class="stepper-hr2"></div>
-        <div class="content">
-          <p>Please provide your Employement Details.</p>
-        </div>
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="empInitialForm && showMsg65">
-        <div class="custom-card">
-            <h4>Employment Information</h4>
-            <form [formGroup]="professionForm" (ngSubmit)="onSubmitEmpInfo()">
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Work Experience (Months)" formControlName="work_exp">
-              </mat-form-field>
-
-              <h5 class="formTitle">Office Address</h5>
-
-              <mat-form-field appearance="fill" class="width">
-                <mat-label>Address Type</mat-label>
-                <mat-select formControlName="address_type">
-                  <mat-option *ngFor="let resType of addressType" [value]="resType.value">
-                    {{resType.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Company Name" formControlName="company_name">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Flat / Building Details" formControlName="flat_details">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Area / Street" formControlName="area_details">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Landmark" formControlName="landmark">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="Postal Code" formControlName="postal_code">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="City" formControlName="city">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="State" formControlName="state">
-              </mat-form-field>
-
-              <mat-form-field class="width">
-                <input matInput placeholder="County" formControlName="country">
-              </mat-form-field>
-
-              <div class="card-btn checkbox-btn">
-                <button>Submit</button>
-              </div>
-            </form>
-        </div>
-      </li>
-
-      <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg66">
-          <div class="card-right">
-          <div class="custom-card right-custom-card">
-            <h4>Employement Details</h4>
-            <div class="flex-checkbox main">
-                <span>Company Name</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="flex-checkbox main">
-                <span>Company Address</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="flex-checkbox main">
-                <span>Work Experience</span><img src="assets/images/greenChecked.png">
-            </div>
-            <div class="card-btn checkbox-btn">
-              <button>Update Details</button>
-            </div>
-          </div>
-        </div>
-      </li>
-
-    <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg67">
-        <div class="timeLineMsg right margin-top96">
-          <div class="stepper-hr1"></div>
-          <div class="content">
-            <p>Please allow us a moment to find the right loan offers for you.</p>
-          </div>
-        </div>
-      </li>
-    
-      <li class="show-animation" #scrollMe *ngIf="emp_details && showMsg68">
-        <button class="yes-btn" (click)="onCheckLoanOffer()">Okay</button>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isLoanOfferCheck && showMsg47">
-      <div class="timeLineMsg-right left yes-sec">
-        <div class="stepper-hr-right1"></div>     
-        <div class="alt-content">
-          <div class="happy-sec">
-            <p>Okay</p>
-          </div>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isLoanOfferCheck && showMsg48">
-      <div class="timeLineMsg right left-content-top-margin">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>Please select the loan offer best suitable for you - </p>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isOfferSelected && showMsg50">
-      <div class="timeLineMsg right left-content-top-margin">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>Please allow us a moment to find the right loan offers for you.</p>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isOfferSelected && showMsg51 && !isloanOffersSubmitted">
-      <div class="custom-slider-card">
-        <span>Loan Amount</span>
-        <div class="custom-slider" style="width:92%;">
-          <ng5-slider [(value)]="value3" [(highValue)]="maxValue" [options]="options3"></ng5-slider>
-        </div>
-        <mat-form-field appearance="fill" class="width margin-top45">
-          <mat-label>Loan Tenor</mat-label>
-          <mat-select [(ngModel)]="selectedLoanTenor">
-            <mat-option *ngFor="let tenure of loanTenure" [value]="tenure">{{tenure}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="interest-display-flex">
-          Rate of Interest: <span class="interest_sec">{{rateOfInt}}%</span>
-        </div>
-        <div class="card-btn checkbox-btn">
-            <button class="margin-top15" (click)="loanOfferSubmit()">Submit</button>
-          </div>
-        <!-- <div class="interest-display-flex">
-          Approx EMI*: <span class="interest_sec">INR 2,895.00</span>
-        </div> -->
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isloanOffersSubmitted && showMsg63">
-      <div class="timeLineMsg-right left amt-sec">
-        <div class="stepper-hr-right3"></div> 
-        <div class="alt-content">
-          <div class="happy-sec">
-            <img src="assets/images/loan.png"> <p>INR {{value3}}</p>
-            <!-- <img src="assets/images/happy.png"> -->
-          </div>
-        </div>
-      </div>
-    </li>
-
-      <li class="show-animation" #scrollMe *ngIf="isloanOffersSubmitted && showMsg64">
-        <div class="timeLineMsg-right left amt-sec">
-          <div class="stepper-hr-right3"></div> 
-          <div class="alt-content">
-            <div class="happy-sec">
-              <p>Approx EMI : {{approxEMI}}</p>
-            </div>
-          </div>
-        </div>
-      </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isloanOffersSubmitted && showMsg65">
-      <div class="timeLineMsg left-allign margin-top96">
-        <img src="assets/images/satisfaction.png">
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isOfferSelected && showMsg52">
-      <div class="timeLineMsg right margin-top96">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>For easy disbursement and repayment please register for E-mandate</p>
-        </div>
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isOfferSelected && showMsg53 && !isEMandateCompleted">
-      <button (click)="kycModal(3)">Proceed for E-mandate</button>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isEMandateCompleted && showMsg54">
-      <div class="timeLineMsg-right left">
-        <div class="stepper-hr-right4"></div> 
-        <div class="alt-content">
-          <div class="happy-sec">
-            <p>E-mandate</p><img src="assets/images/verify.png">
-          </div>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isEMandateCompleted && showMsg55">
-      <div class="timeLineMsg right margin-top96">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>Please review the Loan Details Sheet and accept Terms and Conditions.</p>
-        </div>
-      </div>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isEMandateCompleted && showMsg56 && !isLDSCompleted">
-      <button (click)="kycModal(4)">Proceed</button>
-    </li>
-
-    <li class="show-animation" #scrollMe *ngIf="isLDSCompleted && showMsg57">
-      <div class="timeLineMsg-right left">
-        <div class="stepper-hr-right4"></div> 
-        <div class="alt-content">
-          <div class="happy-sec">
-            <p>T&C and LDS Accepted</p><img src="assets/images/verify.png">
-          </div>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isLDSCompleted && showMsg58">
-      <div class="timeLineMsg right margin-top96">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>Great!! You are only one more step away from Loan completion.</p>
-        </div>
-      </div>
-    </li>
-    <li class="show-animation" #scrollMe *ngIf="isLDSCompleted && showMsg59">
-      <div class="timeLineMsg right">
-        <div class="stepper-hr1"></div>
-        <div class="content">
-          <p>Please allow us a moment to complete the loan creation journey.</p>
-        </div>
-      </div>
-    </li>
-    <li class="show-animation" #scrollMe *ngIf="isLDSCompleted && showMsg60 && !isLoanJourneyCompleted">
-      <button class="yes-btn" (click)="onLoanCReationJourney()">Okay</button>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isLoanJourneyCompleted && showMsg61">
-      <div class="timeLineMsg-right left yes-sec">
-        <div class="stepper-hr-right1"></div>     
-        <div class="alt-content">
-          <div class="happy-sec">
-            <p>Okay</p>
-          </div>
-        </div>
-      </div>
-    </li>
-    
-    <li class="show-animation" #scrollMe *ngIf="isLoanJourneyCompleted && showMsg62">
-      <div class="timeLineMsg right">
-        <div class="stepper-hr2"></div>
-        <div class="content">
-          <p>Yay !! Your new loan number is : {{loanNumber}}<br>
-            The loan amount of INR {{value3}} will be transferred to your {{userDetails.UserInfo[0].Bank_Name}} A/c {{userDetails.UserInfo[0].Account_Number}} shortly.
-            Please feel free to reach our Toll Free number 1800-747-747 for any queries or visit our website : <a href="https://dmifinance.in">https://dmifinance.in</a></p>
-        </div>
-      </div>
-    </li>
+    <li class="show-animation" *ngIf="isSubmittedComm && showMsg45">
+      <button class="yes-btn" (click)="kycModal(2)">Account Aggregator</button><br>
+      <button class="yes-btn" (click)="kycModal(3)">E-Mandate</button><br>
+      <button class="yes-btn" (click)="kycModal(4)">Loan Restructure</button>
+  </li>
 
 
 
@@ -912,9 +602,7 @@
 
 
 
-
-
-        <!-- <li class="show-animation" #scrollMe *ngIf="afterVerifedOTP && showMsg19">
+        <!-- <li class="show-animation" *ngIf="afterVerifedOTP && showMsg19">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -922,7 +610,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="initialPersonalInfo && showMsg20">
+        <li class="show-animation" *ngIf="initialPersonalInfo && showMsg20">
           <div class="custom-card">
               <h4>Personal Information</h4>
               <div class="flex-checkbox">
@@ -943,7 +631,7 @@
               </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="initialPersonalForm">
+        <li class="show-animation" *ngIf="initialPersonalForm">
           <div class="custom-card">
               <h4>Personal Information</h4>
               <form [formGroup]="userDetailForm" (ngSubmit)="onSubmitPersonalInformation()">
@@ -983,7 +671,7 @@
               </form>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="isFiledPersonalFormStatus && showMsg21">
+        <li class="show-animation" *ngIf="isFiledPersonalFormStatus && showMsg21">
           <div class="card-right">
           <div class="custom-card right-custom-card">
             <h4>Personal Information</h4>
@@ -1007,12 +695,12 @@
         </div>
         </li>
         
-        <li class="show-animation" #scrollMe *ngIf="afterFilledPersonalInfo && showMsg22">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg22">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/excellence.png">
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledPersonalInfo && showMsg23">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg23">
           <div class="timeLineMsg right left-content-top-margin">
             <div class="stepper-hr4"></div>
             <div class="content">
@@ -1020,7 +708,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledPersonalInfo && showMsg24">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && showMsg24">
           <div class="timeLineMsg right">
             <div class="stepper-hr4"></div>
             <div class="content">
@@ -1028,10 +716,10 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledPersonalInfo && !afterIsSalariedSelected && showMsg25">
+        <li class="show-animation" *ngIf="afterFilledPersonalInfo && !afterIsSalariedSelected && showMsg25">
           <button class="yes-btn" (click)="isSalaried()">Yes</button><button class="other-btn">Others</button>
       </li>
-      <li class="show-animation" #scrollMe style="margin-top: 22px;" *ngIf="afterIsSalariedSelected && showMsg26">
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="afterIsSalariedSelected && showMsg26">
         <div class="timeLineMsg-right left yes-sec">
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
@@ -1042,7 +730,7 @@
         </div>
       </li>
       
-      <li class="show-animation" #scrollMe style="margin-top: 22px;" *ngIf="isSelectIncomeAmt && showMsg30">
+      <li class="show-animation" style="margin-top: 22px;" *ngIf="isSelectIncomeAmt && showMsg30">
         <div class="timeLineMsg-right left amt-sec">
           <div class="stepper-hr-right3"></div> 
           <div class="alt-content">
@@ -1052,7 +740,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="isSelectIncomeAmt && showMsg31">
+      <li class="show-animation" *ngIf="isSelectIncomeAmt && showMsg31">
         <div class="timeLineMsg right margin-top96">
           <div class="stepper-hr2"></div>
           <div class="content">
@@ -1060,7 +748,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="empInitialInfo && isSelectIncomeAmt && showMsg32">
+      <li class="show-animation" *ngIf="empInitialInfo && isSelectIncomeAmt && showMsg32">
         <div class="custom-card">
             <h4>Employment Information</h4>
             <div class="flex-checkbox main">
@@ -1084,7 +772,7 @@
             </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="empInitialForm">
+      <li class="show-animation" *ngIf="empInitialForm">
         <div class="custom-card">
             <h4>Employment Information</h4>
             <form [formGroup]="professionForm" (ngSubmit)="onSubmitEmpInfo()">
@@ -1154,7 +842,7 @@
             </form>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="empInfoStatus && showMsg33">
+      <li class="show-animation" *ngIf="empInfoStatus && showMsg33">
         <div class="card-right">
         <div class="custom-card right-custom-card">
           <h4>Employment Information</h4>
@@ -1179,12 +867,12 @@
         </div>
       </div>
       </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledEmpInfo && showMsg34">
+        <li class="show-animation" *ngIf="afterFilledEmpInfo && showMsg34">
           <div class="timeLineMsg left-allign">
             <img src="assets/images/satisfaction.png">
           </div>
         </li>
-          <li class="show-animation" #scrollMe *ngIf="comAddressInitialInfo && showMsg35">
+          <li class="show-animation" *ngIf="comAddressInitialInfo && showMsg35">
             <div class="custom-card">
                 <h4>Communication Details</h4>        
                 <div class="flex-checkbox main">
@@ -1198,7 +886,7 @@
               </div>
             </div>
           </li>
-          <li class="show-animation" #scrollMe *ngIf="comAddressInitialForm">
+          <li class="show-animation" *ngIf="comAddressInitialForm">
             <div class="custom-card">
                 <h4>Communication Details</h4>
                 
@@ -1319,7 +1007,7 @@
                 </form>
             </div>
           </li>
-          <li class="show-animation" #scrollMe *ngIf="comAddressIntialStatus && showMsg36">
+          <li class="show-animation" *ngIf="comAddressIntialStatus && showMsg36">
             <div class="card-right">
             <div class="custom-card right-custom-card">
               <h4>Communication Details</h4>
@@ -1335,7 +1023,7 @@
             </div>
           </div>
           </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledCommunicationInfo && showMsg37">
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg37">
           <div class="timeLineMsg right">
             <div class="stepper-hr2"></div>
             <div class="content">
@@ -1343,7 +1031,7 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="afterFilledCommunicationInfo && showMsg38">
+        <li class="show-animation" *ngIf="afterFilledCommunicationInfo && showMsg38">
           <div class="timeLineMsg right">
             <div class="stepper-hr3"></div>
             <div class="content">
@@ -1351,10 +1039,10 @@
             </div>
           </div>
         </li>
-        <li class="show-animation" #scrollMe *ngIf="!isKYCprocees && showMsg39">
+        <li class="show-animation" *ngIf="!isKYCprocees && showMsg39">
           <button (click)="onKYCproceed()">Proceed</button>
       </li>
-      <li class="show-animation #scrollMe margin-top15" *ngIf="isKYCprocees && showMsg40">
+      <li class="show-animation margin-top15" *ngIf="isKYCprocees && showMsg40">
         <div class="timeLineMsg-right left kyc-sec">
           <div class="stepper-hr-right1"></div> 
           <div class="alt-content">
@@ -1364,7 +1052,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation #scrollMe margin-top105" *ngIf="isKYCprocees && showMsg41">
+      <li class="show-animation margin-top105" *ngIf="isKYCprocees && showMsg41">
         <div class="timeLineMsg right">
           <div class="stepper-hr4"></div>
           <div class="content">
@@ -1372,7 +1060,7 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="!afterSlectededOffer && isKYCprocees && showMsg42">
+      <li class="show-animation" *ngIf="!afterSlectededOffer && isKYCprocees && showMsg42">
         <div class="custom-slider-card">
           <span>Loan Amount</span>
           <div class="custom-slider" style="width:92%;">
@@ -1389,24 +1077,24 @@
           </div>
         </div>
       </li>
-      <li class="show-animation" #scrollMe *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
+      <li class="show-animation" *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
         <button class="yes-btn" (click)="onSlectOfferLoan()">Accept</button>
     </li>
-        <li class="show-animation" #scrollMe *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
+        <li class="show-animation" *ngIf="!afterSlectededOffer && isKYCprocees && showMsg43">
             <button class="yes-btn" (click)="kycModal(1)">KYC</button><br>
             <button class="yes-btn" (click)="kycModal(2)">Account Aggregator</button><br>
             <button class="yes-btn" (click)="kycModal(3)">E-Mandate</button><br>
             <button class="yes-btn" (click)="kycModal(4)">Loan Restructure</button>
         </li>
-        <li class="show-animation" #scrollMe>
+        <li class="show-animation">
           <div class="timeLineMsg">
           </div>
         </li>
-        <li class="show-animation" #scrollMe>
+        <li class="show-animation">
           <div class="timeLineMsg">
           </div>
         </li>
-        <li class="show-animation" #scrollMe>
+        <li class="show-animation">
           <div class="timeLineMsg">
           </div>
         </li> -->

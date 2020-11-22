@@ -51,29 +51,12 @@ export class KycModalComponent implements OnInit {
     }
     else if(this.kycData.id == 3){
       let eMandateStatus = localStorage.getItem('E-mandate-Status');
-      if(eMandateStatus == 'fail'){
-        this.service.eMandateStatus(this.kycData.key,2).subscribe(res=>{
-          this.service.getDetails(this.kycData.key).subscribe(res=>{
-            console.log('E-Mandate Fail');
-            this.sendStatus.emit({status:'Fail',value:1,response:res});
-          });
-        });
-      }
-      else if(eMandateStatus == 'success'){
-        this.service.eMandateStatus(this.kycData.key,1).subscribe(res=>{
-          this.service.getDetails(this.kycData.key).subscribe(res=>{
-            console.log('E-Mandate Success');
-            this.sendStatus.emit({status:'Success',value:1,response:res});
-          });
-        });
-      }
+      if(eMandateStatus == 'fail'){console.log('E-Mandate Failed')}
+      else if(eMandateStatus == 'success'){console.log('E-Mandate Success')}
     }
     else if(this.kycData.id == 4){
       let ldsStatus = localStorage.getItem('LDS-Status');
-      if(ldsStatus == 'success'){
-        console.log('LDS Success');
-        this.sendStatus.emit({status:'Success',value:1,response:''});
-      }
+      if(ldsStatus == 'success'){console.log('LDS Success')}
       else(console.log('LDS Failed'))
     }
   }

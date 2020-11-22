@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HttpRequestService } from '../http-request.service';
@@ -20,7 +20,6 @@ export class ChatSectionComponent implements OnInit {
   professionForm: FormGroup;
   residenceForm: FormGroup;
   bankingDetailForm:FormGroup;
-  empDetails:FormGroup;
 
   routerKey:any='';
   isYes:boolean;
@@ -57,7 +56,6 @@ export class ChatSectionComponent implements OnInit {
   isCheckedSameAddress:boolean = true;
   showBankingForm:boolean=false;
   isloanOffersSubmitted:boolean=false;
-  emp_details:boolean;
   isSelectLoanAmt:boolean;
   isSelectIncomeAmt:boolean;
   isKYCprocees:boolean;
@@ -105,13 +103,10 @@ export class ChatSectionComponent implements OnInit {
     ceil: 200000,
     step: 5000
   };
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
-
 
   dynamicURL:any='';
   loanNumber:any='';
-  selectedLoanTenor:any=6;
+  selectedLoanTenor:any='';
   emp_Type:any=this.empType[0].value;
 
   // Showing message property
@@ -124,7 +119,7 @@ export class ChatSectionComponent implements OnInit {
   showMsg43: boolean; showMsg44: boolean; showMsg45: boolean; showMsg46: boolean; showMsg47: boolean; showMsg48: boolean; showMsg49: boolean;
   showMsg50: boolean; showMsg51: boolean; showMsg52: boolean; showMsg53: boolean; showMsg54: boolean; showMsg55: boolean; showMsg56: boolean;
   showMsg57: boolean; showMsg58: boolean; showMsg59: boolean; showMsg60: boolean; showMsg61: boolean; showMsg62: boolean; showMsg63: boolean;
-  showMsg64: boolean; showMsg65: boolean; showMsg66: boolean; showMsg67: boolean; showMsg68: boolean;
+  showMsg64: boolean; showMsg65: boolean;
 
   // Form Field Value
   userName:any;
@@ -159,7 +154,6 @@ export class ChatSectionComponent implements OnInit {
     private sanitizer: DomSanitizer,private modal:NgbModal){}
   
   ngOnInit(){
-    this.scrollToBottom();
     localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
@@ -190,22 +184,9 @@ export class ChatSectionComponent implements OnInit {
       communi_area: [''], communi_landmark: [''], communi_postal: [''], communi_city: [''], communi_state: [''],
       communi_country: [''], communi_time: ['']
     });
-    this.professionForm.controls['address_type'].setValue(this.addressType[2].value);
     this.residenceForm.controls['address_type'].setValue('Residential Address');
-    this.residenceForm.controls['ownership_type'].setValue(this.residenceType[0].value);
-    this.residenceForm.controls['postal_code'].setValue(110051);
-    this.residenceForm.controls['state'].setValue('Delhi');
-    this.residenceForm.controls['city'].setValue('Delhi');
   }
 
-  scrollToBottom(): void {
-    try {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }                 
-}
-ngAfterViewChecked() {        
-  this.scrollToBottom();        
-}
   getQueryParam(){
     this.activatedRoute.queryParams.subscribe(param=> {
       this.routerKey = param['key'];
@@ -358,7 +339,9 @@ ngAfterViewChecked() {
       this.empInitialInfo = true;
       return;
     }
-    this.service.getStep4Info(this.routerKey,this.professionForm.value.work_exp,this.professionForm.value.company_name,).subscribe(res=>{
+    this.service.getStep4Info(this.routerKey,this.value2,'Monthly',this.professionForm.value.work_exp,
+      this.professionForm.value.company_name,this.professionForm.value.emp_Type).subscribe(res=>{
+
         this.service.getStep5Info(this.routerKey,this.professionForm.value.address_type,'-',
           this.professionForm.value.flat_details,
           this.professionForm.value.area_details,this.professionForm.value.landmark,this.professionForm.value.postal_code,
@@ -368,10 +351,9 @@ ngAfterViewChecked() {
             this.empInfoStatus = true;
             this.afterFilledEmpInfo = true;
             this.comAddressInitialInfo = true;
-            this.emp_details = true;
-            setTimeout(()=>{this.showMsg66=true;},500);
-            setTimeout(()=>{this.showMsg67=true;},1300);
-            setTimeout(()=>{this.showMsg68=true;},2100);
+            // setTimeout(()=>{this.showMsg33=true;},500);
+            // setTimeout(()=>{this.showMsg34=true;},1300);
+            // setTimeout(()=>{this.showMsg35=true;},2100);
         });
     });
   }
@@ -433,18 +415,31 @@ ngAfterViewChecked() {
     this.service.sendBankingInfo(this.routerKey,this.bankingDetailForm.value.Bank_Name,this.bankingDetailForm.value.Account_Holder_Name,
       this.bankingDetailForm.value.Account_Number,this.bankingDetailForm.value.IFSC_Code).subscribe(res=>{
         this.service.getDetails(this.routerKey).subscribe(res=>{
-          this.bankingDetailForm.controls['Bank_Name'].setValue(res[0].UserInfo[0].Bank_Name);
-          this.bankingDetailForm.controls['Account_Holder_Name'].setValue(res[0].UserInfo[0].Account_Holder_Name);
-          this.bankingDetailForm.controls['Account_Number'].setValue(res[0].UserInfo[0].Account_Number);
-          this.bankingDetailForm.controls['IFSC_Code'].setValue(res[0].UserInfo[0].IFSC_Code);
+          this.bankingDetailForm.controls['Bank_Name'].setValue(res.response[0].UserInfo[0].Bank_Name);
+          this.bankingDetailForm.controls['Account_Holder_Name'].setValue(res.response[0].UserInfo[0].Account_Holder_Name);
+          this.bankingDetailForm.controls['Account_Number'].setValue(res.response[0].UserInfo[0].Account_Number);
+          this.bankingDetailForm.controls['IFSC_Code'].setValue(res.response[0].UserInfo[0].IFSC_Code);
+          this.service.sfdcStep2(this.routerKey,res.response[0].UserInfo[0].Google_Application_Id).subscribe(res=>{
+            const newOptions = Object.assign({}, this.options3);
+              newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
+              newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
+              newOptions.step = res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.variationStep.length;
+              this.options3 = newOptions;
+
+              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.minimum.length);
+              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.maximum.length);
+
+              this.rateOfInt = res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5/100000;
+          });
+          this.isbankingSubmit = true;
+          setTimeout(()=>{this.showMsg45=true;},500);
+          setTimeout(()=>{this.showMsg46=true;},1300);
         });
     });
   }
 
   loanOfferSubmit(){
-    this.approxEMI = (this.value3 / this.selectedLoanTenor).toFixed(2);
-    console.log('EMI = ',this.approxEMI,this.value3,this.selectedLoanTenor)
-
+    this.approxEMI = this.value3 / this.selectedLoanTenor
     this.service.loanSelect(this.routerKey,this.value3,this.selectedLoanTenor,this.rateOfInt,this.approxEMI).subscribe(res=>{
       this.isloanOffersSubmitted = true;
       setTimeout(()=>{this.showMsg63=true;},500);
@@ -462,32 +457,13 @@ ngAfterViewChecked() {
   }
 
   onCheckLoanOffer(){
-    this.showLoader = true;
-    this.service.loanApprove(this.routerKey).subscribe(res=>{
-      this.service.sfdcStep4(this.routerKey,this.userDetails.UserInfo[0].Request_Id,
-        this.userDetails.UserInfo[0].Google_Application_Id,'https://dmifinance.in/').subscribe(res=>{
-          this.service.sfdcStep2(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
-            this.showLoader = false;
-            const newOptions = Object.assign({}, this.options3);
-              newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
-              newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
-              newOptions.step = res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.variationStep.length;
-              this.options3 = newOptions;
-
-              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.minimum.length);
-              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.maximum.length);
-
-              this.rateOfInt = res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5/100000;
-              console.log('Rate = ',res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5)
-              this.isLoanOfferCheck = true;
-              setTimeout(()=>{this.showMsg47=true;},500);
-              setTimeout(()=>{this.showMsg48=true;},1300);
-              setTimeout(()=>{this.showMsg49=true;},2100);
-              this.onOfferSelection();
-          });
-      });
+    this.service.sfdcStep4(this.routerKey,this.userDetails.UserInfo[0].Request_Id,
+      this.userDetails.UserInfo[0].Google_Application_Id,'https://dmifinance.in/').subscribe(res=>{
+      this.isLoanOfferCheck = true;
+      setTimeout(()=>{this.showMsg47=true;},500);
+      setTimeout(()=>{this.showMsg48=true;},1300);
+      setTimeout(()=>{this.showMsg49=true;},2100);
     });
-    
   }
 
   onOfferSelection(){
@@ -591,13 +567,13 @@ ngAfterViewChecked() {
             for(let i=0; i<res.response[0].Address.length;i++){
               if(res.response[0].Address[i].Address_Type == 'Residential Address'){
                 this.residenceForm.controls['residence_time'].setValue(res.response[0].Address[i].TimeAtCurrentResidence);
-                // this.residenceForm.controls['ownership_type'].setValue(res.response[0].Address[i].Ownership_Type);
+                this.residenceForm.controls['ownership_type'].setValue(res.response[0].Address[i].Ownership_Type);
                 this.residenceForm.controls['flat_details'].setValue(res.response[0].Address[i].Flat_OR_Building_Details);
                 this.residenceForm.controls['area_details'].setValue(res.response[0].Address[i].Area_OR_Street);
                 this.residenceForm.controls['landmark'].setValue(res.response[0].Address[i].Landmark);
-                // this.residenceForm.controls['postal_code'].setValue(res.response[0].Address[i].Postal_Code);
-                // this.residenceForm.controls['city'].setValue(res.response[0].Address[i].City);
-                // this.residenceForm.controls['state'].setValue(res.response[0].Address[i].State);
+                this.residenceForm.controls['postal_code'].setValue(res.response[0].Address[i].Postal_Code);
+                this.residenceForm.controls['city'].setValue(res.response[0].Address[i].City);
+                this.residenceForm.controls['state'].setValue(res.response[0].Address[i].State);
                 this.residenceForm.controls['country'].setValue(res.response[0].Address[i].County);
               }
             }
@@ -638,11 +614,6 @@ ngAfterViewChecked() {
         modalref.componentInstance.sendStatus.subscribe(res=>{
           if(res.status == 'Success'){
             this.showBankingForm = true;  
-            this.isbankingSubmit = true;
-            this.empInitialForm = true;
-            setTimeout(()=>{this.showMsg45=true;},500);
-            setTimeout(()=>{this.showMsg46=true;},1300);
-            setTimeout(()=>{this.showMsg65=true;},2100);
           }
         });
       });
@@ -666,80 +637,78 @@ ngAfterViewChecked() {
       });
     }
     else if(event == 4){
-      this.userDetails = [];
-      this.service.getDetails(this.routerKey).subscribe(res=>{
-        this.userDetails = res[0];
-
-        let ldsDetails = {
-          "Partner_Name":"GPay",
-          "Request_ID":this.userDetails.UserInfo[0].Request_Id,
-          "Callback_URL":"https://dmifinance.in/",
-          "Loan_Name": this.userDetails.UserInfo[0].Google_Application_Id,
-          "Date": this.userDetails.UserInfo[0].Created_At,
-          "First_Name": this.userDetails.UserInfo[0].Name,
-          "Last_Name":"",
-          "Father_Name":this.userDetails.UserInfo[0].Father_Name==null?"null":this.userDetails.UserInfo[0].Father_Name,
-          "PAN":this.userDetails.UserInfo[0].PAN==null?"null":this.userDetails.UserInfo[0].PAN,
-          "Mailing_Street":this.residenceForm.value.area_details,
-          "Mailing_City":this.residenceForm.value.city,
-          "Mailing_State":this.residenceForm.value.state,
-          "Mailing_Postalcode": this.residenceForm.value.postal_code,
-          "Mailing_Country":"India",
-          "Beneficiary_Name":this.userDetails.UserInfo[0].Account_Holder_Name,
-          "Bank_Account_Number":this.userDetails.UserInfo[0].Account_Number,
-          "IFSC_Code":this.userDetails.UserInfo[0].IFSC_Code,
-          "Loan_Rate": this.rateOfInt,
-          "Loan_Tenor_in_Month": this.selectedLoanTenor,
-          "Loan_Amount":this.value3,
-          "Loan_Disbursed":this.value3 - 125,
-          "Bank_Name":this.userDetails.UserInfo[0].Bank_Name,
-          "EMI":this.approxEMI,
-          "EMI_Start_Date":"2020-12-05",
-          "Login_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
-          "OTP_Verify":"No",
-          "OTP_Request_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
-          "OTP_Verify_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
-          "OTP_Mobile":this.userDetails.UserInfo[0].Mobile,
-          "Device_IP_Address":"212.168.21.215",
-          "Device_Browser":"Chromium - Edge",
-          "Device_Location":"Delhi",
-          "Device_Type":"Desktop",
-          "Pre_Emi": "0.00",
-          "Purpose_Loan": "Personal Loan",
-          "Security": "Not Applicable",
-          "Payment_Cheques": "Not Applicable",
-          "Mode_Loan_Repayment": "Existing NACH",
-          "Processing_Fee": "2% + GST on loan amount",
-          "Overdue_Intrest": "2%PM on overdue amount",
-          "Repayment_Charge": "3% + GST on balance principal outstanding",
-          "Bounce_Charge": "Rs. 450/- per dishonor",
-          "Reason":"Loan document clickwrap sign by",
-          "Remark":"Signed using OTP and Email",
-          "Request_Key":"",
-          "Transaction_ID":this.userDetails.UserInfo[0].Request_Key,
-          "Transaction_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
-          "Bank_Account_Type":"Saving",
-          "Insurance": "Not Applicable"
+      let ldsDetails = {
+        "Partner_Name":"GPay",
+        "Request_ID":this.userDetails.UserInfo[0].Request_Id,
+        "Callback_URL":"https://dmifinance.in/",
+        "Loan_Name": this.userDetails.UserInfo[0].Google_Application_Id,
+        "Date": this.userDetails.UserInfo[0].Created_At,
+        "First_Name": this.userDetails.UserInfo[0].Name,
+        "Last_Name":"",
+        "Father_Name":this.userDetails.UserInfo[0].Father_Name==null?"null":this.userDetails.UserInfo[0].Father_Name,
+        "PAN":this.userDetails.UserInfo[0].PAN==null?"null":this.userDetails.UserInfo[0].PAN,
+        "Mailing_Street":this.residenceForm.value.area_details,
+        "Mailing_City":this.residenceForm.value.city,
+        "Mailing_State":this.residenceForm.value.state,
+        "Mailing_Postalcode": this.residenceForm.value.postal_code,
+        "Mailing_Country":"India",
+        "Beneficiary_Name":this.userDetails.UserInfo[0].Account_Holder_Name,
+        "Bank_Account_Number":this.userDetails.UserInfo[0].Account_Number,
+        "IFSC_Code":this.userDetails.UserInfo[0].IFSC_Code,
+        "Loan_Rate": this.rateOfInt,
+        "Loan_Tenor_in_Month": this.loanTenure,
+        "Loan_Amount":this.value3,
+        "Loan_Disbursed":this.value3 - 125,
+        "Bank_Name":this.userDetails.UserInfo[0].Bank_Name,
+        "EMI":this.approxEMI,
+        "EMI_Start_Date":"2020-12-05",
+        "Login_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+        "OTP_Verify":"Yes",
+        "OTP_Request_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+        "OTP_Verify_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+        "OTP_Mobile":this.userDetails.UserInfo[0].Mobile,
+        "Device_IP_Address":"212.168.21.215",
+        "Device_Browser":"Chromium - Edge",
+        "Device_Location":"Delhi",
+        "Device_Type":"Desktop",
+        "Pre_Emi": "0.00",
+        "Purpose_Loan": "Personal Loan",
+        "Security": "Not Applicable",
+        "Payment_Cheques": "Not Applicable",
+        "Mode_Loan_Repayment": "Existing NACH",
+        "Processing_Fee": "2% + GST on loan amount",
+        "Overdue_Intrest": "2%PM on overdue amount",
+        "Repayment_Charge": "3% + GST on balance principal outstanding",
+        "Bounce_Charge": "Rs. 450/- per dishonor",
+        "Reason":"Loan document clickwrap sign by",
+        "Remark":"Signed using OTP and Email",
+        "Request_Key":"",
+        "Transaction_ID":this.userDetails.UserInfo[0].Request_Key,
+        "Transaction_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+        "Bank_Account_Type":"Saving",
+        "Insurance": "Not Applicable"
+        }
+      this.service.getLDSUrl(ldsDetails).subscribe(res=>{
+        this.showLoader = true;
+        this.dynamicURL = '';
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+        modalref.componentInstance.kycData = details;
+        modalref.componentInstance.sendStatus.subscribe(res=>{
+          if(res.status == 'Success'){
+            this.service.submitLoanApplication(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
+              this.showLoader = false;
+              this.isLDSCompleted = true;
+              setTimeout(()=>{this.showMsg57=true;},500);
+              setTimeout(()=>{this.showMsg58=true;},1300);
+              setTimeout(()=>{this.showMsg59=true;},2100);
+              setTimeout(()=>{this.showMsg60=true;},2900);
+              this.loanNumber = res.data.partnerApplicationReferenceId;
+            });
           }
-        this.service.getLDSUrl(ldsDetails).subscribe(res=>{
-          this.dynamicURL = '';
-          this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
-          let details = {data:this.dynamicURL,key:this.routerKey,id:event};
-          modalref.componentInstance.kycData = details;
-          modalref.componentInstance.sendStatus.subscribe(res=>{
-            if(res.status == 'Success'){
-              this.service.submitLoanApplication(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
-                this.isLDSCompleted = true;
-                setTimeout(()=>{this.showMsg57=true;},500);
-                setTimeout(()=>{this.showMsg58=true;},1300);
-                setTimeout(()=>{this.showMsg59=true;},2100);
-                setTimeout(()=>{this.showMsg60=true;},2900);
-                this.loanNumber = res.data.partnerApplicationReferenceId;
-              });
-            }
-          });
-        })      
-      });
+        });
+      })      
     }
+    
   }
 }
