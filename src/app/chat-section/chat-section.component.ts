@@ -73,6 +73,7 @@ export class ChatSectionComponent implements OnInit {
     {value:'Residential Address', viewValue:'Residential Address'},
     {value:'Office Address', viewValue:'Office Address'}
   ]
+  // new code
   options1: Options = {
     floor: 10000,
     ceil: 500000,
