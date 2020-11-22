@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HttpRequestService } from '../http-request.service';
@@ -21,11 +21,20 @@ export class ChatSectionComponent implements OnInit {
   userDetailForm: FormGroup;
   professionForm: FormGroup;
   residenceForm: FormGroup;
+  bankingDetailForm:FormGroup;
+  empDetails:FormGroup;
 
   routerKey:any='';
   isYes:boolean;
   deviceInfo:any='';
   deviceType:any='';
+  isLoanOfferCheck:boolean=false;
+  isOfferSelected:boolean=false;
+  showLoader:boolean=false;
+  isEMandateCompleted:boolean=false;
+  isbankingSubmit:boolean=false;
+  isKYCSuccess:boolean=false;
+  isSubmittedComm:boolean=false;
   otpOption:boolean=false;
   isContinueWithUserName:boolean;
   isSelectedLoanRange:boolean;
@@ -43,9 +52,14 @@ export class ChatSectionComponent implements OnInit {
   comAddressInitialInfo:boolean;
   comAddressInitialForm:boolean;
   comAddressIntialStatus:boolean;
+  isLDSCompleted:boolean=false;
   afterFilledCommunicationInfo:boolean;
   isNotSameAddress:boolean = true;
+  isLoanJourneyCompleted:boolean=false;
   isCheckedSameAddress:boolean = true;
+  showBankingForm:boolean=false;
+  isloanOffersSubmitted:boolean=false;
+  emp_details:boolean;
   isSelectLoanAmt:boolean;
   isSelectIncomeAmt:boolean;
   isKYCprocees:boolean;
@@ -53,7 +67,7 @@ export class ChatSectionComponent implements OnInit {
   isPANsubmit:boolean;
   isEmailVerified:boolean;
   requiredMsg:string;
-  value1 = 150000;value2 = 35000;
+  value1 = 150000;value2 = 35000;value3 = 25000;
   maxValue:any;
   userDetails:any=[];
   empType = [
@@ -74,11 +88,15 @@ export class ChatSectionComponent implements OnInit {
     {value:'Residential Address', viewValue:'Residential Address'},
     {value:'Office Address', viewValue:'Office Address'}
   ]
-  // new code
+  genderTypes = [
+    {value:'M', viewValue:'Male'},
+    {value:'F',viewValue:'Female'},
+    {value:'O',viewValue:'Others'}
+  ]
   options1: Options = {
     floor: 10000,
     ceil: 500000,
-    step: 5000,
+    step: 5000
   };
   options2: Options = {
     floor: 25000,
@@ -155,11 +173,18 @@ export class ChatSectionComponent implements OnInit {
   //   ]
   // };
   options3: Options = {
-    showTicks: true,
-    stepsArray: []
+    floor: 25000,
+    ceil: 200000,
+    step: 5000
   };
+  
 
-  dunamicURL:any='';
+
+
+  dynamicURL:any='';
+  loanNumber:any='';
+  selectedLoanTenor:any=6;
+  emp_Type:any=this.empType[0].value;
 
   // Showing message property
   showMsg1: boolean; showMsg2: boolean; showMsg3: boolean; showMsg4: boolean; showMsg5: boolean; showMsg6: boolean; showMsg7: boolean;
@@ -169,10 +194,18 @@ export class ChatSectionComponent implements OnInit {
   showMsg29: boolean; showMsg30: boolean; showMsg31: boolean; showMsg32: boolean; showMsg33: boolean; showMsg34: boolean; showMsg35: boolean;
   showMsg36: boolean; showMsg37: boolean; showMsg38: boolean; showMsg39: boolean; showMsg40: boolean; showMsg41: boolean; showMsg42: boolean;
   showMsg43: boolean; showMsg44: boolean; showMsg45: boolean; showMsg46: boolean; showMsg47: boolean; showMsg48: boolean; showMsg49: boolean;
+  showMsg50: boolean; showMsg51: boolean; showMsg52: boolean; showMsg53: boolean; showMsg54: boolean; showMsg55: boolean; showMsg56: boolean;
+  showMsg57: boolean; showMsg58: boolean; showMsg59: boolean; showMsg60: boolean; showMsg61: boolean; showMsg62: boolean; showMsg63: boolean;
+  showMsg64: boolean; showMsg65: boolean; showMsg66: boolean; showMsg67: boolean; showMsg68: boolean;
 
   // Form Field Value
   userName:any;
   mobileNumber:any;
+  userPan:any='';
+  userEmail:any='';
+  rateOfInt:any='';
+  approxEMI:any='';
+  loanTenure:any=[];
 
   // OTP Config
   config = {
@@ -202,6 +235,8 @@ export class ChatSectionComponent implements OnInit {
     }
   
   ngOnInit(){
+    
+    localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
     setTimeout(()=>{this.showMsg3=true;},2600);
@@ -212,6 +247,12 @@ export class ChatSectionComponent implements OnInit {
       panCard : ['',Validators.required], 
       gender : ['',Validators.required], 
       emailAddress : ['' , [Validators.required,Validators.email]]
+    });
+    this.bankingDetailForm = this.formBuilder.group({
+      Bank_Name : ['',Validators.required], 
+      Account_Holder_Name : ['',Validators.required], 
+      Account_Number : ['',Validators.required], 
+      IFSC_Code : ['' , [Validators.required,Validators.email]]
     });
     this.professionForm = this.formBuilder.group({
       emp_Type : [''], work_exp : [''], income_type : [''], address_type: [''], company_name: [''] , ownership_type:[''], flat_details : [''], 
@@ -225,24 +266,26 @@ export class ChatSectionComponent implements OnInit {
       communi_area: [''], communi_landmark: [''], communi_postal: [''], communi_city: [''], communi_state: [''],
       communi_country: [''], communi_time: ['']
     });
+    this.professionForm.controls['address_type'].setValue(this.addressType[2].value);
     this.residenceForm.controls['address_type'].setValue('Residential Address');
+    this.residenceForm.controls['ownership_type'].setValue(this.residenceType[0].value);
+    this.residenceForm.controls['postal_code'].setValue(110051);
+    this.residenceForm.controls['state'].setValue('Delhi');
+    this.residenceForm.controls['city'].setValue('Delhi');
     this.scrollToBottom();
   }
-  ngAfterViewChecked() {        
-    this.scrollToBottom();        
-}
+
   scrollToBottom(): void {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }                 
 }
+ngAfterViewChecked() {        
+  this.scrollToBottom();        
+}
   getQueryParam(){
     this.activatedRoute.queryParams.subscribe(param=> {
       this.routerKey = param['key'];
-      this.service.getDetails(this.routerKey).subscribe(res=>{
-        this.userDetails = res[0];
-        this.deviceTrack();
-      });
     });
   }
 
@@ -258,14 +301,14 @@ export class ChatSectionComponent implements OnInit {
 
   onOtpChange(otp){
     if(otp.length == 5){
-      // this.service.getverifyOTP(this.routerKey,this.mobileNumber,otp).subscribe(res=>{
+      this.service.getverifyOTP(this.routerKey,this.mobileNumber,otp).subscribe(res=>{
         this.afterVerifedOTP = true;
         setTimeout(()=>{this.showMsg12=true;},500);
         setTimeout(()=>{this.showMsg13=true;},1300);
         setTimeout(()=>{this.showMsg14=true;},2100);
         setTimeout(()=>{this.showMsg15=true;},2900);
         setTimeout(()=>{this.showMsg16=true;},3700);
-      // });
+      });
     }
   }
 
@@ -292,22 +335,28 @@ export class ChatSectionComponent implements OnInit {
       setTimeout(()=>{this.showMsg10=true;},2100);
       setTimeout(()=>{this.showMsg11=true;},2900);
       this.requiredMsg = '';
-      // if(event == 2){this.service.getStep1Info(this.mobileNumber,this.userName).subscribe(res=>{
-      //   this.routerKey = res;
+      if(event == 2){this.service.getStep1Info(this.mobileNumber,this.userName).subscribe(res=>{
+        this.routerKey = res;
         this.otpOption = true;
-      // });
-    // }
+        this.service.getDetails(this.routerKey).subscribe(res=>{
+          this.userDetails = res[0];
+          this.deviceTrack();
+        });
+      });
+    }
     }
   }
 
   onSelectLoanAmount(){
-    // this.service.getStep2Info(this.routerKey,this.value1,this.userDetails.UserInfo[0].Loan_Details).subscribe(res=>{
+    let loanDetails = 
+    this.userDetails.UserInfo[0].Loan_Details == null ? "null" : this.userDetails.UserInfo[0].Loan_Details;
+    this.service.getStep2Info(this.routerKey,this.value1,loanDetails).subscribe(res=>{
       this.isSelectLoanAmt = true;
       setTimeout(()=>{this.showMsg17=true;},500);
       setTimeout(()=>{this.showMsg18=true;},1300);
       setTimeout(()=>{this.showMsg19=true;},2100);
       setTimeout(()=>{this.showMsg20=true;},2900);
-    // });
+    });
   }
 
   onEmpTypeSubmit(){
@@ -334,19 +383,16 @@ export class ChatSectionComponent implements OnInit {
     setTimeout(()=>{this.showMsg33=true;},2900);
     setTimeout(()=>{this.showMsg34=true;},3700);
   }
+
   onSubmitEmail(){
-    this.isEmailVerified = true;
-    setTimeout(()=>{this.showMsg35=true;},500);
-    setTimeout(()=>{this.showMsg36=true;},1300);
-    setTimeout(()=>{this.showMsg37=true;},2100);
-    setTimeout(()=>{this.showMsg38=true;},2900);
-    setTimeout(()=>{this.showMsg39=true;},3700);
-    setTimeout(()=>{this.showMsg40=true;},4500);
-    setTimeout(()=>{this.showMsg41=true;},5300);
-    setTimeout(()=>{this.showMsg42=true;},6100);
-    setTimeout(()=>{this.showMsg43=true;},6900);
-    setTimeout(()=>{this.showMsg44=true;},7700);
-    setTimeout(()=>{this.showMsg45=true;},8500);
+    this.service.getStep7Info(this.routerKey,this.emp_Type,this.value2,this.userPan,this.userEmail).subscribe(res=>{
+      this.isEmailVerified = true;
+      setTimeout(()=>{this.showMsg35=true;},500);
+      setTimeout(()=>{this.showMsg36=true;},1300);
+      setTimeout(()=>{this.showMsg37=true;},2100);
+      setTimeout(()=>{this.showMsg38=true;},2900);
+      setTimeout(()=>{this.showMsg39=true;},3700);
+    });
   }
 
   onPersonalInfoFillDetails(){
@@ -389,9 +435,7 @@ export class ChatSectionComponent implements OnInit {
       this.empInitialInfo = true;
       return;
     }
-    this.service.getStep4Info(this.routerKey,this.value2,'Monthly',this.professionForm.value.work_exp,
-      this.professionForm.value.company_name,this.professionForm.value.emp_Type).subscribe(res=>{
-
+    this.service.getStep4Info(this.routerKey,this.professionForm.value.work_exp,this.professionForm.value.company_name,).subscribe(res=>{
         this.service.getStep5Info(this.routerKey,this.professionForm.value.address_type,'-',
           this.professionForm.value.flat_details,
           this.professionForm.value.area_details,this.professionForm.value.landmark,this.professionForm.value.postal_code,
@@ -401,9 +445,10 @@ export class ChatSectionComponent implements OnInit {
             this.empInfoStatus = true;
             this.afterFilledEmpInfo = true;
             this.comAddressInitialInfo = true;
-            // setTimeout(()=>{this.showMsg33=true;},500);
-            // setTimeout(()=>{this.showMsg34=true;},1300);
-            // setTimeout(()=>{this.showMsg35=true;},2100);
+            this.emp_details = true;
+            setTimeout(()=>{this.showMsg66=true;},500);
+            setTimeout(()=>{this.showMsg67=true;},1300);
+            setTimeout(()=>{this.showMsg68=true;},2100);
         });
     });
   }
@@ -420,6 +465,12 @@ export class ChatSectionComponent implements OnInit {
   onFillComAddressInfo(){
     this.comAddressInitialForm = true;
     this.comAddressInitialInfo = false;
+  }
+
+  onLoanCReationJourney(){
+    this.isLoanJourneyCompleted = true;
+    setTimeout(()=>{this.showMsg61=true;},500);
+    setTimeout(()=>{this.showMsg62=true;},1300);
   }
 
   onSubmitComAddressInfo(){
@@ -455,14 +506,75 @@ export class ChatSectionComponent implements OnInit {
     });
   }
 
+  onSubmitBankingDetails(){
+    this.service.sendBankingInfo(this.routerKey,this.bankingDetailForm.value.Bank_Name,this.bankingDetailForm.value.Account_Holder_Name,
+      this.bankingDetailForm.value.Account_Number,this.bankingDetailForm.value.IFSC_Code).subscribe(res=>{
+        this.service.getDetails(this.routerKey).subscribe(res=>{
+          this.bankingDetailForm.controls['Bank_Name'].setValue(res[0].UserInfo[0].Bank_Name);
+          this.bankingDetailForm.controls['Account_Holder_Name'].setValue(res[0].UserInfo[0].Account_Holder_Name);
+          this.bankingDetailForm.controls['Account_Number'].setValue(res[0].UserInfo[0].Account_Number);
+          this.bankingDetailForm.controls['IFSC_Code'].setValue(res[0].UserInfo[0].IFSC_Code);
+        });
+    });
+  }
+
+  loanOfferSubmit(){
+    this.approxEMI = (this.value3 / this.selectedLoanTenor).toFixed(2);
+    console.log('EMI = ',this.approxEMI,this.value3,this.selectedLoanTenor)
+
+    this.service.loanSelect(this.routerKey,this.value3,this.selectedLoanTenor,this.rateOfInt,this.approxEMI).subscribe(res=>{
+      this.isloanOffersSubmitted = true;
+      setTimeout(()=>{this.showMsg63=true;},500);
+      setTimeout(()=>{this.showMsg64=true;},1300);
+      setTimeout(()=>{this.showMsg65=true;},2100);
+    });
+  }
+
   finalForm(){
     this.comAddressIntialStatus = true;
     this.afterFilledCommunicationInfo = true;
-    // setTimeout(()=>{this.showMsg36=true;},500);
-    // setTimeout(()=>{this.showMsg37=true;},1300);
-    // setTimeout(()=>{this.showMsg38=true;},2100);
-    // setTimeout(()=>{this.showMsg39=true;},2900);
+    this.isSubmittedComm = true;
+    setTimeout(()=>{this.showMsg43=true;},500);
+    setTimeout(()=>{this.showMsg44=true;},1300);
   }
+
+  onCheckLoanOffer(){
+    this.showLoader = true;
+    this.service.loanApprove(this.routerKey).subscribe(res=>{
+      this.service.sfdcStep4(this.routerKey,this.userDetails.UserInfo[0].Request_Id,
+        this.userDetails.UserInfo[0].Google_Application_Id,'https://dmifinance.in/').subscribe(res=>{
+          this.service.sfdcStep2(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
+            this.showLoader = false;
+            const newOptions = Object.assign({}, this.options3);
+              newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
+              newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
+              newOptions.step = 5000;
+              this.options3 = newOptions;
+
+              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.minimum.length);
+              this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.maximum.length);
+
+              this.rateOfInt = res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5/100000;
+              console.log('Rate = ',res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5)
+              this.isLoanOfferCheck = true;
+              setTimeout(()=>{this.showMsg47=true;},500);
+              setTimeout(()=>{this.showMsg48=true;},1300);
+              setTimeout(()=>{this.showMsg49=true;},2100);
+              this.onOfferSelection();
+          });
+      });
+    });
+    
+  }
+
+  onOfferSelection(){
+    this.isOfferSelected = true;
+    setTimeout(()=>{this.showMsg50=true;},500);
+    setTimeout(()=>{this.showMsg51=true;},1300);
+    setTimeout(()=>{this.showMsg52=true;},2100);
+    setTimeout(()=>{this.showMsg53=true;},2900);
+  }
+
   onKYCproceed() {
     this.isKYCprocees = true;
     // setTimeout(() => { this.showMsg40 = true; }, 500);
@@ -500,15 +612,211 @@ export class ChatSectionComponent implements OnInit {
       keyboard: false
     });
     if(event == 1){
-      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dmikyc-uat.dmifinance.in/?key=5fb4e19340782');
-    }else if(event == 2){
-      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/AA-V12/?key=5e7851709c360');
-    }else if(event == 3){
-      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://dev.vistaconnect.com/e-mandateV1.1/?key=5dea4c9b7c7b0');
-    }else if(event == 4){
-      this.dunamicURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://dev.vistaconnect.com/ldsService/?key=5f43a35b9b0b6');
+      let kycDetails = {
+        "Request_ID": "DMI-LOS",
+        "Request_Type": "DMI-eKYC",
+        "Time_Out": "600",
+        "Borrower_Name": "",
+        "Borrower_Gender": "",
+        "Borrower_DOB": "",
+        "Mobile_Number": this.userDetails.UserInfo[0].Mobile,
+        "Borrower_Email": this.userEmail,
+        "Loan_Number": "NULL",
+        "Contact_ID": "NULL",
+        "Callback_URL": "https://dmifinance.in/",
+        "Face_Auth": "1",
+        "Borrower_Image_URL":"",
+        "OTP_Auth": "0",
+        "Partner_Logo":"",
+        "Aadhar_QR_Data":"",
+        "Borrower_PAN_Name":"",
+        "Borrower_PAN":"",
+        "Borrower_DL_DOB":"",
+        "Borrower_DL_No":"",
+        "Borrower_DL_State":"",
+        "Partner_Name": "DMI-LOS",
+        "Send_Link":"2",
+        "Style": "",
+        "Style_Parameters": "",
+        "udf1":"",
+        "udf2":"",
+        "udf3":"",
+        "udf4":"",
+        "udf5":"",
+        "udf6":"",
+        "udf7":"",
+        "udf8":"",
+        "udf9":"",
+        "udf10":"",
+        "Consent_Message": "I have read and agreed to the Terms of Use and hereby allow DMI Finance partners to receive my KYC information.",
+        "Consent_Message_Partner": "I hereby confirm that I am voluntarily providing my information including Aadhaar information for evaluating my eligibility to get loan and complete Know-Your-Customer(KYC) process. If opted by me, I understand that Aadhar informationis collected directly by DMI Finance. By checking this box, I provide permission for DMI to: (1) collect, store and use certain information and documentation of mine, including Aadhaar-related information, for the purposes related to grant of such loan including for conducting offline Aadhaar-based verification in order to complete its Know-Your-Customer (KYC) process for the application related to such loan facility (Loan Application); and (2) share such information and any related results of such KYC processes with any of our affiliates and service providers who may be engaged by DMI for the purpose of assisting in the KYC process for the limited purpose of processing the Loan Application."
+      }
+      this.service.getKYCurl(kycDetails).subscribe(res=>{
+        this.dynamicURL = '';
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+        modalref.componentInstance.kycData = details;
+        modalref.componentInstance.sendStatus.subscribe(res=>{
+          if(res.status == 'Success'){
+            this.isKYCSuccess = true;
+            setTimeout(()=>{this.showMsg40=true;},500);
+            setTimeout(()=>{this.showMsg41=true;},1300);
+            setTimeout(()=>{this.showMsg42=true;},2100);
+            this.residenceForm.controls['fatherSpouseName'].setValue(res.response[0].UserInfo[0].Father_Name);
+            this.residenceForm.controls['gender'].setValue(res.response[0].UserInfo[0].Gender);
+            this.residenceForm.controls['dob'].setValue(res.response[0].UserInfo[0].DOB);
+            for(let i=0; i<res.response[0].Address.length;i++){
+              if(res.response[0].Address[i].Address_Type == 'Residential Address'){
+                this.residenceForm.controls['residence_time'].setValue(res.response[0].Address[i].TimeAtCurrentResidence);
+                // this.residenceForm.controls['ownership_type'].setValue(res.response[0].Address[i].Ownership_Type);
+                this.residenceForm.controls['flat_details'].setValue(res.response[0].Address[i].Flat_OR_Building_Details);
+                this.residenceForm.controls['area_details'].setValue(res.response[0].Address[i].Area_OR_Street);
+                this.residenceForm.controls['landmark'].setValue(res.response[0].Address[i].Landmark);
+                // this.residenceForm.controls['postal_code'].setValue(res.response[0].Address[i].Postal_Code);
+                // this.residenceForm.controls['city'].setValue(res.response[0].Address[i].City);
+                // this.residenceForm.controls['state'].setValue(res.response[0].Address[i].State);
+                this.residenceForm.controls['country'].setValue(res.response[0].Address[i].County);
+              }
+            }
+          }
+        });
+        var key = res.replace('https://dmikyc-uat.dmifinance.in/?key=','');
+        this.service.getStep8Info(this.routerKey,key).subscribe();
+      });
     }
-    let details = {data:this.dunamicURL,key:this.routerKey,id:event};
-    modalref.componentInstance.kycData = details;
+    else if(event == 2){
+      localStorage.removeItem('FI_Details');
+      let accountDetails = {
+        "mobilenumber": this.userDetails.UserInfo[0].Mobile,
+        "accountid": this.userDetails.UserInfo[0].Account_Number==null?"null":this.userDetails.UserInfo[0].Account_Number,
+        "bankaccountnumber": this.userDetails.UserInfo[0].Account_Number==null?"null":this.userDetails.UserInfo[0].Account_Number,
+        "bankifsc" : this.userDetails.UserInfo[0].IFSC_Code==null?"null":this.userDetails.UserInfo[0].IFSC_Code,
+        "bankname" : this.userDetails.UserInfo[0].Bank_Name==null?"null":this.userDetails.UserInfo[0].Bank_Name,
+        "accountholdername" : this.userDetails.UserInfo[0].Account_Holder_Name==null?"null":this.userDetails.UserInfo[0].Account_Holder_Name,
+        "oppname": 'null',
+        "leadid":"null",
+        "contactid": 'null',
+        "AA_ID":"",
+        "AA_Consent":"101",
+        "description":"Wealth Management Service",
+        "callbackurl":"https://dmifinance.in/",
+        "partnername":"dmi",
+        "logo":"logo.png",
+        "borrowername": this.userDetails.UserInfo[0].Name,
+        "borroweremail": this.userDetails.UserInfo[0].Email_Address==null?"null":this.userDetails.UserInfo[0].Email_Address
+      }
+      this.service.getAccountAggURL(accountDetails).subscribe(res=>{
+        this.dynamicURL = '';
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
+        var key = res.replace('https://dev.vistaconnect.com/AA-V12/?key=','');
+        this.service.sendAAKey(key,this.routerKey).subscribe();
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event,aaKey:key};
+        modalref.componentInstance.kycData = details;
+        modalref.componentInstance.sendStatus.subscribe(res=>{
+          if(res.status == 'Success'){
+            this.showBankingForm = true;  
+            this.isbankingSubmit = true;
+            this.empInitialForm = true;
+            setTimeout(()=>{this.showMsg45=true;},500);
+            setTimeout(()=>{this.showMsg46=true;},1300);
+            setTimeout(()=>{this.showMsg65=true;},2100);
+          }
+        });
+      });
+    }
+    else if(event == 3){
+      this.service.initiateEMandate(this.routerKey,
+        this.userDetails.UserInfo[0].Google_Application_Id==null?"null":this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
+        let url = 'https://dmi.vistaconnect.com/e-mandate-v1.3/?key='+res.data.urlToken;
+        this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+        modalref.componentInstance.kycData = details;
+        modalref.componentInstance.sendStatus.subscribe(res=>{
+          if(res.status == 'Success'){
+            this.isEMandateCompleted = true;
+            setTimeout(()=>{this.showMsg54=true;},500);
+            setTimeout(()=>{this.showMsg55=true;},1300);
+            setTimeout(()=>{this.showMsg56=true;},2100);
+          }
+          if(res.status == "Fail"){alert('EMandate Failed')}
+        });
+      });
+    }
+    else if(event == 4){
+      this.userDetails = [];
+      this.service.getDetails(this.routerKey).subscribe(res=>{
+        this.userDetails = res[0];
+
+        let ldsDetails = {
+          "Partner_Name":"GPay",
+          "Request_ID":this.userDetails.UserInfo[0].Request_Id,
+          "Callback_URL":"https://dmifinance.in/",
+          "Loan_Name": this.userDetails.UserInfo[0].Google_Application_Id,
+          "Date": this.userDetails.UserInfo[0].Created_At,
+          "First_Name": this.userDetails.UserInfo[0].Name,
+          "Last_Name":"",
+          "Father_Name":this.userDetails.UserInfo[0].Father_Name==null?"null":this.userDetails.UserInfo[0].Father_Name,
+          "PAN":this.userDetails.UserInfo[0].PAN==null?"null":this.userDetails.UserInfo[0].PAN,
+          "Mailing_Street":this.residenceForm.value.area_details,
+          "Mailing_City":this.residenceForm.value.city,
+          "Mailing_State":this.residenceForm.value.state,
+          "Mailing_Postalcode": this.residenceForm.value.postal_code,
+          "Mailing_Country":"India",
+          "Beneficiary_Name":this.userDetails.UserInfo[0].Account_Holder_Name,
+          "Bank_Account_Number":this.userDetails.UserInfo[0].Account_Number,
+          "IFSC_Code":this.userDetails.UserInfo[0].IFSC_Code,
+          "Loan_Rate": this.rateOfInt,
+          "Loan_Tenor_in_Month": this.selectedLoanTenor,
+          "Loan_Amount":this.value3,
+          "Loan_Disbursed":this.value3 - 125,
+          "Bank_Name":this.userDetails.UserInfo[0].Bank_Name,
+          "EMI":this.approxEMI,
+          "EMI_Start_Date":"2020-12-05",
+          "Login_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+          "OTP_Verify":"No",
+          "OTP_Request_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+          "OTP_Verify_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+          "OTP_Mobile":this.userDetails.UserInfo[0].Mobile,
+          "Device_IP_Address":"212.168.21.215",
+          "Device_Browser":"Chromium - Edge",
+          "Device_Location":"Delhi",
+          "Device_Type":"Desktop",
+          "Pre_Emi": "0.00",
+          "Purpose_Loan": "Personal Loan",
+          "Security": "Not Applicable",
+          "Payment_Cheques": "Not Applicable",
+          "Mode_Loan_Repayment": "Existing NACH",
+          "Processing_Fee": "2% + GST on loan amount",
+          "Overdue_Intrest": "2%PM on overdue amount",
+          "Repayment_Charge": "3% + GST on balance principal outstanding",
+          "Bounce_Charge": "Rs. 450/- per dishonor",
+          "Reason":"Loan document clickwrap sign by",
+          "Remark":"Signed using OTP and Email",
+          "Request_Key":"",
+          "Transaction_ID":this.userDetails.UserInfo[0].Request_Key,
+          "Transaction_Time_Stamp":this.userDetails.UserInfo[0].Created_At,
+          "Bank_Account_Type":"Saving",
+          "Insurance": "Not Applicable"
+          }
+        this.service.getLDSUrl(ldsDetails).subscribe(res=>{
+          this.dynamicURL = '';
+          this.dynamicURL = this.sanitizer.bypassSecurityTrustResourceUrl(res);
+          let details = {data:this.dynamicURL,key:this.routerKey,id:event};
+          modalref.componentInstance.kycData = details;
+          modalref.componentInstance.sendStatus.subscribe(res=>{
+            if(res.status == 'Success'){
+              this.service.submitLoanApplication(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
+                this.isLDSCompleted = true;
+                setTimeout(()=>{this.showMsg57=true;},500);
+                setTimeout(()=>{this.showMsg58=true;},1300);
+                setTimeout(()=>{this.showMsg59=true;},2100);
+                setTimeout(()=>{this.showMsg60=true;},2900);
+                this.loanNumber = res.data.partnerApplicationReferenceId;
+              });
+            }
+          });
+        })      
+      });
+    }
   }
 }
