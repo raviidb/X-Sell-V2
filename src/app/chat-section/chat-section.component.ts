@@ -65,7 +65,7 @@ export class ChatSectionComponent implements OnInit {
   isPANsubmit:boolean;
   isEmailVerified:boolean;
   requiredMsg:string;
-  value1 = 50000;value2 = 60000;value3 = 25000;
+  value1 = 150000;value2 = 35000;value3 = 25000;
   maxValue:any;
   userDetails:any=[];
   empType = [
@@ -159,7 +159,7 @@ export class ChatSectionComponent implements OnInit {
     private sanitizer: DomSanitizer,private modal:NgbModal){}
   
   ngOnInit(){
-    this.scrollToBottom();
+    
     localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
@@ -196,6 +196,7 @@ export class ChatSectionComponent implements OnInit {
     this.residenceForm.controls['postal_code'].setValue(110051);
     this.residenceForm.controls['state'].setValue('Delhi');
     this.residenceForm.controls['city'].setValue('Delhi');
+    this.scrollToBottom();
   }
 
   scrollToBottom(): void {
@@ -471,7 +472,7 @@ ngAfterViewChecked() {
             const newOptions = Object.assign({}, this.options3);
               newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
               newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
-              newOptions.step = res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.variationStep.length;
+              newOptions.step = 5000;
               this.options3 = newOptions;
 
               this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.minimum.length);
