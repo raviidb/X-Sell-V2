@@ -12,6 +12,9 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { MaterialModule } from './material/material.module';
 import { KycModalComponent } from './modals/kyc-modal/kyc-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DateFormat } from './date-format';
+import { DateAdapter } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     Ng5SliderModule,
     DeviceDetectorModule,
   ],
-  providers: [],
+  providers: [{ provide: DateAdapter, useClass: DateFormat }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

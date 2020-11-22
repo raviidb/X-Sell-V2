@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { KycModalComponent } from '../modals/kyc-modal/kyc-modal.component';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-chat-section',
@@ -194,7 +195,11 @@ export class ChatSectionComponent implements OnInit {
   constructor(private device: DeviceDetectorService,
     private service: HttpRequestService,
     private formBuilder: FormBuilder,private activatedRoute:ActivatedRoute,
-    private sanitizer: DomSanitizer,private modal:NgbModal){}
+    private sanitizer: DomSanitizer,private modal:NgbModal,
+    private dateAdapter: DateAdapter<Date>
+    ){
+      dateAdapter.setLocale("en-in");
+    }
   
   ngOnInit(){
     setTimeout(()=>{this.showMsg1=true;},1000);
