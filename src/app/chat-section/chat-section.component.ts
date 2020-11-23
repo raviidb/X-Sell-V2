@@ -102,76 +102,6 @@ export class ChatSectionComponent implements OnInit {
     floor: 25000,
     ceil: 200000,
   };
-  // options1: Options = {
-  //   showTicks: true,
-  //   stepsArray: [
-  //     { value: 10000, legend: "10,000" },
-  //     { value: 20000, legend: "" },
-  //     { value: 30000, legend: "" },
-  //     { value: 40000, legend: "" },
-  //     { value: 50000, legend: "" },
-  //     { value: 60000, legend: "" },
-  //     { value: 70000, legend: "" },
-  //     { value: 80000, legend: "" },
-  //     { value: 90000, legend: "" },
-  //     { value: 100000, legend: "" },
-  //     { value: 110000, legend: "" },
-  //     { value: 120000, legend: "" },
-  //     { value: 130000, legend: "" },
-  //     { value: 140000, legend: "" },
-  //     { value: 150000, legend: "" },
-  //     { value: 160000, legend: "" },
-  //     { value: 170000, legend: "" },
-  //     { value: 180000, legend: "" },
-  //     { value: 190000, legend: "" },
-  //     { value: 200000, legend: "" },
-  //     { value: 210000, legend: "" },
-  //     { value: 220000, legend: "" },
-  //     { value: 230000, legend: "" },
-  //     { value: 240000, legend: "" },
-  //     { value: 250000, legend: "" },
-  //     { value: 260000, legend: "" },
-  //     { value: 270000, legend: "" },
-  //     { value: 280000, legend: "" },
-  //     { value: 290000, legend: "" },
-  //     { value: 300000, legend: "3 Lakh" }
-  //   ]
-  // };
-  // options2: Options = {
-  //   showTicks: true,
-  //   stepsArray: [
-  //     { value: 10000, legend: "10,000" },
-  //     { value: 20000, legend: "" },
-  //     { value: 30000, legend: "" },
-  //     { value: 40000, legend: "" },
-  //     { value: 50000, legend: "" },
-  //     { value: 60000, legend: "" },
-  //     { value: 70000, legend: "" },
-  //     { value: 80000, legend: "" },
-  //     { value: 90000, legend: "" },
-  //     { value: 100000, legend: "" },
-  //     { value: 110000, legend: "" },
-  //     { value: 120000, legend: "" },
-  //     { value: 130000, legend: "" },
-  //     { value: 140000, legend: "" },
-  //     { value: 150000, legend: "" },
-  //     { value: 160000, legend: "" },
-  //     { value: 170000, legend: "" },
-  //     { value: 180000, legend: "" },
-  //     { value: 190000, legend: "" },
-  //     { value: 200000, legend: "" },
-  //     { value: 210000, legend: "" },
-  //     { value: 220000, legend: "" },
-  //     { value: 230000, legend: "" },
-  //     { value: 240000, legend: "" },
-  //     { value: 250000, legend: "" },
-  //     { value: 260000, legend: "" },
-  //     { value: 270000, legend: "" },
-  //     { value: 280000, legend: "" },
-  //     { value: 290000, legend: "" },
-  //     { value: 300000, legend: "3 Lakh" }
-  //   ]
-  // };
   options3: Options = {
     floor: 25000,
     ceil: 200000,
@@ -274,15 +204,15 @@ export class ChatSectionComponent implements OnInit {
     this.residenceForm.controls['city'].setValue('Delhi');
     this.scrollToBottom();
   }
-
+  ngAfterViewChecked() {        
+    this.scrollToBottom();        
+  }
   scrollToBottom(): void {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }                 
 }
-ngAfterViewChecked() {        
-  this.scrollToBottom();        
-}
+
   getQueryParam(){
     this.activatedRoute.queryParams.subscribe(param=> {
       this.routerKey = param['key'];
@@ -581,13 +511,13 @@ ngAfterViewChecked() {
     // setTimeout(() => { this.showMsg41 = true; }, 1300);
     // setTimeout(() => { this.showMsg42 = true; }, 2100);
     // setTimeout(() => { this.showMsg43 = true; }, 2900);
-    this.options3.stepsArray = [
-      { value: 10000, legend: "10,000" },
-      { value: 15000, legend: "" },
-      { value: 20000, legend: "" },
-      { value: 25000, legend: "" },
-      { value: 30000, legend: "30,000" }
-    ];
+    // this.options3.stepsArray = [
+    //   { value: 10000, legend: "10,000" },
+    //   { value: 15000, legend: "" },
+    //   { value: 20000, legend: "" },
+    //   { value: 25000, legend: "" },
+    //   { value: 30000, legend: "30,000" }
+    // ];
   }
 
   deviceTrack(){

@@ -8,7 +8,7 @@
         <p class="rightText"><img src="assets/images/menu.png" class="menu-icon"></p>
       </div>
     </div>
-    <div #scrollMe class="body-container" >
+    <div #scrollMe style = "scroll-behavior: smooth;" class="body-container" >
 
       <div class='loader' *ngIf='showLoader'>
         <div class="row loader-style">
@@ -238,7 +238,7 @@
       <li class="show-animation"  *ngIf="afterVerifedOTP && showMsg24 && !isSelectIncomeAmt">
         <div class="custom-slider-card">
           <div class="custom-slider" style="width:92%;">
-            <!-- <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider> -->
+          <!-- <ng5-slider [(value)]="value2" [(highValue)]="maxValue" [options]="options2"></ng5-slider> -->
           <ng5-slider [(value)]="value2"  [options]="options2"></ng5-slider>
           </div>
         </div>
@@ -395,8 +395,8 @@
       </div>
     </li>
 
-    <li class="show-animation"  *ngIf="isKYCSuccess && showMsg42 && !isSubmittedComm">
-      <div class="custom-card">
+    <li  class="show-animation"  *ngIf="isKYCSuccess && showMsg42 && !isSubmittedComm">
+      <div style="overflow: noscroll ;"  class="custom-card">
           <h4>Communication Details</h4>
           
           <form [formGroup]="residenceForm" (ngSubmit)="onSubmitComAddressInfo()">
