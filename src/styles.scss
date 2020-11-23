@@ -249,7 +249,7 @@ body{
         background-color: #FFFFFF;
         box-shadow: 0px 3px 6px #00000029;
         min-height: 112px;
-        width: 260px;
+        width: 270px;
         margin-top: 0px;
         margin-left: -5px;
         padding: 15px 0px 0px 20px;
@@ -431,8 +431,8 @@ body{
     .formTitle{
         font-size: 15px !important;
         font-weight: 500 !important;
-        margin-top: 25px !important;
-        margin-bottom: 2px !important;
+        margin-top: 4px !important;
+        margin-bottom: 2px !important
     }
     .errorMsg{
         font-size: 11px;
@@ -465,6 +465,14 @@ body{
   .margin-top105{
       margin-top: 105px;
   }
+  .kyc_pan_section{
+      width: 50%;
+      img{
+        height: 26px !important;
+        margin-left: 6px;
+        margin-top: -4px;
+      }
+  }
   @keyframes showSection {
     100%  {left:0px; top:0px;}
     50%  {left:0px; top:0px;}
@@ -475,6 +483,12 @@ body{
     animation-duration: 2s;
     top:0;
     position: relative;
+  }
+  .loan_offer_amt{
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    margin-top: 18px !important;
+    margin-bottom: 14px !important;
   }
 
 
@@ -553,9 +567,9 @@ body{
         font-weight: 600;
     }
   
-    .custom-slider .ng5-slider .ng5-slider-floor , .custom-slider .ng5-slider .ng5-slider-ceil{
-      display: none;
-    }
+    // .custom-slider .ng5-slider .ng5-slider-floor , .custom-slider .ng5-slider .ng5-slider-ceil{
+    //   display: none;
+    // }
   
     .custom-slider .ng5-slider .ng5-slider-limit {
       font-weight: bold;

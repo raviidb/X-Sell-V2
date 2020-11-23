@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { KycModalComponent } from '../modals/kyc-modal/kyc-modal.component';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-chat-section',
@@ -16,6 +17,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class ChatSectionComponent implements OnInit {
 
   @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   userDetailForm: FormGroup;
   professionForm: FormGroup;
   residenceForm: FormGroup;
@@ -26,6 +28,7 @@ export class ChatSectionComponent implements OnInit {
   isYes:boolean;
   deviceInfo:any='';
   deviceType:any='';
+  isEmpTypeSubmitted:boolean;
   isLoanOfferCheck:boolean=false;
   isOfferSelected:boolean=false;
   showLoader:boolean=false;
@@ -65,7 +68,7 @@ export class ChatSectionComponent implements OnInit {
   isPANsubmit:boolean;
   isEmailVerified:boolean;
   requiredMsg:string;
-  value1 = 50000;value2 = 60000;value3 = 25000;
+  value1 = 150000;value2 = 35000;value3 = 25000;
   maxValue:any;
   userDetails:any=[];
   empType = [
@@ -100,14 +103,12 @@ export class ChatSectionComponent implements OnInit {
     floor: 25000,
     ceil: 200000,
   };
+  
   options3: Options = {
     floor: 25000,
     ceil: 200000,
     step: 5000
   };
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
-
 
   dynamicURL:any='';
   loanNumber:any='';
@@ -125,6 +126,7 @@ export class ChatSectionComponent implements OnInit {
   showMsg50: boolean; showMsg51: boolean; showMsg52: boolean; showMsg53: boolean; showMsg54: boolean; showMsg55: boolean; showMsg56: boolean;
   showMsg57: boolean; showMsg58: boolean; showMsg59: boolean; showMsg60: boolean; showMsg61: boolean; showMsg62: boolean; showMsg63: boolean;
   showMsg64: boolean; showMsg65: boolean; showMsg66: boolean; showMsg67: boolean; showMsg68: boolean;
+  showMsg100: boolean; showMsg101: boolean; showMsg102: boolean; showMsg103: boolean; showMsg104: boolean;showMsg105: boolean;
 
   // Form Field Value
   userName:any;
@@ -156,10 +158,14 @@ export class ChatSectionComponent implements OnInit {
   constructor(private device: DeviceDetectorService,
     private service: HttpRequestService,
     private formBuilder: FormBuilder,private activatedRoute:ActivatedRoute,
-    private sanitizer: DomSanitizer,private modal:NgbModal){}
+    private sanitizer: DomSanitizer,private modal:NgbModal,
+    private dateAdapter: DateAdapter<Date>
+    ){
+      dateAdapter.setLocale("en-in");
+    }
   
   ngOnInit(){
-    this.scrollToBottom();
+    
     localStorage.clear();
     setTimeout(()=>{this.showMsg1=true;},1000);
     setTimeout(()=>{this.showMsg2=true;},1800);
@@ -196,6 +202,7 @@ export class ChatSectionComponent implements OnInit {
     this.residenceForm.controls['postal_code'].setValue(110051);
     this.residenceForm.controls['state'].setValue('Delhi');
     this.residenceForm.controls['city'].setValue('Delhi');
+    this.scrollToBottom();
   }
 
   scrollToBottom(): void {
@@ -283,7 +290,7 @@ ngAfterViewChecked() {
   }
 
   onEmpTypeSubmit(){
-    this.afterVerifedOTP = true;
+    this.isEmpTypeSubmitted = true;
     setTimeout(()=>{this.showMsg21=true;},500);
     setTimeout(()=>{this.showMsg22=true;},1300);
     setTimeout(()=>{this.showMsg23=true;},2100);
@@ -313,8 +320,8 @@ ngAfterViewChecked() {
       setTimeout(()=>{this.showMsg35=true;},500);
       setTimeout(()=>{this.showMsg36=true;},1300);
       setTimeout(()=>{this.showMsg37=true;},2100);
-      setTimeout(()=>{this.showMsg38=true;},2900);
-      setTimeout(()=>{this.showMsg39=true;},3700);
+      setTimeout(()=>{this.showMsg102=true;},2900);
+      // setTimeout(()=>{this.showMsg39=true;},3700);
     });
   }
 
@@ -394,6 +401,8 @@ ngAfterViewChecked() {
     this.isLoanJourneyCompleted = true;
     setTimeout(()=>{this.showMsg61=true;},500);
     setTimeout(()=>{this.showMsg62=true;},1300);
+    setTimeout(()=>{this.showMsg104=true;},2100);
+    setTimeout(()=>{this.showMsg105=true;},2900);
   }
 
   onSubmitComAddressInfo(){
@@ -450,6 +459,9 @@ ngAfterViewChecked() {
       setTimeout(()=>{this.showMsg63=true;},500);
       setTimeout(()=>{this.showMsg64=true;},1300);
       setTimeout(()=>{this.showMsg65=true;},2100);
+      setTimeout(()=>{this.showMsg52=true;},2900);
+      setTimeout(()=>{this.showMsg53=true;},3700);
+
     });
   }
 
@@ -459,6 +471,9 @@ ngAfterViewChecked() {
     this.isSubmittedComm = true;
     setTimeout(()=>{this.showMsg43=true;},500);
     setTimeout(()=>{this.showMsg44=true;},1300);
+    setTimeout(()=>{this.showMsg45=true;},2100);
+    setTimeout(()=>{this.showMsg38=true;},2900);
+    setTimeout(()=>{this.showMsg39=true;},3700);
   }
 
   onCheckLoanOffer(){
@@ -471,7 +486,7 @@ ngAfterViewChecked() {
             const newOptions = Object.assign({}, this.options3);
               newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
               newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
-              newOptions.step = res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.variationStep.length;
+              newOptions.step = 5000;
               this.options3 = newOptions;
 
               this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.minimum.length);
@@ -482,20 +497,12 @@ ngAfterViewChecked() {
               this.isLoanOfferCheck = true;
               setTimeout(()=>{this.showMsg47=true;},500);
               setTimeout(()=>{this.showMsg48=true;},1300);
-              setTimeout(()=>{this.showMsg49=true;},2100);
-              this.onOfferSelection();
+              setTimeout(()=>{this.showMsg50=true;},2100);
+              setTimeout(()=>{this.showMsg51=true;},2900);
           });
       });
     });
     
-  }
-
-  onOfferSelection(){
-    this.isOfferSelected = true;
-    setTimeout(()=>{this.showMsg50=true;},500);
-    setTimeout(()=>{this.showMsg51=true;},1300);
-    setTimeout(()=>{this.showMsg52=true;},2100);
-    setTimeout(()=>{this.showMsg53=true;},2900);
   }
 
   onKYCproceed() {
@@ -582,9 +589,10 @@ ngAfterViewChecked() {
         modalref.componentInstance.sendStatus.subscribe(res=>{
           if(res.status == 'Success'){
             this.isKYCSuccess = true;
-            setTimeout(()=>{this.showMsg40=true;},500);
-            setTimeout(()=>{this.showMsg41=true;},1300);
-            setTimeout(()=>{this.showMsg42=true;},2100);
+            setTimeout(()=>{this.showMsg103=true;},500);
+            setTimeout(()=>{this.showMsg40=true;},1300);
+            setTimeout(()=>{this.showMsg41=true;},2100);
+            setTimeout(()=>{this.showMsg42=true;},2900);
             this.residenceForm.controls['fatherSpouseName'].setValue(res.response[0].UserInfo[0].Father_Name);
             this.residenceForm.controls['gender'].setValue(res.response[0].UserInfo[0].Gender);
             this.residenceForm.controls['dob'].setValue(res.response[0].UserInfo[0].DOB);
@@ -640,9 +648,10 @@ ngAfterViewChecked() {
             this.showBankingForm = true;  
             this.isbankingSubmit = true;
             this.empInitialForm = true;
-            setTimeout(()=>{this.showMsg45=true;},500);
-            setTimeout(()=>{this.showMsg46=true;},1300);
-            setTimeout(()=>{this.showMsg65=true;},2100);
+           
+            setTimeout(()=>{this.showMsg44=true;},500);
+            setTimeout(()=>{this.showMsg100=true;},1300);
+            setTimeout(()=>{this.showMsg101=true;},2100);
           }
         });
       });
@@ -740,6 +749,6 @@ ngAfterViewChecked() {
           });
         })      
       });
-    }
+     }
   }
 }
