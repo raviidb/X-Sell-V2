@@ -103,6 +103,7 @@ export class ChatSectionComponent implements OnInit {
     floor: 25000,
     ceil: 200000,
   };
+
   options3: Options = {
     floor: 25000,
     ceil: 200000,
@@ -158,11 +159,13 @@ export class ChatSectionComponent implements OnInit {
     private service: HttpRequestService,
     private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer, private modal: NgbModal,
-    private dateAdapter: DateAdapter<Date>) {
+    private dateAdapter: DateAdapter<Date>
+  ) {
     dateAdapter.setLocale("en-in");
   }
 
   ngOnInit() {
+
     localStorage.clear();
     setTimeout(() => { this.showMsg1 = true; }, 1000);
     setTimeout(() => { this.showMsg2 = true; }, 1800);
@@ -208,11 +211,9 @@ export class ChatSectionComponent implements OnInit {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
-
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-
   getQueryParam() {
     this.activatedRoute.queryParams.subscribe(param => {
       this.routerKey = param['key'];
@@ -297,7 +298,6 @@ export class ChatSectionComponent implements OnInit {
     setTimeout(() => { this.showMsg28 = true; }, 2100);
     setTimeout(() => { this.showMsg29 = true; }, 2900);
   }
-
   onPanSubmit() {
     this.isPANsubmit = true;
     setTimeout(() => { this.showMsg30 = true; }, 500);
@@ -387,7 +387,7 @@ export class ChatSectionComponent implements OnInit {
             this.residenceForm.value.communi_state, this.residenceForm.value.communi_country,
             this.residenceForm.value.communi_city, this.residenceForm.value.communi_time).subscribe(res => {
               this.finalForm();
-          });
+            });
         }
         else {
           this.service.getStep5Info(this.routerKey, 'Communication Address', this.residenceForm.value.ownership_type,
@@ -396,26 +396,28 @@ export class ChatSectionComponent implements OnInit {
             this.residenceForm.value.state, this.residenceForm.value.country, this.residenceForm.value.city,
             this.residenceForm.value.residence_time).subscribe(res => {
               this.finalForm();
-          });
+            });
         }
-    });
+      });
   }
 
   onSubmitBankingDetails() {
     this.service.sendBankingInfo(this.routerKey, 'Bank of Baroda', 'Manoj Kumar',
       '13590300003321', 'BARB0RASDHA').subscribe(res => {
-        this.showBankingForm = true;
-        this.isbankingSubmit = true;
-        this.empInitialForm = true;
-        setTimeout(() => { this.showMsg44 = true; }, 500);
-        setTimeout(() => { this.showMsg67 = true; }, 1300);
-        setTimeout(() => { this.showMsg68 = true; }, 2100);
-        this.onSubmitEmpInfo();
-    });
+            this.showBankingForm = true;
+            this.isbankingSubmit = true;
+            this.empInitialForm = true;
+            setTimeout(() => { this.showMsg44 = true; }, 500);
+            setTimeout(() => { this.showMsg67 = true; }, 1300);
+            setTimeout(() => { this.showMsg68 = true; }, 2100);
+            this.onSubmitEmpInfo();
+      });
   }
 
   loanOfferSubmit() {
     this.approxEMI = (this.value3 / this.selectedLoanTenor).toFixed(2);
+    console.log('EMI = ', this.approxEMI, this.value3, this.selectedLoanTenor)
+
     this.service.loanSelect(this.routerKey, this.value3, this.selectedLoanTenor, this.rateOfInt, this.approxEMI).subscribe(res => {
       this.isloanOffersSubmitted = true;
       setTimeout(() => { this.showMsg63 = true; }, 500);
@@ -423,6 +425,7 @@ export class ChatSectionComponent implements OnInit {
       setTimeout(() => { this.showMsg65 = true; }, 2100);
       setTimeout(() => { this.showMsg52 = true; }, 2900);
       setTimeout(() => { this.showMsg53 = true; }, 3700);
+
     });
   }
 
@@ -454,6 +457,7 @@ export class ChatSectionComponent implements OnInit {
             this.loanTenure.push(res.data.offer.termCreditOfferDetails.tenureStructure[0].tenureRange.maximum.length);
 
             this.rateOfInt = res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5 / 100000;
+            console.log('Rate = ', res.data.offer.termCreditOfferDetails.interestStructure.fixed.interestCharge.percentageValueE5)
             this.isLoanOfferCheck = true;
             setTimeout(() => { this.showMsg47 = true; }, 500);
             setTimeout(() => { this.showMsg48 = true; }, 1300);
@@ -462,6 +466,7 @@ export class ChatSectionComponent implements OnInit {
           });
         });
     });
+
   }
 
   onKYCproceed() {
@@ -631,7 +636,7 @@ export class ChatSectionComponent implements OnInit {
             }
             if (res.status == "Fail") { alert('EMandate Failed') }
           });
-      });
+        });
     }
     else if (event == 4) {
       this.userDetails = [];
@@ -669,9 +674,9 @@ export class ChatSectionComponent implements OnInit {
           "OTP_Verify_Time_Stamp": this.userDetails.UserInfo[0].Created_At,
           "OTP_Mobile": this.userDetails.UserInfo[0].Mobile,
           "Device_IP_Address": "212.168.21.215",
-          "Device_Browser": this.deviceInfo.browser + ': Version - ' + this.deviceInfo.browser_version,
+          "Device_Browser": "Chromium - Edge",
           "Device_Location": "Delhi",
-          "Device_Type": this.deviceType,
+          "Device_Type": "Desktop",
           "Pre_Emi": "0.00",
           "Purpose_Loan": "Personal Loan",
           "Security": "Not Applicable",

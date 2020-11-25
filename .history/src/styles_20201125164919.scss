@@ -671,8 +671,6 @@ body{
     }
 }
 
-.emandateFrame{width: 340px !important;}
-
 .loader{
     position: absolute;
     width: 100%;
@@ -703,14 +701,14 @@ body{
     width: 5px;
 }
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px transparent; 
+    box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    background: transparent; 
+    background: #fff; 
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: transparent; 
+    background: #fff; 
 }
 
