@@ -7,8 +7,7 @@ function bindEvent(element, eventName, eventHandler) {
 }
 bindEvent(window, 'message', function (e) {
    // results.innerHTML = e.data;
-   if(e.data=='cancel' || e.data=='kycSuccess'){
-      if(e.data=='kycSuccess'){localStorage.setItem('kycSuccess','success');}
+   if(e.data=='cancel'){
       var handleEvent = document.querySelector("#kyc");
       handleEvent.addEventListener("click",document.getElementById('cancelModal').click(),false)
    }
@@ -17,11 +16,16 @@ bindEvent(window, 'message', function (e) {
       var handleEvent = document.querySelector("#account");
       handleEvent.addEventListener("click",document.getElementById('cancelModalAccount').click(),false)
    }
-   if(e.data=='cancel2' || e.data=='eMandatesuccess' || e.data=='eMandatefail'){
+   if(e.data=='cancel2'||e.data=='eMandatesuccess'||e.data=='eMandatefail'){
       if(e.data=='eMandatesuccess'){localStorage.setItem('E-mandate-Status','success')}
       else if(e.data=='eMandatefail'){localStorage.setItem('E-mandate-Status','fail')}
       var handleEvent = document.querySelector("#eMandate");
       handleEvent.addEventListener("click",document.getElementById('cancelModaleMandate').click(),false);
+   }
+   else if(e.data=='kycSuccess'){
+      localStorage.setItem('kycSuccess','success');
+      var handleEvent = document.querySelector("#kyc");
+      handleEvent.addEventListener("click",document.getElementById('cancelModal').click(),false)
    }
    else if(e.data=='ldsSuccess'){
       localStorage.setItem('LDS-Status','success');
