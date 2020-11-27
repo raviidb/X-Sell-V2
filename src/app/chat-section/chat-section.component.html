@@ -10,14 +10,14 @@
     </div>
     <div #scrollMe style ="scroll-behavior: smooth;" class="body-container" >
 
-      <div class='loader' *ngIf='showLoader'>
+      <!-- <div class='loader' *ngIf='showLoader'>
         <div class="row loader-style">
           <img src="assets/loader.gif" height="60">
           <div class="p-styel">
             <p class="">Please Wait...</p>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <ul class="StepProgress">
         <li class="show-animation" >
@@ -720,7 +720,7 @@
         </div>
       </li>
 
-    <li class="show-animation"  *ngIf="emp_details && showMsg67">
+    <li class="show-animation"  >
         <div class="timeLineMsg right">
           <div class="stepper-hr1"></div>
           <div class="content">
@@ -728,12 +728,22 @@
           </div>
         </div>
       </li>
+      <li class="show-animation" *ngIf="emp_details && showMsg67 && !isLoanOfferCheck">
+        <div class="timeLineMsg right">
+          <div class="stepper-hr1"></div>
+          <div class="content">
+            <p class="">Please allow us a moment to find the right loan offers for you.<br><br>
+              <img src="assets/loader.gif" height="60">
+              <br><br>Please Wait...</p>
+          </div>
+        </div>
+      </li>
     
-      <li class="show-animation"  *ngIf="emp_details && showMsg68 && !isLoanOfferCheck">
+      <!-- <li class="show-animation"  *ngIf="emp_details && showMsg68 && !isLoanOfferCheck">
         <button class="yes-btn" (click)="onCheckLoanOffer()">Okay</button>
-    </li>
+    </li> -->
     
-    <li class="show-animation"  *ngIf="isLoanOfferCheck && showMsg47">
+    <!-- <li class="show-animation"  *ngIf="isLoanOfferCheck && showMsg47">
       <div class="timeLineMsg-right left yes-sec">
         <div class="stepper-hr-right1"></div>     
         <div class="alt-content">
@@ -742,7 +752,7 @@
           </div>
         </div>
       </div>
-    </li>
+    </li> -->
     
     <li class="show-animation"  *ngIf="isLoanOfferCheck && showMsg48">
       <div class="timeLineMsg right margin-top96">
@@ -811,9 +821,15 @@
         </div>
       </li>
 
-    <li class="show-animation"  *ngIf="isloanOffersSubmitted && showMsg65">
+    <!-- <li class="show-animation"  *ngIf="isloanOffersSubmitted && showMsg65">
       <div class="timeLineMsg left-allign margin-top96">
         <img src="assets/images/satisfaction.png">
+      </div>
+    </li> -->
+
+    <li class="show-animation" *ngIf="isloanOffersSubmitted && showMsg65">
+      <div class="timeLineMsg left-allign margin-top96">
+        <img src="assets/images/rocket.png" height="85">
       </div>
     </li>
     
@@ -873,19 +889,32 @@
         </div>
       </div>
     </li>
-    <li class="show-animation"  *ngIf="isLDSCompleted && showMsg59">
+    <!-- <li class="show-animation"  *ngIf="isLDSCompleted && showMsg59">
       <div class="timeLineMsg right">
         <div class="stepper-hr1"></div>
         <div class="content">
           <p>Please allow us a moment to complete the loan creation journey.</p>
         </div>
       </div>
+    </li> -->
+
+    <li class="show-animation" *ngIf="isLDSCompleted && showMsg59 && !isLoanJourneyCompleted">
+      <div class="timeLineMsg right">
+        <div class="stepper-hr1"></div>
+        <div class="content">
+          <p class="">Please allow us a moment to complete the loan creation journey.<br><br>
+            <img src="assets/loader.gif" height="60">
+            <br><br>Please Wait...</p>
+        </div>
+      </div>
     </li>
-    <li class="show-animation"  *ngIf="isLDSCompleted && showMsg60 && !isLoanJourneyCompleted">
+
+
+    <!-- <li class="show-animation"  *ngIf="isLDSCompleted && showMsg60 && !isLoanJourneyCompleted">
       <button class="yes-btn" (click)="onLoanCReationJourney()">Okay</button>
-    </li>
+    </li> -->
     
-    <li class="show-animation"  *ngIf="isLoanJourneyCompleted && showMsg61">
+    <!-- <li class="show-animation"  *ngIf="isLoanJourneyCompleted && showMsg61">
       <div class="timeLineMsg-right left yes-sec">
         <div class="stepper-hr-right1"></div>     
         <div class="alt-content">
@@ -893,6 +922,12 @@
             <p>Okay</p>
           </div>
         </div>
+      </div>
+    </li> -->
+
+    <li class="show-animation" *ngIf="isLoanJourneyCompleted && showMsg61">
+      <div class="timeLineMsg left-allign margin-top30">
+        <img src="assets/images/congratulations.png" height="85">
       </div>
     </li>
 

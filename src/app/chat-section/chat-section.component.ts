@@ -380,6 +380,8 @@ ngAfterViewChecked() {
             setTimeout(()=>{this.showMsg66=true;},500);
             setTimeout(()=>{this.showMsg67=true;},1300);
             setTimeout(()=>{this.showMsg68=true;},2100);
+
+            this.onCheckLoanOffer();
         });
     });
   }
@@ -478,12 +480,12 @@ ngAfterViewChecked() {
   }
 
   onCheckLoanOffer(){
-    this.showLoader = true;
+    // this.showLoader = true;
     this.service.loanApprove(this.routerKey).subscribe(res=>{
       this.service.sfdcStep4(this.routerKey,this.userDetails.UserInfo[0].Request_Id,
         this.userDetails.UserInfo[0].Google_Application_Id,'https://dmifinance.in/').subscribe(res=>{
           this.service.sfdcStep2(this.routerKey,this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res=>{
-            this.showLoader = false;
+            // this.showLoader = false;
             const newOptions = Object.assign({}, this.options3);
               newOptions.ceil = res.data.offer.termCreditOfferDetails.tenureStructure[0].maximumAmount.amountMicros/1000000;
               newOptions.floor = res.data.offer.termCreditOfferDetails.tenureStructure[0].minimumAmount.amountMicros/1000000;
@@ -742,8 +744,12 @@ ngAfterViewChecked() {
                 this.isLDSCompleted = true;
                 setTimeout(()=>{this.showMsg57=true;},500);
                 setTimeout(()=>{this.showMsg58=true;},1300);
-                setTimeout(()=>{this.showMsg59=true;},2100);
-                setTimeout(()=>{this.showMsg60=true;},2900);
+                setTimeout(()=>{this.showMsg59=true;},2100,
+                  this.service.submitLoanApplication(this.routerKey, this.userDetails.UserInfo[0].Google_Application_Id).subscribe(res => {
+                  this.loanNumber = res.data.partnerApplicationReferenceId;
+                  this.onLoanCReationJourney();
+                }));
+                // setTimeout(()=>{this.showMsg60=true;},2900);
                 this.loanNumber = res.data.partnerApplicationReferenceId;
               });
             }
