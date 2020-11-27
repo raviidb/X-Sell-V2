@@ -102,6 +102,7 @@ export class ChatSectionComponent implements OnInit {
   options2: Options = {
     floor: 25000,
     ceil: 200000,
+    step: 1000
   };
   
   options3: Options = {
